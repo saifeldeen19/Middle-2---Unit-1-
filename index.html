@@ -945,10 +945,21 @@
             triggerMathJax();
         }
 
+        // --- تعديل اختيار الـ MCQ بحيث يتم تصحيحه فوراً في نفس السؤال دون الانتقال التلقائي ---
         function selectOption(index) {
             if (answered[currentQuestion]) return;
-            userAnswers[currentQuestion] = index;
-            loadQuestion();
+            const q = questions[currentQuestion];
+            
+            if (q.type === "mcq") {
+                userAnswers[currentQuestion] = index;
+                answered[currentQuestion] = true; // تثبيت الإجابة وتصحيحها فوراً
+                updateScore();
+                loadQuestion(); // إعادة تحميل السؤال لعرض النتيجة الفورية (أخضر أو أحمر) وتفاصيل الحل
+            } else {
+                // للأسئلة المقالية، فقط يتم تحديد الاختيار لحين رفع الصورة والضغط على زر Check
+                userAnswers[currentQuestion] = index;
+                loadQuestion();
+            }
         }
 
         function submitEssay() {
@@ -985,14 +996,11 @@
             const i = currentQuestion;
             const q = questions[i];
 
+            // لو الطالب لم يجب على السؤال ولم يتم تصحيحه بعد
             if (!answered[i]) {
                 if (q.type === "mcq") {
-                    if (userAnswers[i] === null) {
-                        showToast("Please choose your answer");
-                        return;
-                    }
-                    answered[i] = true;
-                    updateScore();
+                    showToast("Please choose your answer");
+                    return;
                 } else if (q.type === "essay") {
                     const hasChosen = userAnswers[i] !== null;
                     const hasUploaded = userImages[i] !== null;
@@ -1080,7 +1088,7 @@
             questions = prepareQuestions(rawQuestions);
             currentQuestion = 0;
             score = 0;
-            userAnswers = new Array(questions.length).fill(null);
+            userAnswers = newArray(questions.length).fill(null);
             userImages = new Array(questions.length).fill(null);
             answered = new Array(questions.length).fill(false);
             essayResult = new Array(questions.length).fill(null);
