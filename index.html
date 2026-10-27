@@ -38,7 +38,7 @@
         <!-- Header -->
         <div class="flex flex-col sm:flex-row justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-5 mb-6 gap-4">
             <div class="flex items-center gap-3">
-                <div class="bg-blue-600 text-white p-3 rounded-xl shadow-md font-bold text-lg flex items-center justify-center w-12 h-12">
+                <div class="bg-emerald-600 text-white p-3 rounded-xl shadow-md font-bold text-lg flex items-center justify-center w-12 h-12">
                     <span class="text-2xl">√</span>
                 </div>
                 <div>
@@ -48,9 +48,9 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <div id="score-container" class="hidden bg-blue-50 dark:bg-slate-700 px-4 py-2 rounded-xl text-center border border-blue-100 dark:border-slate-600">
+                <div id="score-container" class="hidden bg-emerald-50 dark:bg-slate-700 px-4 py-2 rounded-xl text-center border border-emerald-100 dark:border-slate-600">
                     <span class="text-xs text-slate-500 dark:text-slate-400 block">Score</span>
-                    <span id="score-display" class="font-bold text-blue-600 dark:text-blue-400 text-lg">0 / 50</span>
+                    <span id="score-display" class="font-bold text-emerald-600 dark:text-emerald-400 text-lg">0 / 50</span>
                 </div>
                 <button onclick="toggleDarkMode()" aria-label="Toggle dark mode" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
                     <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
@@ -61,14 +61,14 @@
 
         <!-- 1. Welcome / Registration Screen -->
         <div id="welcome-screen" class="py-6 text-center">
-            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">🎓</div>
+            <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">🎓</div>
             <h2 class="text-2xl font-bold mb-2">Welcome Student!</h2>
             <p class="text-slate-500 dark:text-slate-400 mb-6 text-sm">Please enter your full name and grade to start.</p>
 
             <div class="max-w-md mx-auto space-y-4">
-                <input type="text" id="student-name-input" placeholder="Enter Student Full Name..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-center font-semibold">
-                <input type="text" id="student-grade-input" placeholder="Enter Grade (Middle 2)..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-center font-semibold">
-                <button onclick="goToDashboard()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg shadow-blue-500/20 transition-all">
+                <input type="text" id="student-name-input" placeholder="Enter Student Full Name..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all text-center font-semibold">
+                <input type="text" id="student-grade-input" placeholder="Enter Grade (Middle 2)..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all text-center font-semibold">
+                <button onclick="goToDashboard()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold shadow-lg shadow-emerald-500/20 transition-all">
                     Next →
                 </button>
             </div>
@@ -76,25 +76,25 @@
 
         <!-- 2. Units Dashboard Screen -->
         <div id="dashboard-screen" class="hidden py-4">
-            <div class="bg-blue-50 dark:bg-slate-700/50 p-4 rounded-2xl mb-6 flex justify-between items-center border border-blue-100 dark:border-slate-600">
+            <div class="bg-emerald-50 dark:bg-slate-700/50 p-4 rounded-2xl mb-6 flex justify-between items-center border border-emerald-100 dark:border-slate-600">
                 <div>
                     <span class="text-xs text-slate-500 dark:text-slate-400 block">Welcome,</span>
-                    <span id="dash-student-name" class="font-bold text-base text-blue-700 dark:text-blue-300"></span>
+                    <span id="dash-student-name" class="font-bold text-base text-emerald-700 dark:text-emerald-300"></span>
                 </div>
-                <div id="dash-student-grade" class="px-3 py-1 bg-blue-600 text-white rounded-full text-xs font-bold"></div>
+                <div id="dash-student-grade" class="px-3 py-1 bg-emerald-600 text-white rounded-full text-xs font-bold"></div>
             </div>
 
             <h3 class="text-lg font-bold mb-4">Select a Unit:</h3>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- Unit 1 -->
-                <div onclick="startUnit1()" class="p-6 rounded-2xl border-2 border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 cursor-pointer transition-all flex flex-col justify-between shadow-md">
+                <div onclick="startUnit1()" class="p-6 rounded-2xl border-2 border-emerald-500 bg-emerald-50/50 dark:bg-emerald-900/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 cursor-pointer transition-all flex flex-col justify-between shadow-md">
                     <div>
-                        <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">First</span>
+                        <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">First</span>
                         <h4 class="text-xl font-bold mt-1 text-slate-900 dark:text-white">Unit (1)</h4>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Real Numbers & Operations (50 Qs)</p>
                     </div>
-                    <span class="mt-4 text-xs font-bold text-blue-600 dark:text-blue-400 flex items-center gap-1">Start Sheet →</span>
+                    <span class="mt-4 text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">Start Sheet →</span>
                 </div>
 
                 <!-- Unit 2 -->
@@ -131,9 +131,9 @@
 
         <!-- 3. Quiz Container (Unit 1 Sheet) -->
         <div id="quiz-container" class="hidden">
-            <div class="flex justify-between items-center bg-blue-50 dark:bg-slate-700/50 px-4 py-2.5 rounded-xl mb-4 border border-blue-100 dark:border-slate-600">
-                <span class="text-xs text-slate-500 dark:text-slate-400">Student: <strong id="student-name-display" class="text-blue-700 dark:text-blue-300"></strong></span>
-                <button onclick="backToDashboard()" class="text-xs font-bold text-blue-600 hover:underline">← Back to Units</button>
+            <div class="flex justify-between items-center bg-emerald-50 dark:bg-slate-700/50 px-4 py-2.5 rounded-xl mb-4 border border-emerald-100 dark:border-slate-600">
+                <span class="text-xs text-slate-500 dark:text-slate-400">Student: <strong id="student-name-display" class="text-emerald-700 dark:text-emerald-300"></strong></span>
+                <button onclick="backToDashboard()" class="text-xs font-bold text-emerald-600 hover:underline">← Back to Units</button>
             </div>
 
             <!-- Progress Bar -->
@@ -143,20 +143,20 @@
                     <span id="progress-text">0 of 50 Answered</span>
                 </div>
                 <div class="w-full bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
-                    <div id="progress-bar" class="bg-blue-600 h-full w-0 transition-all duration-300"></div>
+                    <div id="progress-bar" class="bg-emerald-600 h-full w-0 transition-all duration-300"></div>
                 </div>
             </div>
 
             <!-- Question Card -->
             <div id="question-card" class="mb-6">
                 <div class="flex justify-between items-center mb-3">
-                    <span id="question-badge" class="px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full text-xs font-bold">Lesson 1</span>
+                    <span id="question-badge" class="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 rounded-full text-xs font-bold">Lesson 1</span>
                     <span id="question-num" class="text-xs font-semibold text-slate-400">Question 1 of 50</span>
                 </div>
                 <h2 id="question-text" class="text-base sm:text-lg md:text-xl font-semibold mb-4 leading-relaxed">Loading question...</h2>
 
                 <div id="options-container" class="space-y-3">
-                    <!-- Dynamic Options / Essay Upload Area -->
+                    <!-- Dynamic Options / Essay Area -->
                 </div>
             </div>
 
@@ -175,7 +175,7 @@
                 <button id="prev-btn" onclick="prevQuestion()" class="px-4 sm:px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
                     ← Previous
                 </button>
-                <button id="next-btn" onclick="nextQuestion()" class="px-5 sm:px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-sm shadow-md shadow-blue-500/20 transition-all">
+                <button id="next-btn" onclick="nextQuestion()" class="px-5 sm:px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold text-sm shadow-md shadow-emerald-500/20 transition-all">
                     Next Question →
                 </button>
             </div>
@@ -185,16 +185,16 @@
         <div id="summary-screen" class="hidden text-center py-8">
             <div class="w-20 h-20 bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold">🎉</div>
             <h2 class="text-2xl font-bold mb-1">Sheet Completed!</h2>
-            <p id="summary-student-name" class="text-blue-600 dark:text-blue-400 font-bold mb-4 text-lg"></p>
+            <p id="summary-student-name" class="text-emerald-600 dark:text-emerald-400 font-bold mb-4 text-lg"></p>
 
             <div class="bg-slate-50 dark:bg-slate-700/50 p-6 rounded-2xl max-w-sm mx-auto mb-6 border border-slate-100 dark:border-slate-700">
                 <span class="text-sm text-slate-500 dark:text-slate-400 block mb-1">Total Score</span>
-                <span id="final-score" class="text-4xl font-extrabold text-blue-600 dark:text-blue-400">0 / 50</span>
+                <span id="final-score" class="text-4xl font-extrabold text-emerald-600 dark:text-emerald-400">0 / 50</span>
                 <span id="final-percentage" class="text-sm font-semibold text-slate-600 dark:text-slate-300 block mt-2">0%</span>
                 <span id="final-breakdown" class="text-xs text-slate-500 dark:text-slate-400 block mt-1"></span>
             </div>
             <div class="flex justify-center gap-3">
-                <button onclick="restartQuiz()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg shadow-blue-500/20 transition-all">
+                <button onclick="restartQuiz()" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold shadow-lg shadow-emerald-500/20 transition-all">
                     Try Again
                 </button>
                 <button onclick="backToDashboard()" class="px-6 py-3 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 text-slate-800 dark:text-white rounded-xl font-semibold transition-all">
@@ -574,13 +574,17 @@
                 type: "essay",
                 lesson: "Lesson 1: Real Numbers",
                 q: "Find the Solution Set (S.S.) of the equation in $\\mathbb{R}$:<br>$$2x^3 - 7 = 9$$",
+                options: ["$\\{2\\}$", "$\\varnothing$", "$\\{-2\\}$", "$\\{\\pm 2\\}$"],
+                answer: 0,
                 hint: "Add $7$ to both sides, divide by $2$, then take the cube root.",
                 solution: "<b>Steps:</b><br>1) $2x^3 = 9 + 7 = 16$<br>2) $x^3 = 8$<br>3) $x = \\sqrt[3]{8} = 2$<br><b>S.S. = $\\{2\\}$</b>"
             },
             {
                 type: "essay",
                 lesson: "Lesson 2: Intervals & Operations",
-                q: "If $X = [-2, 4[$ and $Y = [1, 5]$, find using the number line:<br>(a) $X \\cup Y$<br>(b) $X \\cap Y$",
+                q: "If $X = [-2, 4[$ and $Y = [1, 5]$, find:<br>(a) $X \\cup Y$<br>(b) $X \\cap Y$",
+                options: ["$[-2, 5]$ and $[1, 4[$", "$[-2, 5]$ and $[1, 4]$", "$]-2, 5[$ and $]1, 4[$", "$[-2, 4]$ and $[1, 5]$"],
+                answer: 0,
                 hint: "Draw both intervals on the number line to find overlapping and full range.",
                 solution: "<b>Steps:</b><br>(a) Union $X \\cup Y = [-2, 5]$<br>(b) Intersection $X \\cap Y = [1, 4[$"
             },
@@ -588,6 +592,8 @@
                 type: "essay",
                 lesson: "Lesson 2: Intervals & Operations",
                 q: "If $A = ]-\\infty, 3]$ and $B = ]-1, \\infty[$, find:<br>(a) $A \\setminus B$<br>(b) $A'$",
+                options: ["$]-\\infty, -1]$ and $]3, \\infty[$", "$]-\\infty, -1[$ and $[3, \\infty[$", "$[-1, 3]$ and $]3, \\infty[$", "$]-\\infty, -1]$ and $]-\\infty, 3[$"],
+                answer: 0,
                 hint: "$A \\setminus B$ means elements in $A$ not in $B$.",
                 solution: "<b>Steps:</b><br>(a) $A \\setminus B = ]-\\infty, -1]$<br>(b) $A' = ]3, \\infty[$"
             },
@@ -595,6 +601,8 @@
                 type: "essay",
                 lesson: "Lesson 3: Operations on Real Numbers",
                 q: "If $x = \\frac{4}{\\sqrt{7} - \\sqrt{3}}$ and $y = \\sqrt{7} - \\sqrt{3}$, prove that $x$ and $y$ are conjugate numbers, then find $x + y$.",
+                options: ["$2\\sqrt{7}$", "$4\\sqrt{7}$", "$2\\sqrt{3}$", "$0$"],
+                answer: 0,
                 hint: "Multiply numerator and denominator of $x$ by $(\\sqrt{7}+\\sqrt{3})$.",
                 solution: "<b>Steps:</b><br>1) $x = \\frac{4(\\sqrt{7}+\\sqrt{3})}{7-3} = \\sqrt{7} + \\sqrt{3}$<br>2) Since $y = \\sqrt{7} - \\sqrt{3}$, $x$ and $y$ are conjugates.<br>3) $x + y = (\\sqrt{7}+\\sqrt{3}) + (\\sqrt{7}-\\sqrt{3}) = 2\\sqrt{7}$"
             },
@@ -602,6 +610,8 @@
                 type: "essay",
                 lesson: "Lesson 3: Operations on Real Numbers",
                 q: "Simplify to the simplest form:<br>$$\\sqrt{50} + 2\\sqrt{8} - 3\\sqrt{18}$$",
+                options: ["$0$", "$2\\sqrt{2}$", "$5\\sqrt{2}$", "$-\\sqrt{2}$"],
+                answer: 0,
                 hint: "Express numbers under roots as products with perfect squares.",
                 solution: "<b>Steps:</b><br>1) $\\sqrt{50} = 5\\sqrt{2}$<br>2) $2\\sqrt{8} = 2(2\\sqrt{2}) = 4\\sqrt{2}$<br>3) $3\\sqrt{18} = 3(3\\sqrt{2}) = 9\\sqrt{2}$<br>4) $5\\sqrt{2} + 4\\sqrt{2} - 9\\sqrt{2} = 0$"
             },
@@ -609,6 +619,8 @@
                 type: "essay",
                 lesson: "Lesson 4: Laws of Roots",
                 q: "Simplify to the simplest form:<br>$$\\sqrt[3]{54} + \\sqrt[3]{-16} - \\sqrt[3]{250}$$",
+                options: ["$-4\\sqrt[3]{2}$", "$4\\sqrt[3]{2}$", "$-2\\sqrt[3]{2}$", "$0$"],
+                answer: 0,
                 hint: "$\\sqrt[3]{54}=3\\sqrt[3]{2}$, $\\sqrt[3]{-16}=-2\\sqrt[3]{2}$, $\\sqrt[3]{250}=5\\sqrt[3]{2}$.",
                 solution: "<b>Steps:</b><br>1) $3\\sqrt[3]{2} - 2\\sqrt[3]{2} - 5\\sqrt[3]{2}$<br>2) $(3 - 2 - 5)\\sqrt[3]{2} = -4\\sqrt[3]{2}$"
             },
@@ -616,6 +628,8 @@
                 type: "essay",
                 lesson: "Lesson 4: Laws of Roots",
                 q: "Find the Solution Set of the equation in $\\mathbb{R}$:<br>$$(x - 1)^3 + 5 = 32$$",
+                options: ["$\\{4\\}$", "$\\{3\\}$", "$\\{5\\}$", "$\\varnothing$"],
+                answer: 0,
                 hint: "Subtract $5$ then take the cube root of both sides.",
                 solution: "<b>Steps:</b><br>1) $(x - 1)^3 = 27$<br>2) $x - 1 = \\sqrt[3]{27} = 3$<br>3) $x = 4$<br><b>S.S. = $\\{4\\}$</b>"
             },
@@ -623,6 +637,8 @@
                 type: "essay",
                 lesson: "Lesson 5: Laws of Exponents",
                 q: "Find the value of $x$ in $\\mathbb{R}$ if:<br>$$(\\sqrt{3})^{x-2} = 9$$",
+                options: ["$6$", "$4$", "$2$", "$8$"],
+                answer: 0,
                 hint: "Express $9$ as $(\\sqrt{3})^4$ or $3^2$.",
                 solution: "<b>Steps:</b><br>1) $(\\sqrt{3})^{x-2} = (\\sqrt{3})^4$<br>2) Equating powers: $x - 2 = 4$<br>3) $x = 6$"
             },
@@ -630,6 +646,8 @@
                 type: "essay",
                 lesson: "Lesson 5: Laws of Exponents",
                 q: "Simplify to simplest form:<br>$$\\frac{4^n \\times 6^{-2n}}{(2 \\times 3)^{-2n} \\times 4^n}$$ and prove that the result is independent of $n$.",
+                options: ["$1$", "$0$", "$4^n$", "$6^{-2n}$"],
+                answer: 0,
                 hint: "Decompose $6$ into prime factors $(2 \\times 3)$.",
                 solution: "<b>Steps:</b><br>1) $6^{-2n} = (2 \\times 3)^{-2n}$<br>2) Numerator $= 4^n \\times (2 \\times 3)^{-2n}$<br>3) Denominator $= (2 \\times 3)^{-2n} \\times 4^n$<br>4) $\\frac{\\text{Numerator}}{\\text{Denominator}} = 1$ (Independent of $n$)."
             },
@@ -637,6 +655,8 @@
                 type: "essay",
                 lesson: "Lesson 3: Operations on Real Numbers",
                 q: "If $x = \\sqrt{3} + 1$ and $y = \\sqrt{3} - 1$, find the value of $\\frac{x^2 + y^2}{x y}$.",
+                options: ["$4$", "$2$", "$8$", "$3$"],
+                answer: 0,
                 hint: "Find $xy$ first, then $x^2 + y^2 = (x+y)^2 - 2xy$.",
                 solution: "<b>Steps:</b><br>1) $x y = (\\sqrt{3}+1)(\\sqrt{3}-1) = 3 - 1 = 2$<br>2) $x + y = 2\\sqrt{3}$<br>3) $x^2 + y^2 = (2\\sqrt{3})^2 - 2(2) = 12 - 4 = 8$<br>4) Value $= \\frac{8}{2} = 4$"
             }
@@ -644,7 +664,7 @@
 
         function prepareQuestions(items) {
             return items.map(q => {
-                if (q.type !== "mcq") return q;
+                if (!q.options) return q;
 
                 const originalOptions = [...q.options];
                 const correctAnswerText = originalOptions[q.answer];
@@ -775,36 +795,42 @@
             const optionsContainer = document.getElementById('options-container');
             optionsContainer.innerHTML = '';
 
-            if (q.type === "mcq") {
-                q.options.forEach((opt, index) => {
-                    const isSelected = userAnswers[i] === index;
-                    const isCorrect = index === q.answer;
+            // Render Options for both MCQ and Essay
+            q.options.forEach((opt, index) => {
+                const isSelected = userAnswers[i] === index;
+                const isCorrect = index === q.answer;
 
-                    let btnClass = "w-full text-left p-4 rounded-xl border transition-all flex items-center justify-between font-medium text-sm md:text-base ";
+                let btnClass = "w-full text-left p-4 rounded-xl border transition-all flex items-center justify-between font-medium text-sm md:text-base ";
 
-                    if (answered[i]) {
-                        if (isCorrect) {
-                            btnClass += "bg-green-50 dark:bg-green-900/30 border-green-500 text-green-700 dark:text-green-300 font-semibold";
-                        } else if (isSelected) {
-                            btnClass += "bg-red-50 dark:bg-red-900/30 border-red-500 text-red-700 dark:text-red-300";
-                        } else {
-                            btnClass += "bg-slate-50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-700 text-slate-500";
-                        }
+                if (answered[i]) {
+                    if (isCorrect) {
+                        btnClass += "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-500 text-emerald-700 dark:text-emerald-300 font-semibold";
+                    } else if (isSelected) {
+                        btnClass += "bg-red-50 dark:bg-red-900/30 border-red-500 text-red-700 dark:text-red-300";
                     } else {
-                        btnClass += "bg-slate-50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-700 hover:border-blue-500 hover:bg-blue-50/50 dark:hover:bg-slate-700";
+                        btnClass += "bg-slate-50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-700 text-slate-500";
                     }
+                } else {
+                    if (isSelected) {
+                        btnClass += "border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 font-semibold";
+                    } else {
+                        btnClass += "bg-slate-50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:bg-emerald-50/50 dark:hover:bg-slate-700";
+                    }
+                }
 
-                    const button = document.createElement('button');
-                    button.className = btnClass;
-                    button.innerHTML = `<span>${opt}</span>`;
-                    button.onclick = () => selectOption(index);
-                    if (answered[i]) button.disabled = true;
+                const button = document.createElement('button');
+                button.className = btnClass;
+                button.innerHTML = `<span>${opt}</span>`;
+                button.onclick = () => selectOption(index);
+                if (answered[i]) button.disabled = true;
 
-                    optionsContainer.appendChild(button);
-                });
-            } else {
+                optionsContainer.appendChild(button);
+            });
+
+            // If Essay, append Upload Container and Check Button
+            if (q.type === "essay") {
                 const wrapper = document.createElement('div');
-                wrapper.className = "space-y-4";
+                wrapper.className = "space-y-4 pt-4 border-t border-slate-200 dark:border-slate-700 mt-4";
 
                 const uploadContainer = document.createElement('div');
                 uploadContainer.className = "p-6 rounded-xl border border-dashed border-slate-300 dark:border-slate-600 bg-slate-50/50 dark:bg-slate-700/30 text-center";
@@ -818,7 +844,7 @@
 
                 const fileLabel = document.createElement('label');
                 fileLabel.htmlFor = `image-upload-${i}`;
-                fileLabel.className = `cursor-pointer inline-flex items-center gap-2 text-sm font-semibold px-4 py-3 rounded-xl bg-blue-50 dark:bg-slate-600 text-blue-700 dark:text-blue-200 hover:bg-blue-100 transition-all shadow-sm ${answered[i] ? 'opacity-50 cursor-not-allowed' : ''}`;
+                fileLabel.className = `cursor-pointer inline-flex items-center gap-2 text-sm font-semibold px-4 py-3 rounded-xl bg-emerald-50 dark:bg-slate-600 text-emerald-700 dark:text-emerald-200 hover:bg-emerald-100 transition-all shadow-sm ${answered[i] ? 'opacity-50 cursor-not-allowed' : ''}`;
                 fileLabel.innerHTML = `📷 Upload Photo of Solution (Notebook)`;
 
                 const imagePreviewContainer = document.createElement('div');
@@ -850,10 +876,10 @@
                 uploadContainer.appendChild(imagePreviewContainer);
 
                 const submitBtn = document.createElement('button');
-                submitBtn.className = "w-full py-3 bg-blue-600 text-white rounded-xl font-semibold text-sm hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed";
-                submitBtn.innerText = answered[i] ? "Photo Uploaded & Checked" : "📤 Check Model Solution";
+                submitBtn.className = "w-full py-3 bg-emerald-600 text-white rounded-xl font-semibold text-sm hover:bg-emerald-700 transition-all shadow-md shadow-emerald-500/20 disabled:opacity-50 disabled:cursor-not-allowed";
+                submitBtn.innerText = answered[i] ? "Answer & Photo Submitted & Checked" : "📤 Check Answer & Upload";
                 submitBtn.disabled = answered[i];
-                submitBtn.onclick = () => submitEssayPhoto();
+                submitBtn.onclick = () => submitEssay();
 
                 wrapper.appendChild(uploadContainer);
                 wrapper.appendChild(submitBtn);
@@ -878,16 +904,16 @@
                         feedbackBox.innerHTML = `<strong>Incorrect.</strong><br>${q.solution}`;
                     }
                 } else {
-                    feedbackBox.className = "p-4 rounded-xl mb-6 text-sm bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-800";
+                    feedbackBox.className = "p-4 rounded-xl mb-6 text-sm bg-emerald-50 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800";
                     feedbackBox.innerHTML = `<strong>Model Solution & Steps:</strong><br>${q.solution}`;
 
                     const gradeRow = document.createElement('div');
-                    gradeRow.className = "mt-4 pt-3 border-t border-blue-200 dark:border-blue-800 flex flex-wrap items-center gap-2";
+                    gradeRow.className = "mt-4 pt-3 border-t border-emerald-200 dark:border-emerald-800 flex flex-wrap items-center gap-2";
 
                     if (essayResult[i] === null) {
                         const label = document.createElement('span');
                         label.className = "font-semibold w-full sm:w-auto";
-                        label.innerText = "Compare model solution with your uploaded photo. Is your answer correct?";
+                        label.innerText = "Is your selected choice and uploaded photo correct?";
 
                         const yesBtn = document.createElement('button');
                         yesBtn.className = "px-4 py-2 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold text-xs transition-all";
@@ -921,20 +947,30 @@
 
         function selectOption(index) {
             if (answered[currentQuestion]) return;
-            answered[currentQuestion] = true;
             userAnswers[currentQuestion] = index;
-            updateScore();
             loadQuestion();
         }
 
-        function submitEssayPhoto() {
+        function submitEssay() {
             if (answered[currentQuestion]) return;
-            if (!userImages[currentQuestion]) {
-                alert("Please upload a photo of your notebook solution before checking the model solution!");
+            const hasChosen = userAnswers[currentQuestion] !== null;
+            const hasUploaded = userImages[currentQuestion] !== null;
+
+            if (!hasChosen && !hasUploaded) {
+                showToast("Please choose your answer and upload your answer");
                 return;
             }
+            if (!hasChosen) {
+                showToast("Please choose your answer");
+                return;
+            }
+            if (!hasUploaded) {
+                showToast("Please upload your answer");
+                return;
+            }
+
             answered[currentQuestion] = true;
-            userAnswers[currentQuestion] = "Photo Uploaded";
+            updateScore();
             loadQuestion();
         }
 
@@ -946,13 +982,45 @@
         }
 
         function nextQuestion() {
+            const i = currentQuestion;
+            const q = questions[i];
+
+            if (!answered[i]) {
+                if (q.type === "mcq") {
+                    if (userAnswers[i] === null) {
+                        showToast("Please choose your answer");
+                        return;
+                    }
+                    answered[i] = true;
+                    updateScore();
+                } else if (q.type === "essay") {
+                    const hasChosen = userAnswers[i] !== null;
+                    const hasUploaded = userImages[i] !== null;
+
+                    if (!hasChosen && !hasUploaded) {
+                        showToast("Please choose your answer and upload your answer");
+                        return;
+                    }
+                    if (!hasChosen) {
+                        showToast("Please choose your answer");
+                        return;
+                    }
+                    if (!hasUploaded) {
+                        showToast("Please upload your answer");
+                        return;
+                    }
+                    answered[i] = true;
+                    updateScore();
+                }
+            }
+
             if (currentQuestion < questions.length - 1) {
                 currentQuestion++;
                 loadQuestion();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
                 const unanswered = answered.filter(a => !a).length;
-                const ungraded = questions.filter((q, i) => q.type === "essay" && answered[i] && essayResult[i] === null).length;
+                const ungraded = questions.filter((q, idx) => q.type === "essay" && answered[idx] && essayResult[idx] === null).length;
                 if (unanswered > 0 || ungraded > 0) {
                     const msg = `You still have ${unanswered} unanswered question(s)` +
                         (ungraded > 0 ? ` and ${ungraded} essay(s) not verified (they count 0 points)` : '') +
@@ -995,13 +1063,13 @@
             document.getElementById('final-percentage').innerText = `${pct}% Mastery`;
 
             let mcqScore = 0, essayScore = 0, mcqTotal = 0, essayTotal = 0;
-            questions.forEach((q, i) => {
+            questions.forEach((q, idx) => {
                 if (q.type === "mcq") {
                     mcqTotal++;
-                    if (answered[i] && userAnswers[i] === q.answer) mcqScore++;
+                    if (answered[idx] && userAnswers[idx] === q.answer) mcqScore++;
                 } else {
                     essayTotal++;
-                    if (answered[i] && essayResult[i] === true) essayScore++;
+                    if (answered[idx] && essayResult[idx] === true) essayScore++;
                 }
             });
             document.getElementById('final-breakdown').innerText =
