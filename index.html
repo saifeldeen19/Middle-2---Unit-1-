@@ -27,9 +27,9 @@
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col items-center py-4 sm:py-8 px-3 sm:px-6 transition-colors duration-300">
 
-    <!-- Toast Notification (For Not Available Yet) -->
-    <div id="toast-notification" class="fixed top-5 z-50 hidden transition-all transform -translate-y-5 bg-amber-500 text-white px-6 py-3 rounded-2xl shadow-xl font-bold text-sm">
-        ⚠️ Not available yet!
+    <!-- Toast Notification -->
+    <div id="toast-notification" class="fixed top-5 z-50 hidden transition-all transform -translate-y-5 bg-red-500 text-white px-6 py-3 rounded-2xl shadow-xl font-bold text-sm">
+        <span id="toast-message">⚠️ Error</span>
     </div>
 
     <!-- Main Container -->
@@ -43,7 +43,7 @@
                 </div>
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">Mathematics Platform</h1>
-                    <p id="header-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Middle 2 Math Sheets</p>
+                    <p id="header-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Math Sheets</p>
                 </div>
             </div>
 
@@ -67,8 +67,7 @@
 
             <div class="max-w-md mx-auto space-y-4">
                 <input type="text" id="student-name-input" placeholder="Enter Student Full Name..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-center font-semibold">
-                <input type="text" id="student-grade-input" placeholder="Enter Grade (e.g. Middle 2)..." value="Middle 2" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-center font-semibold">
-                <p id="name-error" class="text-xs text-red-500 hidden">Please enter both your name and grade.</p>
+                <input type="text" id="student-grade-input" placeholder="Enter Grade (Middle 2)..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-center font-semibold">
                 <button onclick="goToDashboard()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg shadow-blue-500/20 transition-all">
                     Next →
                 </button>
@@ -99,7 +98,7 @@
                 </div>
 
                 <!-- Unit 2 -->
-                <div onclick="showNotAvailable()" class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/40 hover:border-slate-400 cursor-pointer transition-all flex flex-col justify-between opacity-75">
+                <div onclick="showNotAvailable('Not available yet!')" class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/40 hover:border-slate-400 cursor-pointer transition-all flex flex-col justify-between opacity-75">
                     <div>
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Second</span>
                         <h4 class="text-xl font-bold mt-1 text-slate-900 dark:text-white">Unit (2)</h4>
@@ -109,7 +108,7 @@
                 </div>
 
                 <!-- Unit 3 -->
-                <div onclick="showNotAvailable()" class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/40 hover:border-slate-400 cursor-pointer transition-all flex flex-col justify-between opacity-75">
+                <div onclick="showNotAvailable('Not available yet!')" class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/40 hover:border-slate-400 cursor-pointer transition-all flex flex-col justify-between opacity-75">
                     <div>
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Third</span>
                         <h4 class="text-xl font-bold mt-1 text-slate-900 dark:text-white">Unit (3)</h4>
@@ -119,7 +118,7 @@
                 </div>
 
                 <!-- Unit 4 -->
-                <div onclick="showNotAvailable()" class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/40 hover:border-slate-400 cursor-pointer transition-all flex flex-col justify-between opacity-75">
+                <div onclick="showNotAvailable('Not available yet!')" class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/40 hover:border-slate-400 cursor-pointer transition-all flex flex-col justify-between opacity-75">
                     <div>
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Fourth</span>
                         <h4 class="text-xl font-bold mt-1 text-slate-900 dark:text-white">Unit (4)</h4>
@@ -157,7 +156,7 @@
                 <h2 id="question-text" class="text-base sm:text-lg md:text-xl font-semibold mb-4 leading-relaxed">Loading question...</h2>
 
                 <div id="options-container" class="space-y-3">
-                    <!-- Dynamic Options / Essay Area -->
+                    <!-- Dynamic Options / Essay Upload Area -->
                 </div>
             </div>
 
@@ -706,14 +705,32 @@
                 .catch(err => console.error('MathJax error:', err));
         }
 
-        // --- Navigation Flow ---
+        // --- Toast Notification Helper ---
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        // --- Navigation Flow with Validation ---
         function goToDashboard() {
             const nameInput = document.getElementById('student-name-input').value.trim();
             const gradeInput = document.getElementById('student-grade-input').value.trim();
-            if (!nameInput || !gradeInput) {
-                document.getElementById('name-error').classList.remove('hidden');
+
+            if (!nameInput) {
+                showToast("Please Enter Valid Name");
                 return;
             }
+
+            if (gradeInput !== "Middle 2") {
+                showToast("Please Enter Valid Grade");
+                return;
+            }
+
             studentName = nameInput;
             studentGrade = gradeInput;
 
@@ -746,14 +763,6 @@
             document.getElementById('summary-screen').classList.add('hidden');
             document.getElementById('score-container').classList.add('hidden');
             document.getElementById('dashboard-screen').classList.remove('hidden');
-        }
-
-        function showNotAvailable() {
-            const toast = document.getElementById('toast-notification');
-            toast.classList.remove('hidden');
-            setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 3000);
         }
 
         function loadQuestion() {
