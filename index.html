@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Middle 2 Math - Unit 1 | Mr. Saif Eldeen Sameh</title>
+    <title>Middle 2 Math - Unit 1</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -44,7 +44,7 @@
     <!-- Main Container -->
     <div class="w-full max-w-3xl bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-5 sm:p-8 transition-all">
         
-        <!-- Header with Teacher's Name -->
+        <!-- Header without Teacher's Name -->
         <div class="flex flex-col sm:flex-row justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-5 mb-6 gap-4">
             <div class="flex items-center gap-3">
                 <div class="bg-blue-600 text-white p-3 rounded-xl shadow-md font-bold text-lg flex items-center justify-center w-12 h-12">
@@ -52,8 +52,7 @@
                 </div>
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">Middle 2 Math Sheet</h1>
-                    <p class="text-xs text-blue-600 dark:text-blue-400 font-semibold mt-0.5">Prepared by: Mr. Saif Eldeen Sameh</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Unit 1: Numbers & Operations (50 Questions - 50 Points)</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Unit 1: Numbers & Operations (50 Questions - 50 Points)</p>
                 </div>
             </div>
             
@@ -431,9 +430,9 @@
                 lesson: "Lesson 4: Laws of Roots",
                 q: "$\\sqrt[3]{128} + \\sqrt[3]{-16} - 2\\sqrt[3]{2} = $",
                 options: ["$2\\sqrt[3]{2}$", "$\\sqrt[3]{2}$", "$0$", "$4\\sqrt[3]{2}$"],
-                answer: 0,
+                answer: 2,
                 hint: "$\\sqrt[3]{128}=4\\sqrt[3]{2}$, $\\sqrt[3]{-16}=-2\\sqrt[3]{2}$.",
-                solution: "$4\\sqrt[3]{2} - 2\\sqrt[3]{2} - 2\\sqrt[3]{2} = 0$." // Wait: 4 - 2 - 2 = 0. Answer option index 2 is 0.
+                solution: "$4\\sqrt[3]{2} - 2\\sqrt[3]{2} - 2\\sqrt[3]{2} = 0$."
             },
             {
                 type: "mcq",
@@ -546,7 +545,7 @@
             {
                 type: "essay",
                 lesson: "Lesson 2: Intervals & Operations",
-                q: "If $A = ]-\ me \\infty, 3]$ and $B = ]-1, \\infty[$, find:<br>(a) $A \\setminus B$<br>(b) $A'$",
+                q: "If $A = ]-\\infty, 3]$ and $B = ]-1, \\infty[$, find:<br>(a) $A \\setminus B$<br>(b) $A'$",
                 hint: "$A \\setminus B$ means elements in $A$ not in $B$.",
                 solution: "<b>Steps:</b><br>(a) $A \\setminus B = ]-\\infty, -1]$<br>(b) $A' = ]3, \\infty[$"
             },
@@ -658,7 +657,6 @@
                     optionsContainer.appendChild(button);
                 });
             } else {
-                // Essay Type
                 const textarea = document.createElement('textarea');
                 textarea.className = "w-full p-4 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm";
                 textarea.rows = 4;
@@ -730,7 +728,7 @@
 
             answered[currentQuestion] = true;
             userAnswers[currentQuestion] = val;
-            score++; // Award point for essay completion & self check
+            score++;
 
             document.getElementById('score-display').innerText = `${score} / ${questions.length}`;
             loadQuestion();
