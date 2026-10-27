@@ -63,11 +63,19 @@
         <div id="welcome-screen" class="py-6 text-center">
             <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">🎓</div>
             <h2 class="text-2xl font-bold mb-2">Welcome Student!</h2>
-            <p class="text-slate-500 dark:text-slate-400 mb-6 text-sm">Please enter your full name and grade to start.</p>
+            <p class="text-slate-500 dark:text-slate-400 mb-6 text-sm">Please enter your full name and select your grade to start.</p>
 
             <div class="max-w-md mx-auto space-y-4">
                 <input type="text" id="student-name-input" placeholder="Enter Student Full Name..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all text-center font-semibold">
-                <input type="text" id="student-grade-input" placeholder="Enter Grade (Middle 2)..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all text-center font-semibold">
+                
+                <!-- Grade Dropdown List -->
+                <select id="student-grade-input" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all text-center font-semibold cursor-pointer">
+                    <option value="" disabled selected>Select Grade...</option>
+                    <option value="Middle 1" disabled>Middle 1 (Coming Soon 🔒)</option>
+                    <option value="Middle 2">Middle 2</option>
+                    <option value="Middle 3" disabled>Middle 3 (Coming Soon 🔒)</option>
+                </select>
+
                 <button onclick="goToDashboard()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold shadow-lg shadow-emerald-500/20 transition-all">
                     Next →
                 </button>
@@ -739,14 +747,15 @@
         // --- Navigation Flow with Validation ---
         function goToDashboard() {
             const nameInput = document.getElementById('student-name-input').value.trim();
-            const gradeInput = document.getElementById('student-grade-input').value.trim();
+            const gradeSelect = document.getElementById('student-grade-input');
+            const gradeInput = gradeSelect.value;
 
             if (!nameInput) {
                 showToast("Please Enter Valid Name");
                 return;
             }
 
-            if (gradeInput !== "Middle 2") {
+            if (!gradeInput) {
                 showToast("Please Enter Valid Grade");
                 return;
             }
@@ -795,7 +804,6 @@
             const optionsContainer = document.getElementById('options-container');
             optionsContainer.innerHTML = '';
 
-            // Render Options for both MCQ and Essay
             q.options.forEach((opt, index) => {
                 const isSelected = userAnswers[i] === index;
                 const isCorrect = index === q.answer;
@@ -827,7 +835,6 @@
                 optionsContainer.appendChild(button);
             });
 
-            // If Essay, append Upload Container and Check Button
             if (q.type === "essay") {
                 const wrapper = document.createElement('div');
                 wrapper.className = "space-y-4 pt-4 border-t border-slate-200 dark:border-slate-700 mt-4";
@@ -945,18 +952,16 @@
             triggerMathJax();
         }
 
-        // --- تعديل اختيار الـ MCQ بحيث يتم تصحيحه فوراً في نفس السؤال دون الانتقال التلقائي ---
         function selectOption(index) {
             if (answered[currentQuestion]) return;
             const q = questions[currentQuestion];
             
             if (q.type === "mcq") {
                 userAnswers[currentQuestion] = index;
-                answered[currentQuestion] = true; // تثبيت الإجابة وتصحيحها فوراً
+                answered[currentQuestion] = true;
                 updateScore();
-                loadQuestion(); // إعادة تحميل السؤال لعرض النتيجة الفورية (أخضر أو أحمر) وتفاصيل الحل
+                loadQuestion();
             } else {
-                // للأسئلة المقالية، فقط يتم تحديد الاختيار لحين رفع الصورة والضغط على زر Check
                 userAnswers[currentQuestion] = index;
                 loadQuestion();
             }
@@ -996,7 +1001,6 @@
             const i = currentQuestion;
             const q = questions[i];
 
-            // لو الطالب لم يجب على السؤال ولم يتم تصحيحه بعد
             if (!answered[i]) {
                 if (q.type === "mcq") {
                     showToast("Please choose your answer");
@@ -1088,7 +1092,7 @@
             questions = prepareQuestions(rawQuestions);
             currentQuestion = 0;
             score = 0;
-            userAnswers = newArray(questions.length).fill(null);
+            userAnswers = new Array(questions.length).fill(null);
             userImages = new Array(questions.length).fill(null);
             answered = new Array(questions.length).fill(false);
             essayResult = new Array(questions.length).fill(null);
@@ -1104,9 +1108,6 @@
         }
 
         document.getElementById('student-name-input').addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') goToDashboard();
-        });
-        document.getElementById('student-grade-input').addEventListener('keydown', (e) => {
             if (e.key === 'Enter') goToDashboard();
         });
     </script>
