@@ -191,11 +191,11 @@
             {
                 type: "mcq",
                 lesson: "Lesson 1: Real Numbers",
-                q: "Which of the following statements is TRUE?",
-                options: ["$\\mathbb{R} = \\mathbb{R}^+ \\cup \\mathbb{R}^-$", "$\\mathbb{Q} \\cap \\mathbb{Q}' = \\{0\\}$", "$\\sqrt{-4} \\in \\mathbb{R}$", "$\\mathbb{R}^* = \\mathbb{R} \\setminus \\{0\\}$"],
-                answer: 3,
-                hint: "$\\mathbb{R}^*$ represents all real numbers excluding zero.",
-                solution: "$\\mathbb{R}^* = \\mathbb{R} \\setminus \\{0\\}$ is the correct definition. (The first is false because $0$ is missing, the second is false because $\\mathbb{Q} \\cap \\mathbb{Q}' = \\varnothing$, and $\\sqrt{-4} \\notin \\mathbb{R}$.)"
+                q: "If $a \\in \\mathbb{Q}$ and $b \\in \\mathbb{Q}'$, then $(a + b)$ belongs to:",
+                options: ["$\\mathbb{Q}$", "$\\mathbb{Q}'$", "$\\mathbb{Z}$", "$\\mathbb{N}$"],
+                answer: 1,
+                hint: "Adding a rational number to an irrational number always yields an irrational number.",
+                solution: "The sum of a rational number and an irrational number is always an irrational number, so $(a+b) \\in \\mathbb{Q}'$."
             },
             {
                 type: "mcq",
@@ -209,11 +209,11 @@
             {
                 type: "mcq",
                 lesson: "Lesson 1: Real Numbers",
-                q: "The nearest integer to $\\sqrt[3]{25}$ is:",
-                options: ["$2$", "$3$", "$4$", "$5$"],
+                q: "If $x$ is an integer such that $x < \\sqrt{17} < x + 1$, then $x = $",
+                options: ["$3$", "$4$", "$5$", "$16$"],
                 answer: 1,
-                hint: "Compare $25$ with perfect cubes $8$ and $27$.",
-                solution: "$27$ is closer to $25$ than $8$, so $\\sqrt[3]{25} \\approx 2.92 \\approx 3$."
+                hint: "Find perfect squares around $17$: $16 < 17 < 25$.",
+                solution: "$\\sqrt{16} < \\sqrt{17} < \\sqrt{25} \\implies 4 < \\sqrt{17} < 5$. Therefore, $x = 4$."
             },
             {
                 type: "mcq",
@@ -254,11 +254,11 @@
             {
                 type: "mcq",
                 lesson: "Lesson 2: Intervals & Operations",
-                q: "$[1, 4] \\setminus \\{1, 4\\} = $",
+                q: "$[1, 4] - \\{1, 4\\} = $",
                 options: ["$\\varnothing$", "$\\{2, 3\\}$", "$]1, 4[$", "$[1, 4]$"],
                 answer: 2,
-                hint: "Removing elements $1$ and $4$ opens the endpoints of the interval.",
-                solution: "Removing the endpoints $1$ and $4$ leaves $]1, 4[$."
+                hint: "Subtracting elements $1$ and $4$ removes the endpoints of the interval.",
+                solution: "Removing the endpoints $1$ and $4$ from the closed interval leaves the open interval $]1, 4[$."
             },
             {
                 type: "mcq",
@@ -461,11 +461,11 @@
             {
                 type: "mcq",
                 lesson: "Lesson 5: Laws of Exponents",
-                q: "If $(\\sqrt{2})^x = 4$, then $x = $",
-                options: ["$2$", "$4$", "$8$", "$16$"],
-                answer: 1,
-                hint: "Write $4$ as $(\\sqrt{2})^4$.",
-                solution: "$(\\sqrt{2})^x = (\\sqrt{2})^4 \\implies x = 4$."
+                q: "If $2^{x+1} = \\frac{1}{8}$, then $x = $",
+                options: ["$-4$", "$-3$", "$2$", "$4$"],
+                answer: 0,
+                hint: "Express $\\frac{1}{8}$ as $2^{-3}$, then solve $x + 1 = -3$.",
+                solution: "$2^{x+1} = 2^{-3} \\implies x + 1 = -3 \\implies x = -4$."
             },
             {
                 type: "mcq",
@@ -579,7 +579,8 @@
 
         let currentQuestion = 0;
         let score = 0;
-        let userAnswers = new Array(questions.length).fill(null);   // MCQ: chosen index | Essay: submitted text
+        let userAnswers = new Array(questions.length).fill(null);   // MCQ: chosen index | Essay: submitted text/image info
+        let userImages = new Array(questions.length).fill(null);    // Uploaded image base64
         let answered = new Array(questions.length).fill(false);
         let essayResult = new Array(questions.length).fill(null);   // Essay self-check: true / false / null
         let drafts = new Array(questions.length).fill('');          // Unsubmitted essay text
@@ -671,22 +672,73 @@
                     optionsContainer.appendChild(button);
                 });
             } else {
+                // ESSAY INPUT & IMAGE UPLOAD
+                const wrapper = document.createElement('div');
+                wrapper.className = "space-y-4";
+
                 const textarea = document.createElement('textarea');
                 textarea.className = "w-full p-4 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm";
                 textarea.rows = 4;
-                textarea.placeholder = "Write your full steps and answer here...";
+                textarea.placeholder = "Write your full steps and final answer here...";
                 textarea.value = answered[i] ? userAnswers[i] : drafts[i];
                 textarea.oninput = () => { drafts[i] = textarea.value; };
                 if (answered[i]) textarea.disabled = true;
 
+                // File Upload Section
+                const uploadContainer = document.createElement('div');
+                uploadContainer.className = "p-3 rounded-xl border border-dashed border-slate-300 dark:border-slate-600 bg-slate-50/50 dark:bg-slate-700/30 text-center";
+                
+                const fileInput = document.createElement('input');
+                fileInput.type = "file";
+                fileInput.accept = "image/*";
+                fileInput.id = `image-upload-${i}`;
+                fileInput.className = "hidden";
+                if (answered[i]) fileInput.disabled = true;
+
+                const fileLabel = document.createElement('label');
+                fileLabel.htmlFor = `image-upload-${i}`;
+                fileLabel.className = `cursor-pointer inline-flex items-center gap-2 text-xs font-semibold px-3 py-2 rounded-lg bg-slate-200 dark:bg-slate-600 text-slate-700 dark:text-slate-200 hover:bg-slate-300 transition-all ${answered[i] ? 'opacity-50 cursor-not-allowed' : ''}`;
+                fileLabel.innerHTML = `📷 Upload Photo of Solution (Notebook)`;
+
+                const imagePreviewContainer = document.createElement('div');
+                imagePreviewContainer.className = "mt-2 hidden";
+                const imgPreview = document.createElement('img');
+                imgPreview.className = "max-h-40 rounded-lg mx-auto border shadow-sm";
+                imagePreviewContainer.appendChild(imgPreview);
+
+                if (userImages[i]) {
+                    imgPreview.src = userImages[i];
+                    imagePreviewContainer.classList.remove('hidden');
+                }
+
+                fileInput.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(evt) {
+                            userImages[i] = evt.target.result;
+                            imgPreview.src = evt.target.result;
+                            imagePreviewContainer.classList.remove('hidden');
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+
+                uploadContainer.appendChild(fileInput);
+                uploadContainer.appendChild(fileLabel);
+                uploadContainer.appendChild(imagePreviewContainer);
+
                 const submitBtn = document.createElement('button');
-                submitBtn.className = "mt-3 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-semibold text-sm hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed";
-                submitBtn.innerText = answered[i] ? "Answer Submitted" : "Submit Steps & Self Check";
+                submitBtn.className = "w-full py-3 bg-blue-600 text-white rounded-xl font-semibold text-sm hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed";
+                submitBtn.innerText = answered[i] ? "Answer Uploaded & Saved" : "📤 Submit Answer to Check Model Solution";
                 submitBtn.disabled = answered[i];
                 submitBtn.onclick = () => submitEssay(textarea.value);
 
-                optionsContainer.appendChild(textarea);
-                optionsContainer.appendChild(submitBtn);
+                wrapper.appendChild(textarea);
+                wrapper.appendChild(uploadContainer);
+                wrapper.appendChild(submitBtn);
+
+                optionsContainer.appendChild(wrapper);
             }
 
             // Hint (collapsed on every question load)
@@ -711,30 +763,30 @@
                     feedbackBox.className = "p-4 rounded-xl mb-6 text-sm bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-800";
                     feedbackBox.innerHTML = `<strong>Model Solution & Steps:</strong><br>${q.solution}`;
 
-                    // Self-check row: the student decides whether their own answer matched
+                    // Self-check row: the student compares their uploaded answer with the model solution
                     const gradeRow = document.createElement('div');
                     gradeRow.className = "mt-4 pt-3 border-t border-blue-200 dark:border-blue-800 flex flex-wrap items-center gap-2";
 
                     if (essayResult[i] === null) {
                         const label = document.createElement('span');
                         label.className = "font-semibold w-full sm:w-auto";
-                        label.innerText = "Compare with your answer. Was it correct?";
+                        label.innerText = "Compare model solution with your uploaded answer. Is your answer correct?";
 
                         const yesBtn = document.createElement('button');
                         yesBtn.className = "px-4 py-2 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold text-xs transition-all";
-                        yesBtn.innerText = "✅ Yes, I was correct";
+                        yesBtn.innerText = "✅ Yes, Correct (+1 Point)";
                         yesBtn.onclick = () => gradeEssay(true);
 
                         const noBtn = document.createElement('button');
                         noBtn.className = "px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-xs transition-all";
-                        noBtn.innerText = "❌ No, I was wrong";
+                        noBtn.innerText = "❌ No, Incorrect (0 Points)";
                         noBtn.onclick = () => gradeEssay(false);
 
                         gradeRow.append(label, yesBtn, noBtn);
                     } else {
                         const result = document.createElement('span');
                         result.className = "font-bold " + (essayResult[i] ? "text-green-700 dark:text-green-300" : "text-red-700 dark:text-red-300");
-                        result.innerText = essayResult[i] ? "✅ Marked correct (+1 point)" : "❌ Marked wrong (0 points)";
+                        result.innerText = essayResult[i] ? "✅ Marked Correct (+1 Point)" : "❌ Marked Incorrect (0 Points)";
                         gradeRow.appendChild(result);
                     }
                     feedbackBox.appendChild(gradeRow);
@@ -760,14 +812,12 @@
 
         function submitEssay(val) {
             if (answered[currentQuestion]) return;
-            if (!val.trim()) {
-                const fb = document.getElementById('feedback-box');
-                fb.className = "p-4 rounded-xl mb-6 text-sm bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200 border border-amber-200 dark:border-amber-800";
-                fb.innerText = "Write your steps first, then submit.";
+            if (!val.trim() && !userImages[currentQuestion]) {
+                alert("Please enter written steps or upload a photo of your notebook solution before checking!");
                 return;
             }
             answered[currentQuestion] = true;
-            userAnswers[currentQuestion] = val;
+            userAnswers[currentQuestion] = val || "Photo Uploaded";
             loadQuestion();
         }
 
@@ -788,7 +838,7 @@
                 const ungraded = questions.filter((q, i) => q.type === "essay" && answered[i] && essayResult[i] === null).length;
                 if (unanswered > 0 || ungraded > 0) {
                     const msg = `You still have ${unanswered} unanswered question(s)` +
-                        (ungraded > 0 ? ` and ${ungraded} essay(s) not self-checked (they count 0)` : '') +
+                        (ungraded > 0 ? ` and ${ungraded} essay(s) not verified (they count 0 points)` : '') +
                         `. Finish anyway?`;
                     if (!confirm(msg)) return;
                 }
@@ -838,13 +888,14 @@
                 }
             });
             document.getElementById('final-breakdown').innerText =
-                `MCQ: ${mcqScore} / ${mcqTotal}  •  Essay (self-checked): ${essayScore} / ${essayTotal}`;
+                `MCQ: ${mcqScore} / ${mcqTotal}  •  Essay: ${essayScore} / ${essayTotal}`;
         }
 
         function restartQuiz() {
             currentQuestion = 0;
             score = 0;
             userAnswers = new Array(questions.length).fill(null);
+            userImages = new Array(questions.length).fill(null);
             answered = new Array(questions.length).fill(false);
             essayResult = new Array(questions.length).fill(null);
             drafts = new Array(questions.length).fill('');
