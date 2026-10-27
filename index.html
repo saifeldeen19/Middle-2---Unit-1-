@@ -141,7 +141,7 @@
     </div>
 
     <script>
-        const questions = [
+        const rawQuestions = [
             // --- MCQ QUESTIONS (1 - 40) ---
             {
                 type: "mcq",
@@ -577,13 +577,39 @@
             }
         ];
 
+        // Function to shuffle MCQ options while maintaining answer tracking
+        function prepareQuestions(items) {
+            return items.map(q => {
+                if (q.type !== "mcq") return q;
+
+                const originalOptions = [...q.options];
+                const correctAnswerText = originalOptions[q.answer];
+
+                // Shuffle options using Fisher-Yates
+                const shuffledOptions = [...originalOptions];
+                for (let i = shuffledOptions.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
+                }
+
+                const newAnswerIndex = shuffledOptions.indexOf(correctAnswerText);
+
+                return {
+                    ...q,
+                    options: shuffledOptions,
+                    answer: newAnswerIndex
+                };
+            });
+        }
+
+        let questions = prepareQuestions(rawQuestions);
         let currentQuestion = 0;
         let score = 0;
-        let userAnswers = new Array(questions.length).fill(null);   // MCQ: chosen index | Essay: submitted text/image info
-        let userImages = new Array(questions.length).fill(null);    // Uploaded image base64
+        let userAnswers = new Array(questions.length).fill(null);
+        let userImages = new Array(questions.length).fill(null);
         let answered = new Array(questions.length).fill(false);
-        let essayResult = new Array(questions.length).fill(null);   // Essay self-check: true / false / null
-        let drafts = new Array(questions.length).fill('');          // Unsubmitted essay text
+        let essayResult = new Array(questions.length).fill(null);
+        let drafts = new Array(questions.length).fill('');
         let studentName = "";
 
         // ---------- Helpers ----------
@@ -886,6 +912,7 @@
         }
 
         function restartQuiz() {
+            questions = prepareQuestions(rawQuestions);
             currentQuestion = 0;
             score = 0;
             userAnswers = new Array(questions.length).fill(null);
