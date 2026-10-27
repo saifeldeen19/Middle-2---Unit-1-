@@ -1,38 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Middle 2 Math - Unit 1</title>
+    <title>Middle 2 Math - Unit 1 Sheet</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            500: '#0284c7',
-                            600: '#0369a1',
-                            700: '#03584a'
-                        }
-                    }
-                }
-            }
-        }
+        tailwind.config = { darkMode: 'class' };
     </script>
     <!-- MathJax Configuration & Script -->
     <script>
         window.MathJax = {
             tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
             }
         };
     </script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
@@ -43,8 +29,8 @@
 
     <!-- Main Container -->
     <div class="w-full max-w-3xl bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-5 sm:p-8 transition-all">
-        
-        <!-- Header without Teacher's Name -->
+
+        <!-- Header -->
         <div class="flex flex-col sm:flex-row justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-5 mb-6 gap-4">
             <div class="flex items-center gap-3">
                 <div class="bg-blue-600 text-white p-3 rounded-xl shadow-md font-bold text-lg flex items-center justify-center w-12 h-12">
@@ -52,28 +38,28 @@
                 </div>
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">Middle 2 Math Sheet</h1>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Unit 1: Numbers & Operations (50 Questions - 50 Points)</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Unit 1: Real Numbers &amp; Operations (50 Questions - 50 Points)</p>
                 </div>
             </div>
-            
+
             <div class="flex items-center gap-3">
                 <div id="score-container" class="hidden bg-blue-50 dark:bg-slate-700 px-4 py-2 rounded-xl text-center border border-blue-100 dark:border-slate-600">
                     <span class="text-xs text-slate-500 dark:text-slate-400 block">Score</span>
                     <span id="score-display" class="font-bold text-blue-600 dark:text-blue-400 text-lg">0 / 50</span>
                 </div>
-                <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors">
+                <button onclick="toggleDarkMode()" aria-label="Toggle dark mode" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
                     <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
                     <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
                 </button>
             </div>
         </div>
 
-        <!-- Student Name Screen -->
+        <!-- Welcome Screen -->
         <div id="welcome-screen" class="py-6 text-center">
             <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">📝</div>
             <h2 class="text-2xl font-bold mb-2">Welcome Middle 2 Student!</h2>
             <p class="text-slate-500 dark:text-slate-400 mb-6 text-sm">Please enter your full name to start the Unit 1 Sheet.</p>
-            
+
             <div class="max-w-md mx-auto space-y-4">
                 <input type="text" id="student-name-input" placeholder="Enter Student Full Name..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-center font-semibold">
                 <p id="name-error" class="text-xs text-red-500 hidden">Please enter your name before starting.</p>
@@ -85,7 +71,6 @@
 
         <!-- Quiz Container -->
         <div id="quiz-container" class="hidden">
-            <!-- Student Banner -->
             <div class="flex justify-between items-center bg-blue-50 dark:bg-slate-700/50 px-4 py-2.5 rounded-xl mb-4 border border-blue-100 dark:border-slate-600">
                 <span class="text-xs text-slate-500 dark:text-slate-400">Student:</span>
                 <span id="student-name-display" class="font-bold text-sm text-blue-700 dark:text-blue-300"></span>
@@ -109,15 +94,15 @@
                     <span id="question-num" class="text-xs font-semibold text-slate-400">Question 1 of 50</span>
                 </div>
                 <h2 id="question-text" class="text-base sm:text-lg md:text-xl font-semibold mb-4 leading-relaxed">Loading question...</h2>
-                
+
                 <div id="options-container" class="space-y-3">
                     <!-- Dynamic Options / Essay Area -->
                 </div>
             </div>
 
-            <!-- Hint & Solution Section -->
+            <!-- Hint Section -->
             <div class="flex flex-wrap gap-3 mb-6">
-                <button onclick="toggleHint()" class="px-4 py-2 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 rounded-xl text-sm font-semibold hover:bg-amber-100 transition-colors">
+                <button id="hint-btn" onclick="toggleHint()" class="px-4 py-2 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 rounded-xl text-sm font-semibold hover:bg-amber-100 dark:hover:bg-amber-900/50 transition-colors">
                     💡 Show Hint
                 </button>
                 <div id="hint-box" class="w-full hidden mt-2 p-3 bg-amber-50/70 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl text-sm text-amber-800 dark:text-amber-200"></div>
@@ -141,11 +126,12 @@
             <div class="w-20 h-20 bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold">🎉</div>
             <h2 class="text-2xl font-bold mb-1">Sheet Completed!</h2>
             <p id="summary-student-name" class="text-blue-600 dark:text-blue-400 font-bold mb-4 text-lg"></p>
-            
+
             <div class="bg-slate-50 dark:bg-slate-700/50 p-6 rounded-2xl max-w-sm mx-auto mb-6 border border-slate-100 dark:border-slate-700">
                 <span class="text-sm text-slate-500 dark:text-slate-400 block mb-1">Total Score</span>
                 <span id="final-score" class="text-4xl font-extrabold text-blue-600 dark:text-blue-400">0 / 50</span>
                 <span id="final-percentage" class="text-sm font-semibold text-slate-600 dark:text-slate-300 block mt-2">0%</span>
+                <span id="final-breakdown" class="text-xs text-slate-500 dark:text-slate-400 block mt-1"></span>
             </div>
             <button onclick="restartQuiz()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg shadow-blue-500/20 transition-all">
                 Try Again
@@ -157,7 +143,6 @@
     <script>
         const questions = [
             // --- MCQ QUESTIONS (1 - 40) ---
-            // Lesson 1: Real numbers
             {
                 type: "mcq",
                 lesson: "Lesson 1: Real Numbers",
@@ -206,11 +191,11 @@
             {
                 type: "mcq",
                 lesson: "Lesson 1: Real Numbers",
-                q: "Which of the following statement is TRUE?",
+                q: "Which of the following statements is TRUE?",
                 options: ["$\\mathbb{R} = \\mathbb{R}^+ \\cup \\mathbb{R}^-$", "$\\mathbb{Q} \\cap \\mathbb{Q}' = \\{0\\}$", "$\\sqrt{-4} \\in \\mathbb{R}$", "$\\mathbb{R}^* = \\mathbb{R} \\setminus \\{0\\}$"],
                 answer: 3,
                 hint: "$\\mathbb{R}^*$ represents all real numbers excluding zero.",
-                solution: "$\\mathbb{R}^* = \\mathbb{R} \\setminus \\{0\\}$ is the correct mathematical definition."
+                solution: "$\\mathbb{R}^* = \\mathbb{R} \\setminus \\{0\\}$ is the correct definition. (The first is false because $0$ is missing, the second is false because $\\mathbb{Q} \\cap \\mathbb{Q}' = \\varnothing$, and $\\sqrt{-4} \\notin \\mathbb{R}$.)"
             },
             {
                 type: "mcq",
@@ -230,15 +215,13 @@
                 hint: "Compare $25$ with perfect cubes $8$ and $27$.",
                 solution: "$27$ is closer to $25$ than $8$, so $\\sqrt[3]{25} \\approx 2.92 \\approx 3$."
             },
-
-            // Lesson 2: Intervals and their operations
             {
                 type: "mcq",
                 lesson: "Lesson 2: Intervals & Operations",
                 q: "The interval $[2, 7[$ represented on the real line contains:",
                 options: ["Neither $2$ nor $7$", "Both $2$ and $7$", "$7$ but not $2$", "$2$ but not $7$"],
                 answer: 3,
-                hint: "A closed bracket $[$ includes the endpoint; open bracket $[$ or $)$ excludes it.",
+                hint: "A closed bracket (like $[$ at the left end) includes the endpoint; a reversed (open) bracket excludes it.",
                 solution: "$[2, 7[$ includes $2$ (closed) and excludes $7$ (open)."
             },
             {
@@ -248,7 +231,7 @@
                 options: ["$\\varnothing$", "$\\{-3, 5\\}$", "$]-3, 5[$", "$[-3, 5]$"],
                 answer: 2,
                 hint: "Intersection means common elements in both sets.",
-                solution: "The open interval $]-3, 5[$ is entirely contained inside $[-3, 5]$, so the intersection is $]-3, 5[$."
+                solution: "The open interval $]-3, 5[$ is completely inside $[-3, 5]$, so the intersection is $]-3, 5[$."
             },
             {
                 type: "mcq",
@@ -304,8 +287,6 @@
                 hint: "Non-negative includes zero and all positive numbers.",
                 solution: "Non-negative real numbers $= [0, \\infty[$."
             },
-
-            // Lesson 3: Operations on real numbers
             {
                 type: "mcq",
                 lesson: "Lesson 3: Operations on Real Numbers",
@@ -313,7 +294,7 @@
                 options: ["$\\sqrt{3}$", "$2\\sqrt{3}$", "$3\\sqrt{3}$", "$0$"],
                 answer: 0,
                 hint: "Simplify each radical: $\\sqrt{12}=2\\sqrt{3}$, $\\sqrt{27}=3\\sqrt{3}$, $\\sqrt{48}=4\\sqrt{3}$.",
-                solution: "$2\\sqrt{3} + 3\\sqrt{3} - 4\\sqrt{3} = (2+3-4)\\sqrt{3} = 1\\sqrt{3} = \\sqrt{3}$."
+                solution: "$2\\sqrt{3} + 3\\sqrt{3} - 4\\sqrt{3} = (2+3-4)\\sqrt{3} = \\sqrt{3}$."
             },
             {
                 type: "mcq",
@@ -322,7 +303,7 @@
                 options: ["$9$", "$1$", "$-1$", "$2\\sqrt{5}$"],
                 answer: 1,
                 hint: "Use $(a+b)(a-b) = a^2 - b^2$.",
-                solution: "(\\sqrt{5})^2 - (2)^2 = 5 - 4 = 1$."
+                solution: "$(\\sqrt{5})^2 - (2)^2 = 5 - 4 = 1$."
             },
             {
                 type: "mcq",
@@ -331,7 +312,7 @@
                 options: ["$\\sqrt{3} - 1$", "$\\sqrt{3} + 1$", "$1 - \\sqrt{3}$", "$-\\sqrt{3} - 1$"],
                 answer: 0,
                 hint: "First simplify $\\frac{2}{\\sqrt{3}-1} = \\sqrt{3}+1$, then find its conjugate.",
-                solution: "$\\frac{2(\\sqrt{3}+1)}{3-1} = \\sqrt{3}+1$. Conjugate of $\\sqrt{3}+1$ is $\\sqrt{3}-1$."
+                solution: "$\\frac{2}{\\sqrt{3}-1} = \\frac{2(\\sqrt{3}+1)}{3-1} = \\sqrt{3}+1$. Conjugate of $\\sqrt{3}+1$ is $\\sqrt{3}-1$."
             },
             {
                 type: "mcq",
@@ -340,7 +321,7 @@
                 options: ["$9$", "$5$", "$\\sqrt{5}$", "$25$"],
                 answer: 1,
                 hint: "Difference of squares formula.",
-                solution: "(\\sqrt{7})^2 - (\\sqrt{2})^2 = 7 - 2 = 5$."
+                solution: "$(\\sqrt{7})^2 - (\\sqrt{2})^2 = 7 - 2 = 5$."
             },
             {
                 type: "mcq",
@@ -358,7 +339,7 @@
                 options: ["$1$", "$9 - 4\\sqrt{5}$", "$9 + 4\\sqrt{5}$", "$3 - 4\\sqrt{5}$"],
                 answer: 1,
                 hint: "Use $(a-b)^2 = a^2 - 2ab + b^2$.",
-                solution: "(\\sqrt{5})^2 - 2(\\sqrt{5})(2) + 2^2 = 5 - 4\\sqrt{5} + 4 = 9 - 4\\sqrt{5}$."
+                solution: "$(\\sqrt{5})^2 - 2(\\sqrt{5})(2) + 2^2 = 5 - 4\\sqrt{5} + 4 = 9 - 4\\sqrt{5}$."
             },
             {
                 type: "mcq",
@@ -378,15 +359,13 @@
                 hint: "Rationalize $\\frac{6}{\\sqrt{3}} = \\frac{6\\sqrt{3}}{3} = 2\\sqrt{3}$.",
                 solution: "$2\\sqrt{3} = k\\sqrt{3} \\implies k = 2$."
             },
-
-            // Lesson 4: Laws of square and cube roots
             {
                 type: "mcq",
                 lesson: "Lesson 4: Laws of Roots",
                 q: "Simplify: $\\sqrt{18} + \\sqrt{50} - 2\\sqrt{8}$",
                 options: ["$4\\sqrt{2}$", "$2\\sqrt{2}$", "$0$", "$3\\sqrt{2}$"],
                 answer: 0,
-                hint: "$\ me \\sqrt{18}=3\\sqrt{2}$, $\\sqrt{50}=5\\sqrt{2}$, $2\\sqrt{8}=4\\sqrt{2}$.",
+                hint: "Note that $\\sqrt{18}=3\\sqrt{2}$, $\\sqrt{50}=5\\sqrt{2}$, and $2\\sqrt{8}=4\\sqrt{2}$.",
                 solution: "$3\\sqrt{2} + 5\\sqrt{2} - 4\\sqrt{2} = 4\\sqrt{2}$."
             },
             {
@@ -452,8 +431,6 @@
                 hint: "Use $\\frac{\\sqrt{a}}{\\sqrt{b}} = \\sqrt{\\frac{a}{b}}$.",
                 solution: "$\\sqrt{\\frac{32}{2}} = \\sqrt{16} = 4$."
             },
-
-            // Lesson 5: Laws of exponents in real numbers
             {
                 type: "mcq",
                 lesson: "Lesson 5: Laws of Exponents",
@@ -533,7 +510,7 @@
                 lesson: "Lesson 1: Real Numbers",
                 q: "Find the Solution Set (S.S.) of the equation in $\\mathbb{R}$:<br>$$2x^3 - 7 = 9$$",
                 hint: "Add $7$ to both sides, divide by $2$, then take the cube root.",
-                solution: "<b>Steps:</b><br>1) $2x^3 = 9 + 7 = 16$<br>2) $x^3 = 8$<br>3) $x = \\sqrt[3]{8} = 2$<br><b>S.S. = $\{2\}$</b>"
+                solution: "<b>Steps:</b><br>1) $2x^3 = 9 + 7 = 16$<br>2) $x^3 = 8$<br>3) $x = \\sqrt[3]{8} = 2$<br><b>S.S. = $\\{2\\}$</b>"
             },
             {
                 type: "essay",
@@ -573,9 +550,9 @@
             {
                 type: "essay",
                 lesson: "Lesson 4: Laws of Roots",
-                q: "Find the Solution Set of the equation in $\\mathbb{R}$:<br> $$(x - 1)^3 + 5 = 32$$",
+                q: "Find the Solution Set of the equation in $\\mathbb{R}$:<br>$$(x - 1)^3 + 5 = 32$$",
                 hint: "Subtract $5$ then take the cube root of both sides.",
-                solution: "<b>Steps:</b><br>1) $(x - 1)^3 = 27$<br>2) $x - 1 = \\sqrt[3]{27} = 3$<br>3) $x = 4$<br><b>S.S. = $\{4\}$</b>"
+                solution: "<b>Steps:</b><br>1) $(x - 1)^3 = 27$<br>2) $x - 1 = \\sqrt[3]{27} = 3$<br>3) $x = 4$<br><b>S.S. = $\\{4\\}$</b>"
             },
             {
                 type: "essay",
@@ -587,25 +564,60 @@
             {
                 type: "essay",
                 lesson: "Lesson 5: Laws of Exponents",
-                q: "Simplify to simplest form:<br>$$\\frac{4^n \\times 6^{-2n}}{2^{-4n} \\times 3^{-2n}}$$ prove that the result is independent of $n$.",
-                hint: "Decompose $4$ and $6$ into prime factors $2$ and $3$.",
-                solution: "<b>Steps:</b><br>1) $4^n = (2^2)^n = 2^{2n}$<br>2) $6^{-2n} = (2 \\times 3)^{-2n} = 2^{-2n} \\times 3^{-2n}$<br>3) Numerator $= 2^{2n} \\times 2^{-2n} \\times 3^{-2n} = 2^0 \\times 3^{-2n} = 3^{-2n}$<br>4) Denominator $= 2^{-4n} \\times 3^{-2n}$... Expression simplifies to $1$."
+                q: "Simplify to simplest form:<br>$$\\frac{4^n \\times 6^{-2n}}{(2 \\times 3)^{-2n} \\times 4^n}$$ and prove that the result is independent of $n$.",
+                hint: "Decompose $6$ into prime factors $(2 \\times 3)$.",
+                solution: "<b>Steps:</b><br>1) $6^{-2n} = (2 \\times 3)^{-2n}$<br>2) Numerator $= 4^n \\times (2 \\times 3)^{-2n}$<br>3) Denominator $= (2 \\times 3)^{-2n} \\times 4^n$<br>4) $\\frac{\\text{Numerator}}{\\text{Denominator}} = 1$ (Independent of $n$)."
             },
             {
                 type: "essay",
-                lesson: "Lesson 5: Laws of Exponents",
+                lesson: "Lesson 3: Operations on Real Numbers",
                 q: "If $x = \\sqrt{3} + 1$ and $y = \\sqrt{3} - 1$, find the value of $\\frac{x^2 + y^2}{x y}$.",
                 hint: "Find $xy$ first, then $x^2 + y^2 = (x+y)^2 - 2xy$.",
-                solution: "<b>Steps:</b><br>1) $x y = 3 - 1 = 2$<br>2) $x + y = 2\\sqrt{3}$<br>3) $x^2 + y^2 = (2\\sqrt{3})^2 - 2(2) = 12 - 4 = 8$<br>4) Value $= \\frac{8}{2} = 4$"
+                solution: "<b>Steps:</b><br>1) $x y = (\\sqrt{3}+1)(\\sqrt{3}-1) = 3 - 1 = 2$<br>2) $x + y = 2\\sqrt{3}$<br>3) $x^2 + y^2 = (2\\sqrt{3})^2 - 2(2) = 12 - 4 = 8$<br>4) Value $= \\frac{8}{2} = 4$"
             }
         ];
 
         let currentQuestion = 0;
         let score = 0;
-        let userAnswers = new Array(questions.length).fill(null);
+        let userAnswers = new Array(questions.length).fill(null);   // MCQ: chosen index | Essay: submitted text
         let answered = new Array(questions.length).fill(false);
+        let essayResult = new Array(questions.length).fill(null);   // Essay self-check: true / false / null
+        let drafts = new Array(questions.length).fill('');          // Unsubmitted essay text
         let studentName = "";
 
+        // ---------- Helpers ----------
+        function computeScore() {
+            let s = 0;
+            questions.forEach((q, i) => {
+                if (!answered[i]) return;
+                if (q.type === "mcq") {
+                    if (userAnswers[i] === q.answer) s++;
+                } else if (essayResult[i] === true) {
+                    s++;
+                }
+            });
+            return s;
+        }
+
+        function updateScore() {
+            score = computeScore();
+            document.getElementById('score-display').innerText = `${score} / ${questions.length}`;
+        }
+
+        // Typeset one at a time (MathJax recommends chaining) and wait until it has loaded
+        let mjQueue = Promise.resolve();
+        function triggerMathJax(retries = 20) {
+            if (!(window.MathJax && MathJax.typesetPromise)) {
+                if (retries > 0) setTimeout(() => triggerMathJax(retries - 1), 300);
+                return;
+            }
+            const target = document.getElementById('quiz-container');
+            mjQueue = mjQueue
+                .then(() => MathJax.typesetPromise([target]))
+                .catch(err => console.error('MathJax error:', err));
+        }
+
+        // ---------- Flow ----------
         function startQuiz() {
             const input = document.getElementById('student-name-input').value.trim();
             if (!input) {
@@ -617,13 +629,15 @@
             document.getElementById('quiz-container').classList.remove('hidden');
             document.getElementById('score-container').classList.remove('hidden');
             document.getElementById('student-name-display').innerText = studentName;
+            updateScore();
             loadQuestion();
         }
 
         function loadQuestion() {
-            const q = questions[currentQuestion];
+            const i = currentQuestion;
+            const q = questions[i];
             document.getElementById('question-badge').innerText = q.lesson;
-            document.getElementById('question-num').innerText = `Question ${currentQuestion + 1} of ${questions.length}`;
+            document.getElementById('question-num').innerText = `Question ${i + 1} of ${questions.length}`;
             document.getElementById('question-text').innerHTML = q.q;
 
             const optionsContainer = document.getElementById('options-container');
@@ -631,14 +645,14 @@
 
             if (q.type === "mcq") {
                 q.options.forEach((opt, index) => {
-                    const isSelected = userAnswers[currentQuestion] === index;
+                    const isSelected = userAnswers[i] === index;
                     const isCorrect = index === q.answer;
-                    
+
                     let btnClass = "w-full text-left p-4 rounded-xl border transition-all flex items-center justify-between font-medium text-sm md:text-base ";
-                    
-                    if (answered[currentQuestion]) {
+
+                    if (answered[i]) {
                         if (isCorrect) {
-                            btnClass += "bg-green-50 dark:bg-green-900/30 border-green-500 text-green-700 dark:text-green-300";
+                            btnClass += "bg-green-50 dark:bg-green-900/30 border-green-500 text-green-700 dark:text-green-300 font-semibold";
                         } else if (isSelected) {
                             btnClass += "bg-red-50 dark:bg-red-900/30 border-red-500 text-red-700 dark:text-red-300";
                         } else {
@@ -652,7 +666,7 @@
                     button.className = btnClass;
                     button.innerHTML = `<span>${opt}</span>`;
                     button.onclick = () => selectOption(index);
-                    if (answered[currentQuestion]) button.disabled = true;
+                    if (answered[i]) button.disabled = true;
 
                     optionsContainer.appendChild(button);
                 });
@@ -661,27 +675,31 @@
                 textarea.className = "w-full p-4 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm";
                 textarea.rows = 4;
                 textarea.placeholder = "Write your full steps and answer here...";
-                textarea.value = userAnswers[currentQuestion] || '';
-                if (answered[currentQuestion]) textarea.disabled = true;
+                textarea.value = answered[i] ? userAnswers[i] : drafts[i];
+                textarea.oninput = () => { drafts[i] = textarea.value; };
+                if (answered[i]) textarea.disabled = true;
 
                 const submitBtn = document.createElement('button');
-                submitBtn.className = "mt-3 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-semibold text-sm hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20";
-                submitBtn.innerText = answered[currentQuestion] ? "Answer Submitted" : "Submit Steps & Self Check";
-                submitBtn.disabled = answered[currentQuestion];
+                submitBtn.className = "mt-3 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-semibold text-sm hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed";
+                submitBtn.innerText = answered[i] ? "Answer Submitted" : "Submit Steps & Self Check";
+                submitBtn.disabled = answered[i];
                 submitBtn.onclick = () => submitEssay(textarea.value);
 
                 optionsContainer.appendChild(textarea);
                 optionsContainer.appendChild(submitBtn);
             }
 
+            // Hint (collapsed on every question load)
             document.getElementById('hint-box').classList.add('hidden');
             document.getElementById('hint-box').innerHTML = q.hint;
+            document.getElementById('hint-btn').innerText = "💡 Show Hint";
 
+            // Feedback
             const feedbackBox = document.getElementById('feedback-box');
-            if (answered[currentQuestion]) {
+            if (answered[i]) {
                 feedbackBox.classList.remove('hidden');
                 if (q.type === "mcq") {
-                    const isCorrect = userAnswers[currentQuestion] === q.answer;
+                    const isCorrect = userAnswers[i] === q.answer;
                     if (isCorrect) {
                         feedbackBox.className = "p-4 rounded-xl mb-6 text-sm bg-green-50 dark:bg-green-900/30 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-800";
                         feedbackBox.innerHTML = `<strong>Correct!</strong><br>${q.solution}`;
@@ -692,45 +710,71 @@
                 } else {
                     feedbackBox.className = "p-4 rounded-xl mb-6 text-sm bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-800";
                     feedbackBox.innerHTML = `<strong>Model Solution & Steps:</strong><br>${q.solution}`;
+
+                    // Self-check row: the student decides whether their own answer matched
+                    const gradeRow = document.createElement('div');
+                    gradeRow.className = "mt-4 pt-3 border-t border-blue-200 dark:border-blue-800 flex flex-wrap items-center gap-2";
+
+                    if (essayResult[i] === null) {
+                        const label = document.createElement('span');
+                        label.className = "font-semibold w-full sm:w-auto";
+                        label.innerText = "Compare with your answer. Was it correct?";
+
+                        const yesBtn = document.createElement('button');
+                        yesBtn.className = "px-4 py-2 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold text-xs transition-all";
+                        yesBtn.innerText = "✅ Yes, I was correct";
+                        yesBtn.onclick = () => gradeEssay(true);
+
+                        const noBtn = document.createElement('button');
+                        noBtn.className = "px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-xs transition-all";
+                        noBtn.innerText = "❌ No, I was wrong";
+                        noBtn.onclick = () => gradeEssay(false);
+
+                        gradeRow.append(label, yesBtn, noBtn);
+                    } else {
+                        const result = document.createElement('span');
+                        result.className = "font-bold " + (essayResult[i] ? "text-green-700 dark:text-green-300" : "text-red-700 dark:text-red-300");
+                        result.innerText = essayResult[i] ? "✅ Marked correct (+1 point)" : "❌ Marked wrong (0 points)";
+                        gradeRow.appendChild(result);
+                    }
+                    feedbackBox.appendChild(gradeRow);
                 }
             } else {
                 feedbackBox.classList.add('hidden');
             }
 
-            document.getElementById('prev-btn').disabled = currentQuestion === 0;
-            document.getElementById('next-btn').innerText = currentQuestion === questions.length - 1 ? "Finish Sheet" : "Next Question →";
+            document.getElementById('prev-btn').disabled = i === 0;
+            document.getElementById('next-btn').innerText = i === questions.length - 1 ? "Finish Sheet" : "Next Question →";
 
             updateProgress();
-            if (window.MathJax && window.MathJax.typesetPromise) {
-                MathJax.typesetPromise();
-            } else if (window.MathJax) {
-                MathJax.typeset();
-            }
+            triggerMathJax();
         }
 
         function selectOption(index) {
             if (answered[currentQuestion]) return;
-
             answered[currentQuestion] = true;
             userAnswers[currentQuestion] = index;
-
-            if (index === questions[currentQuestion].answer) {
-                score++;
-            }
-
-            document.getElementById('score-display').innerText = `${score} / ${questions.length}`;
+            updateScore();
             loadQuestion();
         }
 
         function submitEssay(val) {
             if (answered[currentQuestion]) return;
-            if (!val.trim()) return;
-
+            if (!val.trim()) {
+                const fb = document.getElementById('feedback-box');
+                fb.className = "p-4 rounded-xl mb-6 text-sm bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200 border border-amber-200 dark:border-amber-800";
+                fb.innerText = "Write your steps first, then submit.";
+                return;
+            }
             answered[currentQuestion] = true;
             userAnswers[currentQuestion] = val;
-            score++;
+            loadQuestion();
+        }
 
-            document.getElementById('score-display').innerText = `${score} / ${questions.length}`;
+        function gradeEssay(isCorrect) {
+            if (!answered[currentQuestion] || essayResult[currentQuestion] !== null) return;
+            essayResult[currentQuestion] = isCorrect;
+            updateScore();
             loadQuestion();
         }
 
@@ -738,7 +782,16 @@
             if (currentQuestion < questions.length - 1) {
                 currentQuestion++;
                 loadQuestion();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
+                const unanswered = answered.filter(a => !a).length;
+                const ungraded = questions.filter((q, i) => q.type === "essay" && answered[i] && essayResult[i] === null).length;
+                if (unanswered > 0 || ungraded > 0) {
+                    const msg = `You still have ${unanswered} unanswered question(s)` +
+                        (ungraded > 0 ? ` and ${ungraded} essay(s) not self-checked (they count 0)` : '') +
+                        `. Finish anyway?`;
+                    if (!confirm(msg)) return;
+                }
                 showSummary();
             }
         }
@@ -747,17 +800,15 @@
             if (currentQuestion > 0) {
                 currentQuestion--;
                 loadQuestion();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
         function toggleHint() {
             const hintBox = document.getElementById('hint-box');
             hintBox.classList.toggle('hidden');
-            if (window.MathJax && window.MathJax.typesetPromise) {
-                MathJax.typesetPromise();
-            } else if (window.MathJax) {
-                MathJax.typeset();
-            }
+            document.getElementById('hint-btn').innerText = hintBox.classList.contains('hidden') ? "💡 Show Hint" : "💡 Hide Hint";
+            triggerMathJax();
         }
 
         function updateProgress() {
@@ -768,12 +819,26 @@
         }
 
         function showSummary() {
+            updateScore();
             document.getElementById('quiz-container').classList.add('hidden');
             document.getElementById('summary-screen').classList.remove('hidden');
             document.getElementById('summary-student-name').innerText = `Student: ${studentName}`;
             document.getElementById('final-score').innerText = `${score} / ${questions.length}`;
             const pct = Math.round((score / questions.length) * 100);
             document.getElementById('final-percentage').innerText = `${pct}% Mastery`;
+
+            let mcqScore = 0, essayScore = 0, mcqTotal = 0, essayTotal = 0;
+            questions.forEach((q, i) => {
+                if (q.type === "mcq") {
+                    mcqTotal++;
+                    if (answered[i] && userAnswers[i] === q.answer) mcqScore++;
+                } else {
+                    essayTotal++;
+                    if (answered[i] && essayResult[i] === true) essayScore++;
+                }
+            });
+            document.getElementById('final-breakdown').innerText =
+                `MCQ: ${mcqScore} / ${mcqTotal}  •  Essay (self-checked): ${essayScore} / ${essayTotal}`;
         }
 
         function restartQuiz() {
@@ -781,15 +846,23 @@
             score = 0;
             userAnswers = new Array(questions.length).fill(null);
             answered = new Array(questions.length).fill(false);
+            essayResult = new Array(questions.length).fill(null);
+            drafts = new Array(questions.length).fill('');
             document.getElementById('summary-screen').classList.add('hidden');
             document.getElementById('quiz-container').classList.remove('hidden');
-            document.getElementById('score-display').innerText = `0 / ${questions.length}`;
+            updateScore();
             loadQuestion();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function toggleDarkMode() {
             document.documentElement.classList.toggle('dark');
         }
+
+        // Press Enter on the name field to start
+        document.getElementById('student-name-input').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') startQuiz();
+        });
     </script>
 </body>
 </html>
