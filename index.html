@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math Practice Hub </title>
+    <title>Math Practice Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap');
@@ -17,27 +17,26 @@
         <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/30 text-3xl font-extrabold">
             √
         </div>
-        <h1 class="text-2xl font-bold text-white mb-1">Interactive Math Platform</h1>
-        <p class="text-slate-400 text-xs mb-6">Enter your name and choose your grade to begin</p>
+        <h1 class="text-2xl font-bold text-white mb-1">منصة الرياضيات التفاعلية</h1>
+        <p class="text-slate-400 text-xs mb-6">اكتب اسمك واختار صفك الدراسي للبدء مباشرة</p>
 
         <!-- Form Inputs -->
         <div class="space-y-4 text-left">
             <!-- Input 1: Student Name -->
             <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Student Name / اسم الطالب:</label>
-                <input type="text" id="student-name" placeholder="Enter your full name..." class="w-full px-4 py-3 rounded-xl border border-slate-600 bg-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium text-sm">
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">اسم الطالب الثلاثي:</label>
+                <input type="text" id="student-name" placeholder="اكتب اسمك هنا..." class="w-full px-4 py-3 rounded-xl border border-slate-600 bg-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium text-sm">
             </div>
 
             <!-- Input 2: Grade Dropdown -->
             <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Select Grade / اختر المرحلة الدراسية:</label>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">اختر المرحلة الدراسية:</label>
                 <select id="grade-select" class="w-full px-4 py-3 rounded-xl border border-slate-600 bg-slate-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium text-sm cursor-pointer">
-                    <option value="" disabled selected>-- Select Grade --</option>
-                    <option value="" disabled class="text-slate-500 bg-slate-800">Middle 1 (Prep 1) - Coming Soon 🔒</option>
-                    <option value="middle2">Middle 2 (Prep 2)</option>
-                    <option value="middle3">Middle 3 (Prep 3)</option>
-                    <option value="" disabled class="text-slate-500 bg-slate-800">Senior 1 (Sec 1) - Coming Soon 🔒</option>
-                    <option value="" disabled class="text-slate-500 bg-slate-800">Senior 2 (Sec 2) - Coming Soon 🔒</option>
+                    <option value="" disabled selected>-- اختر الصف الدراسي --</option>
+                    <option value="" disabled class="text-slate-500 bg-slate-800">الأول الإعدادي (قريباً) 🔒</option>
+                    <option value="middle2">الثاني الإعدادي (Middle 2)</option>
+                    <option value="middle3">الثالث الإعدادي (Middle 3)</option>
+                    <option value="" disabled class="text-slate-500 bg-slate-800">الأول الثانوي (قريباً) 🔒</option>
                 </select>
             </div>
 
@@ -46,13 +45,13 @@
 
             <!-- Submit Button -->
             <button onclick="startExam()" class="w-full py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-lg shadow-blue-600/30 transition-all text-sm mt-2 flex items-center justify-center gap-2">
-                <span>Start Practice Sheet</span>
-                <span>→</span>
+                <span>ابدأ الشيت التفاعلي</span>
+                <span>←</span>
             </button>
         </div>
 
         <div class="mt-6 pt-4 border-t border-slate-700/60 text-[11px] text-slate-500">
-            Interactive Sheets • Instant Results & Detailed Step-by-Step Solutions
+            أستاذ سيف الدين سامح • منصة الشيتات الذكية
         </div>
     </div>
 
@@ -63,23 +62,23 @@
             const errorMsg = document.getElementById('error-msg');
 
             if (!nameInput) {
-                errorMsg.innerText = "Please enter student full name first.";
+                errorMsg.innerText = "من فضلك اكتب اسم الطالب أولاً.";
                 errorMsg.classList.remove('hidden');
                 return;
             }
 
             if (!gradeSelect) {
-                errorMsg.innerText = "Please select an active grade from the dropdown list.";
+                errorMsg.innerText = "من فضلك اختر المرحلة الدراسية من القائمة.";
                 errorMsg.classList.remove('hidden');
                 return;
             }
 
             errorMsg.classList.add('hidden');
 
-            // Save student name to localStorage so grade sheets can retrieve it
+            // حفظ الاسم في الذاكرة المؤقتة ونقله للشيت مباشرة
             localStorage.setItem('platform_student_name', nameInput);
 
-            // Redirect to selected grade folder
+            // التوجيه المباشر للمجلد الصحيح
             if (gradeSelect === 'middle2') {
                 window.location.href = './middle2/index.html';
             } else if (gradeSelect === 'middle3') {
