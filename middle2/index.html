@@ -59,42 +59,33 @@
             </div>
         </div>
 
-        <!-- 1. Welcome / Registration Screen -->
-        <div id="welcome-screen" class="py-6 text-center">
-            <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">🎓</div>
-            <h2 class="text-2xl font-bold mb-2">Welcome Student!</h2>
-            <p class="text-slate-500 dark:text-slate-400 mb-6 text-sm">Please enter your full name and select your grade to start.</p>
+        <script>
+    // سحب الاسم من الذاكرة وتثبيته فوراً عند فتح الصفحة بدون إظهار واجهة ترحيب
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedName = localStorage.getItem('platform_student_name');
+        
+        if (!savedName) {
+            // لو حد فتح رابط ميدل 2 مباشرة بدون ما يسجل في الرئيسية، يرجع للرئيسية
+            window.location.href = '../index.html';
+            return;
+        }
 
-            <div class="max-w-md mx-auto space-y-4">
-                <input type="text" id="student-name-input" placeholder="Enter Student Full Name..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all text-center font-semibold">
-                
-                <!-- Grade Dropdown List -->
-                <select id="student-grade-input" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all text-center font-semibold cursor-pointer">
-                    <option value="" disabled selected>Select Grade...</option>
-                    <option value="Middle 1" disabled>Middle 1 (Coming Soon 🔒)</option>
-                    <option value="Middle 2">Middle 2</option>
-                    <option value="Middle 3" disabled>Middle 3 (Coming Soon 🔒)</option>
-                </select>
+        // عرض اسم الطالب في المكان المخصص له في أعلى الشيت
+        const nameDisplay = document.getElementById('student-name-display');
+        if (nameDisplay) {
+            nameDisplay.innerText = savedName;
+        }
 
-                <button onclick="goToDashboard()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold shadow-lg shadow-emerald-500/20 transition-all">
-                    Next →
-                </button>
-            </div>
-        </div>
+        // إخفاء شاشة الترحيب القديمة (إن وجدت) وفتح الأسئلة فوراً
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const dashboardScreen = document.getElementById('dashboard-screen');
+        const quizContainer = document.getElementById('quiz-container');
+        
+        if (welcomeScreen) welcomeScreen.classList.add('hidden');
+        if (dashboardScreen) dashboardScreen.classList.remove('hidden');
+    });
+</script>
 
-        <!-- 2. Units Dashboard Screen -->
-        <div id="dashboard-screen" class="hidden py-4">
-            <div class="bg-emerald-50 dark:bg-slate-700/50 p-4 rounded-2xl mb-6 flex justify-between items-center border border-emerald-100 dark:border-slate-600">
-                <div>
-                    <span class="text-xs text-slate-500 dark:text-slate-400 block">Welcome,</span>
-                    <span id="dash-student-name" class="font-bold text-base text-emerald-700 dark:text-emerald-300"></span>
-                </div>
-                <div id="dash-student-grade" class="px-3 py-1 bg-emerald-600 text-white rounded-full text-xs font-bold"></div>
-            </div>
-
-            <h3 class="text-lg font-bold mb-4">Select a Unit:</h3>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- Unit 1 -->
                 <div onclick="startUnit1()" class="p-6 rounded-2xl border-2 border-emerald-500 bg-emerald-50/50 dark:bg-emerald-900/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 cursor-pointer transition-all flex flex-col justify-between shadow-md">
                     <div>
