@@ -636,12 +636,17 @@
         let answered = [];
         let essayResult = [];
 
-        window.addEventListener('DOMContentLoaded', () => {
+                window.addEventListener('DOMContentLoaded', () => {
             const savedName = localStorage.getItem('platform_student_name');
             if (!savedName) {
                 window.location.href = '../index.html';
                 return;
             }
+            
+            // التأكد من إرجاع الصفحة للوضع الافتراضي (لوحة الوحدات) عند حدوث Refresh
+            backToDashboard();
+        });
+
             studentName = savedName;
             
             const dashName = document.getElementById('dash-student-name');
