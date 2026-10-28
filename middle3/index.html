@@ -64,16 +64,28 @@
         </div>
 
         <!-- Student Name & Unit Selection Dashboard -->
-        <div id="welcome-screen" class="py-4 text-center">
-            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">🎓</div>
-            <h2 class="text-2xl font-bold mb-2">Welcome Middle 3 Student!</h2>
-            <p class="text-slate-500 dark:text-slate-400 mb-6 text-sm">Please enter your full name and select a unit to start practicing.</p>
+        
+        function selectUnit(unitNum) {
+            if (unitNum !== 1) return;
             
-            <div class="max-w-md mx-auto space-y-5">
-                <input type="text" id="student-name-input" placeholder="Enter Student Full Name..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-center font-semibold">
-                <p id="name-error" class="text-xs text-red-500 hidden">Please enter your name before selecting a unit.</p>
-                
-                <h3 class="text-left font-bold text-slate-700 dark:text-slate-300 text-sm border-b pb-2">Select Unit:</h3>
+            // سحب الاسم اللي الطالب كتبه في الواجهة الرئيسية تلقائياً
+            const savedName = localStorage.getItem('platform_student_name');
+            
+            if (!savedName) {
+                // لو حد دخل الشيت مباشرة من غير ما يكتب اسمه في الرئيسية
+                window.location.href = '../index.html';
+                return;
+            }
+
+            studentName = savedName;
+            
+            // إخفاء واجهة الترحيب وفتح الأسئلة فوراً
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('score-container').classList.remove('hidden');
+            document.getElementById('student-name-display').innerText = studentName;
+            loadQuestion();
+        }
 
                 <!-- 4 Units Dashboard Grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
