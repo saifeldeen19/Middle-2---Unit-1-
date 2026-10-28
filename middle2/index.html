@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Platform - Units Dashboard</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+    </script>
+    <!-- MathJax Configuration & Script -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', 'Cairo', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col items-center py-4 sm:py-8 px-3 sm:px-6 transition-colors duration-300">
+
+    <!-- Toast Notification -->
+    <div id="toast-notification" class="fixed top-5 z-50 hidden transition-all transform -translate-y-5 bg-red-500 text-white px-6 py-3 rounded-2xl shadow-xl font-bold text-sm">
+        <span id="toast-message">⚠️ Error</span>
+    </div>
+
+    <!-- Main Container -->
+    <div class="w-full max-w-3xl bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-5 sm:p-8 transition-all">
+
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-5 mb-6 gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-emerald-600 text-white p-3 rounded-xl shadow-md font-bold text-lg flex items-center justify-center w-12 h-12">
+                    <span class="text-2xl">√</span>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">Mathematics Platform</h1>
+                    <p id="header-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Math Sheets</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div id="score-container" class="hidden bg-emerald-50 dark:bg-slate-700 px-4 py-2 rounded-xl text-center border border-emerald-100 dark:border-slate-600">
+                    <span class="text-xs text-slate-500 dark:text-slate-400 block">Score</span>
+                    <span id="score-display" class="font-bold text-emerald-600 dark:text-emerald-400 text-lg">0 / 50</span>
+                </div>
+                <button onclick="toggleDarkMode()" aria-label="Toggle dark mode" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
+                    <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- 1. Welcome / Registration Screen -->
+        <div id="welcome-screen" class="py-6 text-center">
+            <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">🎓</div>
+            <h2 class="text-2xl font-bold mb-2">Welcome Student!</h2>
+            <p class="text-slate-500 dark:text-slate-400 mb-6 text-sm">Please enter your full name and select your grade to start.</p>
+
+            <div class="max-w-md mx-auto space-y-4">
+                <input type="text" id="student-name-input" placeholder="Enter Student Full Name..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all text-center font-semibold">
+                
+                <!-- Grade Dropdown List -->
+                <select id="student-grade-input" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all text-center font-semibold cursor-pointer">
+                    <option value="" disabled selected>Select Grade...</option>
+                    <option value="Middle 1" disabled>Middle 1 (Coming Soon 🔒)</option>
+                    <option value="Middle 2">Middle 2</option>
+                    <option value="Middle 3" disabled>Middle 3 (Coming Soon 🔒)</option>
+                </select>
+
+                <button onclick="goToDashboard()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold shadow-lg shadow-emerald-500/20 transition-all">
+                    Next →
+                </button>
+            </div>
+        </div>
+
+        <!-- 2. Units Dashboard Screen -->
+        <div id="dashboard-screen" class="hidden py-4">
+            <div class="bg-emerald-50 dark:bg-slate-700/50 p-4 rounded-2xl mb-6 flex justify-between items-center border border-emerald-100 dark:border-slate-600">
+                <div>
+                    <span class="text-xs text-slate-500 dark:text-slate-400 block">Welcome,</span>
+                    <span id="dash-student-name" class="font-bold text-base text-emerald-700 dark:text-emerald-300"></span>
+                </div>
+                <div id="dash-student-grade" class="px-3 py-1 bg-emerald-600 text-white rounded-full text-xs font-bold"></div>
+            </div>
+
+            <h3 class="text-lg font-bold mb-4">Select a Unit:</h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Unit 1 -->
+                <div onclick="startUnit1()" class="p-6 rounded-2xl border-2 border-emerald-500 bg-emerald-50/50 dark:bg-emerald-900/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 cursor-pointer transition-all flex flex-col justify-between shadow-md">
+                    <div>
+                        <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">First</span>
+                        <h4 class="text-xl font-bold mt-1 text-slate-900 dark:text-white">Unit (1)</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Real Numbers & Operations (50 Qs)</p>
+                    </div>
+                    <span class="mt-4 text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">Start Sheet →</span>
+                </div>
+
+                <!-- Unit 2 -->
+                <div onclick="showNotAvailable('Not available yet!')" class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/40 hover:border-slate-400 cursor-pointer transition-all flex flex-col justify-between opacity-75">
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Second</span>
+                        <h4 class="text-xl font-bold mt-1 text-slate-900 dark:text-white">Unit (2)</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Coming Soon</p>
+                    </div>
+                    <span class="mt-4 text-xs font-semibold text-slate-400">Locked 🔒</span>
+                </div>
+
+                <!-- Unit 3 -->
+                <div onclick="showNotAvailable('Not available yet!')" class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/40 hover:border-slate-400 cursor-pointer transition-all flex flex-col justify-between opacity-75">
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Third</span>
+                        <h4 class="text-xl font-bold mt-1 text-slate-900 dark:text-white">Unit (3)</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Coming Soon</p>
+                    </div>
+                    <span class="mt-4 text-xs font-semibold text-slate-400">Locked 🔒</span>
+                </div>
+
+                <!-- Unit 4 -->
+                <div onclick="showNotAvailable('Not available yet!')" class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/40 hover:border-slate-400 cursor-pointer transition-all flex flex-col justify-between opacity-75">
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Fourth</span>
+                        <h4 class="text-xl font-bold mt-1 text-slate-900 dark:text-white">Unit (4)</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Coming Soon</p>
+                    </div>
+                    <span class="mt-4 text-xs font-semibold text-slate-400">Locked 🔒</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Quiz Container (Unit 1 Sheet) -->
+        <div id="quiz-container" class="hidden">
+            <div class="flex justify-between items-center bg-emerald-50 dark:bg-slate-700/50 px-4 py-2.5 rounded-xl mb-4 border border-emerald-100 dark:border-slate-600">
+                <span class="text-xs text-slate-500 dark:text-slate-400">Student: <strong id="student-name-display" class="text-emerald-700 dark:text-emerald-300"></strong></span>
+                <button onclick="backToDashboard()" class="text-xs font-bold text-emerald-600 hover:underline">← Back to Units</button>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mb-6">
+                <div class="flex justify-between text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2">
+                    <span>OVERALL PROGRESS</span>
+                    <span id="progress-text">0 of 50 Answered</span>
+                </div>
+                <div class="w-full bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="bg-emerald-600 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div id="question-card" class="mb-6">
+                <div class="flex justify-between items-center mb-3">
+                    <span id="question-badge" class="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 rounded-full text-xs font-bold">Lesson 1</span>
+                    <span id="question-num" class="text-xs font-semibold text-slate-400">Question 1 of 50</span>
+                </div>
+                <h2 id="question-text" class="text-base sm:text-lg md:text-xl font-semibold mb-4 leading-relaxed">Loading question...</h2>
+
+                <div id="options-container" class="space-y-3">
+                    <!-- Dynamic Options / Essay Area -->
+                </div>
+            </div>
+
+            <!-- Hint Section -->
+            <div class="flex flex-wrap gap-3 mb-6">
+                <button id="hint-btn" onclick="toggleHint()" class="px-4 py-2 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 rounded-xl text-sm font-semibold hover:bg-amber-100 dark:hover:bg-amber-900/50 transition-colors">
+                    💡 Show Hint
+                </button>
+                <div id="hint-box" class="w-full hidden mt-2 p-3 bg-amber-50/70 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl text-sm text-amber-800 dark:text-amber-200"></div>
+            </div>
+
+            <div id="feedback-box" class="hidden p-4 rounded-xl mb-6 text-sm"></div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-between items-center pt-4 border-t border-slate-100 dark:border-slate-700">
+                <button id="prev-btn" onclick="prevQuestion()" class="px-4 sm:px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+                    ← Previous
+                </button>
+                <button id="next-btn" onclick="nextQuestion()" class="px-5 sm:px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold text-sm shadow-md shadow-emerald-500/20 transition-all">
+                    Next Question →
+                </button>
+            </div>
+        </div>
+
+        <!-- Summary Screen -->
+        <div id="summary-screen" class="hidden text-center py-8">
+            <div class="w-20 h-20 bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold">🎉</div>
+            <h2 class="text-2xl font-bold mb-1">Sheet Completed!</h2>
+            <p id="summary-student-name" class="text-emerald-600 dark:text-emerald-400 font-bold mb-4 text-lg"></p>
+
+            <div class="bg-slate-50 dark:bg-slate-700/50 p-6 rounded-2xl max-w-sm mx-auto mb-6 border border-slate-100 dark:border-slate-700">
+                <span class="text-sm text-slate-500 dark:text-slate-400 block mb-1">Total Score</span>
+                <span id="final-score" class="text-4xl font-extrabold text-emerald-600 dark:text-emerald-400">0 / 50</span>
+                <span id="final-percentage" class="text-sm font-semibold text-slate-600 dark:text-slate-300 block mt-2">0%</span>
+                <span id="final-breakdown" class="text-xs text-slate-500 dark:text-slate-400 block mt-1"></span>
+            </div>
+            <div class="flex justify-center gap-3">
+                <button onclick="restartQuiz()" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold shadow-lg shadow-emerald-500/20 transition-all">
+                    Try Again
+                </button>
+                <button onclick="backToDashboard()" class="px-6 py-3 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 text-slate-800 dark:text-white rounded-xl font-semibold transition-all">
+                    Units Menu
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const rawQuestions = [
+            // --- MCQ QUESTIONS (1 - 40) ---
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Real Numbers",
+                q: "Which of the following numbers belongs to the set of irrational numbers $\\mathbb{Q}'$?",
+                options: ["$\\sqrt{16}$", "$\\frac{2}{3}$", "$\\sqrt{7}$", "$\\sqrt[3]{-27}$"],
+                answer: 2,
+                hint: "An irrational number cannot be expressed as a fraction of integers.",
+                solution: "$\\sqrt{7} \\approx 2.6457...$ is a non-terminating, non-repeating decimal, so $\\sqrt{7} \\in \\mathbb{Q}'$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Real Numbers",
+                q: "The set of real numbers $\\mathbb{R}$ is equal to:",
+                options: ["$\\mathbb{Q} \\cap \\mathbb{Q}'$", "$\\mathbb{R}^+ \\cup \\mathbb{R}^-$", "$\\mathbb{Q} \\cup \\mathbb{Q}'$", "$\\mathbb{Z} \\cup \\mathbb{Q}$"],
+                answer: 2,
+                hint: "Real numbers consist of all rational and irrational numbers together.",
+                solution: "$\\mathbb{R} = \\mathbb{Q} \\cup \\mathbb{Q}'$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Real Numbers",
+                q: "If $x^2 = 5$, where $x \\in \\mathbb{R}^+$, then $x = $",
+                options: ["$25$", "$\\pm \\sqrt{5}$", "$\\sqrt{5}$", "$5$"],
+                answer: 2,
+                hint: "Since $x \\in \\mathbb{R}^+$, take only the positive square root.",
+                solution: "$x = \\sqrt{5}$ because $x$ is restricted to positive real numbers."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Real Numbers",
+                q: "Between which two consecutive integers does $\\sqrt{11}$ lie?",
+                options: ["$2$ and $3$", "$3$ and $4$", "$4$ and $5$", "$5$ and $6$"],
+                answer: 1,
+                hint: "Find perfect squares around $11$: $9 < 11 < 16$.",
+                solution: "$\\sqrt{9} < \\sqrt{11} < \\sqrt{16} \\implies 3 < \\sqrt{11} < 4$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Real Numbers",
+                q: "The multiplicative inverse of the non-zero real number $\\sqrt{3}$ is:",
+                options: ["$-\\sqrt{3}$", "$\\frac{\\sqrt{3}}{3}$", "$\\frac{1}{3}$", "$3$"],
+                answer: 1,
+                hint: "Invert $\\sqrt{3}$ to get $\\frac{1}{\\sqrt{3}}$ and rationalize the denominator.",
+                solution: "$\\frac{1}{\\sqrt{3}} \\times \\frac{\\sqrt{3}}{\\sqrt{3}} = \\frac{\\sqrt{3}}{3}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Real Numbers",
+                q: "If $a \\in \\mathbb{Q}$ and $b \\in \\mathbb{Q}'$, then $(a + b)$ belongs to:",
+                options: ["$\\mathbb{Q}$", "$\\mathbb{Q}'$", "$\\mathbb{Z}$", "$\\mathbb{N}$"],
+                answer: 1,
+                hint: "Adding a rational number to an irrational number always yields an irrational number.",
+                solution: "The sum of a rational number and an irrational number is always an irrational number, so $(a+b) \\in \\mathbb{Q}'$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Real Numbers",
+                q: "The solution set of the equation $x^3 + 8 = 0$ in $\\mathbb{R}$ is:",
+                options: ["$\\{2\\}$", "$\\varnothing$", "$\\{-2\\}$", "$\\{\\pm 2\\}$"],
+                answer: 2,
+                hint: "Isolate $x^3 = -8$ and take the cube root.",
+                solution: "$x^3 = -8 \\implies x = \\sqrt[3]{-8} = -2$. S.S. $= \\{-2\\}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Real Numbers",
+                q: "If $x$ is an integer such that $x < \\sqrt{17} < x + 1$, then $x = $",
+                options: ["$3$", "$4$", "$5$", "$16$"],
+                answer: 1,
+                hint: "Find perfect squares around $17$: $16 < 17 < 25$.",
+                solution: "$\\sqrt{16} < \\sqrt{17} < \\sqrt{25} \\implies 4 < \\sqrt{17} < 5$. Therefore, $x = 4$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 2: Intervals & Operations",
+                q: "Which of the following numbers belongs to the interval $]-2, 3]$?",
+                options: ["$-2$", "$\\sqrt{10}$", "$\\sqrt{5}$", "$4$"],
+                answer: 2,
+                hint: "Check which number lies strictly greater than $-2$ and less than or equal to $3$. Note that $\\sqrt{5} \\approx 2.23$.",
+                solution: "Since $-2 < \\sqrt{5} \\approx 2.23 \\le 3$, $\\sqrt{5} \\in ]-2, 3]$. ($-2$ is excluded because it's open, $\\sqrt{10} \\approx 3.16 > 3$, and $4 > 3$)."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 2: Intervals & Operations",
+                q: "$[-3, 5] \\cap ]-3, 5[$ equals:",
+                options: ["$\\varnothing$", "$\\{-3, 5\\}$", "$]-3, 5[$", "$[-3, 5]$"],
+                answer: 2,
+                hint: "Intersection means common elements in both sets.",
+                solution: "The open interval $]-3, 5[$ is completely inside $[-3, 5]$, so the intersection is $]-3, 5[$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 2: Intervals & Operations",
+                q: "The set $\\mathbb{R}^+$ represented as an interval is:",
+                options: ["$[0, \\infty[$", "$]-\\infty, 0[$", "$]0, \\infty[$", "$]-\\infty, 0]$"],
+                answer: 2,
+                hint: "Positive real numbers are strictly greater than zero.",
+                solution: "$\\mathbb{R}^+ = ]0, \\infty[$ (excluding zero)."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 2: Intervals & Operations",
+                q: "If $x \\in [-2, 3]$, then $x^2 \\in$",
+                options: ["$[4, 9]$", "$[0, 9]$", "$[-4, 9]$", "$[0, 4]$"],
+                answer: 1,
+                hint: "The minimum square of any real number in this interval is $0$ at $x=0$.",
+                solution: "Minimum value is $0^2 = 0$, maximum is $3^2 = 9$. Thus, $x^2 \\in [0, 9]$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 2: Intervals & Operations",
+                q: "$[1, 4] - \\{1, 4\\} = $",
+                options: ["$\\varnothing$", "$\\{2, 3\\}$", "$]1, 4[$", "$[1, 4]$"],
+                answer: 2,
+                hint: "Subtracting elements $1$ and $4$ removes the endpoints of the interval.",
+                solution: "Removing the endpoints $1$ and $4$ from the closed interval leaves the open interval $]1, 4[$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 2: Intervals & Operations",
+                q: "The union $]-2, 3] \\cup \\{-2, 3\\}$ equals:",
+                options: ["$[-2, 3]$", "$]-2, 3[$", "$[-2, 3[$", "$\\{-2, 3\\}$"],
+                answer: 0,
+                hint: "Union includes all elements from both sets.",
+                solution: "Adding $-2$ to $]-2, 3]$ closes the left endpoint, yielding $[-2, 3]$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 2: Intervals & Operations",
+                q: "If $A = ]-\\infty, 2]$, then the complement $A'$ in $\\mathbb{R}$ is:",
+                options: ["$]2, \\infty[$", "$[2, \\infty[$", "$]-\\infty, 2[$", "$]-\\infty, \\infty[$"],
+                answer: 0,
+                hint: "The complement consists of all numbers not in $A$.",
+                solution: "The complement of $]-\\infty, 2]$ is $]2, \\infty[$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 2: Intervals & Operations",
+                q: "The set of non-negative real numbers expressed as an interval is:",
+                options: ["$]0, \\infty[$", "$[0, \\infty[$", "$]-\\infty, 0]$", "$]-\\infty, 0[$"],
+                answer: 1,
+                hint: "Non-negative includes zero and all positive numbers.",
+                solution: "Non-negative real numbers $= [0, \\infty[$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 3: Operations on Real Numbers",
+                q: "Simplify: $\\sqrt{12} + \\sqrt{27} - \\sqrt{48}$",
+                options: ["$\\sqrt{3}$", "$2\\sqrt{3}$", "$3\\sqrt{3}$", "$0$"],
+                answer: 0,
+                hint: "Simplify each radical: $\\sqrt{12}=2\\sqrt{3}$, $\\sqrt{27}=3\\sqrt{3}$, $\\sqrt{48}=4\\sqrt{3}$.",
+                solution: "$2\\sqrt{3} + 3\\sqrt{3} - 4\\sqrt{3} = (2+3-4)\\sqrt{3} = \\sqrt{3}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 3: Operations on Real Numbers",
+                q: "If $x = \\sqrt{5} + 2$ and $y = \\sqrt{5} - 2$, find the value of $x \\cdot y$.",
+                options: ["$9$", "$1$", "$-1$", "$2\\sqrt{5}$"],
+                answer: 1,
+                hint: "Use $(a+b)(a-b) = a^2 - b^2$.",
+                solution: "$(\\sqrt{5})^2 - (2)^2 = 5 - 4 = 1$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 3: Operations on Real Numbers",
+                q: "The conjugate of the number $\\frac{2}{\\sqrt{3} - 1}$ is:",
+                options: ["$\\sqrt{3} - 1$", "$\\sqrt{3} + 1$", "$1 - \\sqrt{3}$", "$-\\sqrt{3} - 1$"],
+                answer: 0,
+                hint: "First simplify $\\frac{2}{\\sqrt{3}-1} = \\sqrt{3}+1$, then find its conjugate.",
+                solution: "$\\frac{2}{\\sqrt{3}-1} = \\frac{2(\\sqrt{3}+1)}{3-1} = \\sqrt{3}+1$. Conjugate of $\\sqrt{3}+1$ is $\\sqrt{3}-1$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 3: Operations on Real Numbers",
+                q: "Evaluate: $(\\sqrt{7} - \\sqrt{2})(\\sqrt{7} + \\sqrt{2})$",
+                options: ["$9$", "$5$", "$\\sqrt{5}$", "$25$"],
+                answer: 1,
+                hint: "Difference of squares formula.",
+                solution: "$(\\sqrt{7})^2 - (\\sqrt{2})^2 = 7 - 2 = 5$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 3: Operations on Real Numbers",
+                q: "If $a = \\sqrt{3} + \\sqrt{2}$, then $a + \\frac{1}{a} = $",
+                options: ["$2\\sqrt{2}$", "$0$", "$2\\sqrt{3}$", "$2$"],
+                answer: 2,
+                hint: "Note that $\\frac{1}{a} = \\sqrt{3} - \\sqrt{2}$.",
+                solution: "$(\\sqrt{3}+\\sqrt{2}) + (\\sqrt{3}-\\sqrt{2}) = 2\\sqrt{3}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 3: Operations on Real Numbers",
+                q: "Expansion of $(\\sqrt{5} - 2)^2$ yields:",
+                options: ["$1$", "$9 - 4\\sqrt{5}$", "$9 + 4\\sqrt{5}$", "$3 - 4\\sqrt{5}$"],
+                answer: 1,
+                hint: "Use $(a-b)^2 = a^2 - 2ab + b^2$.",
+                solution: "$(\\sqrt{5})^2 - 2(\\sqrt{5})(2) + 2^2 = 5 - 4\\sqrt{5} + 4 = 9 - 4\\sqrt{5}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 3: Operations on Real Numbers",
+                q: "If $x = \\sqrt{7} + \\sqrt{3}$ and $y = \\sqrt{7} - \\sqrt{3}$, then $x^2 - y^2 = $",
+                options: ["$4\\sqrt{21}$", "$10$", "$4\\sqrt{7}$", "$0$"],
+                answer: 0,
+                hint: "$x^2 - y^2 = (x-y)(x+y)$.",
+                solution: "$x+y = 2\\sqrt{7}$, $x-y = 2\\sqrt{3}$. $(2\\sqrt{7})(2\\sqrt{3}) = 4\\sqrt{21}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 3: Operations on Real Numbers",
+                q: "If $\\frac{6}{\\sqrt{3}} = k\\sqrt{3}$, find $k$.",
+                options: ["$3$", "$1$", "$6$", "$2$"],
+                answer: 3,
+                hint: "Rationalize $\\frac{6}{\\sqrt{3}} = \\frac{6\\sqrt{3}}{3} = 2\\sqrt{3}$.",
+                solution: "$2\\sqrt{3} = k\\sqrt{3} \\implies k = 2$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 4: Laws of Roots",
+                q: "Simplify: $\\sqrt{18} + \\sqrt{50} - 2\\sqrt{8}$",
+                options: ["$4\\sqrt{2}$", "$2\\sqrt{2}$", "$0$", "$3\\sqrt{2}$"],
+                answer: 0,
+                hint: "Note that $\\sqrt{18}=3\\sqrt{2}$, $\\sqrt{50}=5\\sqrt{2}$, and $2\\sqrt{8}=4\\sqrt{2}$.",
+                solution: "$3\\sqrt{2} + 5\\sqrt{2} - 4\\sqrt{2} = 4\\sqrt{2}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 4: Laws of Roots",
+                q: "Evaluate: $\\sqrt[3]{54} - \\sqrt[3]{16}$",
+                options: ["$\\sqrt[3]{38}$", "$\\sqrt[3]{2}$", "$2\\sqrt[3]{2}$", "$\\sqrt[3]{4}$"],
+                answer: 1,
+                hint: "$\\sqrt[3]{54} = 3\\sqrt[3]{2}$ and $\\sqrt[3]{16} = 2\\sqrt[3]{2}$.",
+                solution: "$3\\sqrt[3]{2} - 2\\sqrt[3]{2} = \\sqrt[3]{2}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 4: Laws of Roots",
+                q: "$\\sqrt[3]{24} + \\sqrt[3]{-81} = $",
+                options: ["$-\\sqrt[3]{3}$", "$\\sqrt[3]{3}$", "$5\\sqrt[3]{3}$", "$-5\\sqrt[3]{3}$"],
+                answer: 0,
+                hint: "$\\sqrt[3]{24}=2\\sqrt[3]{3}$ and $\\sqrt[3]{-81}=-3\\sqrt[3]{3}$.",
+                solution: "$2\\sqrt[3]{3} - 3\\sqrt[3]{3} = -\\sqrt[3]{3}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 4: Laws of Roots",
+                q: "If $\\sqrt{a} = 3\\sqrt{2}$, then $a = $",
+                options: ["$6$", "$12$", "$18$", "$36$"],
+                answer: 2,
+                hint: "Square both sides of the equation.",
+                solution: "$a = (3\\sqrt{2})^2 = 9 \\times 2 = 18$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 4: Laws of Roots",
+                q: "$\\sqrt{2\\frac{1}{4}} = $",
+                options: ["$\\frac{3}{2}$", "$\\frac{9}{4}$", "$\\frac{1}{2}$", "$1.25$"],
+                answer: 0,
+                hint: "Convert mixed fraction to improper fraction: $2\\frac{1}{4} = \\frac{9}{4}$.",
+                solution: "$\\sqrt{\\frac{9}{4}} = \\frac{3}{2}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 4: Laws of Roots",
+                q: "$\\sqrt[3]{128} + \\sqrt[3]{-16} - 2\\sqrt[3]{2} = $",
+                options: ["$2\\sqrt[3]{2}$", "$\\sqrt[3]{2}$", "$0$", "$4\\sqrt[3]{2}$"],
+                answer: 2,
+                hint: "$\\sqrt[3]{128}=4\\sqrt[3]{2}$, $\\sqrt[3]{-16}=-2\\sqrt[3]{2}$.",
+                solution: "$4\\sqrt[3]{2} - 2\\sqrt[3]{2} - 2\\sqrt[3]{2} = 0$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 4: Laws of Roots",
+                q: "The volume of a cube is $64\\text{ cm}^3$. Its total surface area is:",
+                options: ["$16\\text{ cm}^2$", "$64\\text{ cm}^2$", "$96\\text{ cm}^2$", "$24\\text{ cm}^2$"],
+                answer: 2,
+                hint: "Edge length $L = \\sqrt[3]{64} = 4\\text{ cm}$. Total Area $= 6 L^2$.",
+                solution: "Total Area $= 6 \\times 4^2 = 6 \\times 16 = 96\\text{ cm}^2$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 4: Laws of Roots",
+                q: "Simplify $\\frac{\\sqrt{32}}{\\sqrt{2}}$:",
+                options: ["$16$", "$8$", "$4$", "$2$"],
+                answer: 2,
+                hint: "Use $\\frac{\\sqrt{a}}{\\sqrt{b}} = \\sqrt{\\frac{a}{b}}$.",
+                solution: "$\\sqrt{\\frac{32}{2}} = \\sqrt{16} = 4$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 5: Laws of Exponents",
+                q: "Evaluate: $(\\sqrt{3})^4$",
+                options: ["$3$", "$6$", "$9$", "$81$"],
+                answer: 2,
+                hint: "$(\\sqrt{3})^4 = ((\\sqrt{3})^2)^2 = 3^2$.",
+                solution: "$3^2 = 9$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 5: Laws of Exponents",
+                q: "If $2^{x-1} = 8$, find the value of $x$.",
+                options: ["$3$", "$4$", "$2$", "$5$"],
+                answer: 1,
+                hint: "Write $8$ as $2^3$, then equate exponents.",
+                solution: "$2^{x-1} = 2^3 \\implies x - 1 = 3 \\implies x = 4$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 5: Laws of Exponents",
+                q: "Simplify: $3^{-2} \\times (\\sqrt{3})^4$",
+                options: ["$0$", "$1$", "$3$", "$9$"],
+                answer: 1,
+                hint: "$3^{-2} = \\frac{1}{9}$ and $(\\sqrt{3})^4 = 9$.",
+                solution: "$\\frac{1}{9} \\times 9 = 1$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 5: Laws of Exponents",
+                q: "If $2^{x+1} = \\frac{1}{8}$, then $x = $",
+                options: ["$-4$", "$-3$", "$2$", "$4$"],
+                answer: 0,
+                hint: "Express $\\frac{1}{8}$ as $2^{-3}$, then solve $x + 1 = -3$.",
+                solution: "$2^{x+1} = 2^{-3} \\implies x + 1 = -3 \\implies x = -4$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 5: Laws of Exponents",
+                q: "The value of $5^0 + (-2)^0 - (\\sqrt{7})^0$ is:",
+                options: ["$0$", "$1$", "$2$", "$-1$"],
+                answer: 1,
+                hint: "Any non-zero real number raised to power $0$ equals $1$.",
+                solution: "$1 + 1 - 1 = 1$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 5: Laws of Exponents",
+                q: "If $3^x = 5$, then $3^{x+1} = $",
+                options: ["$6$", "$15$", "$8$", "$125$"],
+                answer: 1,
+                hint: "Use exponent addition law: $3^{x+1} = 3^x \\cdot 3^1$.",
+                solution: "$3^x \\cdot 3 = 5 \\times 3 = 15$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 5: Laws of Exponents",
+                q: "Simplify: $\\frac{2^5 \\times 2^{-2}}{2^3}$",
+                options: ["$1$", "$2$", "$4$", "$0$"],
+                answer: 0,
+                hint: "Combine power laws: $2^{5 - 2 - 3} = 2^0$.",
+                solution: "$2^0 = 1$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 5: Laws of Exponents",
+                q: "If $a = \\sqrt{2}$ and $b = \\sqrt{3}$, find the value of $(a^2 b^2)^2$.",
+                options: ["$6$", "$12$", "$36$", "$24$"],
+                answer: 2,
+                hint: "$a^2 = 2, b^2 = 3 \\implies a^2 b^2 = 6$.",
+                solution: "$(6)^2 = 36$."
+            },
+
+            // --- ESSAY QUESTIONS (41 - 50) ---
+            {
+                type: "essay",
+                lesson: "Lesson 1: Real Numbers",
+                q: "Find the Solution Set (S.S.) of the equation in $\\mathbb{R}$:<br>$$2x^3 - 7 = 9$$",
+                options: ["$\\{2\\}$", "$\\varnothing$", "$\\{-2\\}$", "$\\{\\pm 2\\}$"],
+                answer: 0,
+                hint: "Add $7$ to both sides, divide by $2$, then take the cube root.",
+                solution: "<b>Steps:</b><br>1) $2x^3 = 9 + 7 = 16$<br>2) $x^3 = 8$<br>3) $x = \\sqrt[3]{8} = 2$<br><b>S.S. = $\\{2\\}$</b>"
+            },
+            {
+                type: "essay",
+                lesson: "Lesson 2: Intervals & Operations",
+                q: "If $X = [-2, 4[$ and $Y = [1, 5]$, find:<br>(a) $X \\cup Y$<br>(b) $X \\cap Y$",
+                options: ["$[-2, 5]$ and $[1, 4[$", "$[-2, 5]$ and $[1, 4]$", "$]-2, 5[$ and $]1, 4[$", "$[-2, 4]$ and $[1, 5]$"],
+                answer: 0,
+                hint: "Draw both intervals on the number line to find overlapping and full range.",
+                solution: "<b>Steps:</b><br>(a) Union $X \\cup Y = [-2, 5]$<br>(b) Intersection $X \\cap Y = [1, 4[$"
+            },
+            {
+                type: "essay",
+                lesson: "Lesson 2: Intervals & Operations",
+                q: "If $A = ]-\\infty, 3]$ and $B = ]-1, \\infty[$, find:<br>(a) $A \\setminus B$<br>(b) $A'$",
+                options: ["$]-\\infty, -1]$ and $]3, \\infty[$", "$]-\\infty, -1[$ and $[3, \\infty[$", "$[-1, 3]$ and $]3, \\infty[$", "$]-\\infty, -1]$ and $]-\\infty, 3[$"],
+                answer: 0,
+                hint: "$A \\setminus B$ means elements in $A$ not in $B$.",
+                solution: "<b>Steps:</b><br>(a) $A \\setminus B = ]-\\infty, -1]$<br>(b) $A' = ]3, \\infty[$"
+            },
+            {
+                type: "essay",
+                lesson: "Lesson 3: Operations on Real Numbers",
+                q: "If $x = \\frac{4}{\\sqrt{7} - \\sqrt{3}}$ and $y = \\sqrt{7} - \\sqrt{3}$, prove that $x$ and $y$ are conjugate numbers, then find $x + y$.",
+                options: ["$2\\sqrt{7}$", "$4\\sqrt{7}$", "$2\\sqrt{3}$", "$0$"],
+                answer: 0,
+                hint: "Multiply numerator and denominator of $x$ by $(\\sqrt{7}+\\sqrt{3})$.",
+                solution: "<b>Steps:</b><br>1) $x = \\frac{4(\\sqrt{7}+\\sqrt{3})}{7-3} = \\sqrt{7} + \\sqrt{3}$<br>2) Since $y = \\sqrt{7} - \\sqrt{3}$, $x$ and $y$ are conjugates.<br>3) $x + y = (\\sqrt{7}+\\sqrt{3}) + (\\sqrt{7}-\\sqrt{3}) = 2\\sqrt{7}$"
+            },
+            {
+                type: "essay",
+                lesson: "Lesson 3: Operations on Real Numbers",
+                q: "Simplify to the simplest form:<br>$$\\sqrt{50} + 2\\sqrt{8} - 3\\sqrt{18}$$",
+                options: ["$0$", "$2\\sqrt{2}$", "$5\\sqrt{2}$", "$-\\sqrt{2}$"],
+                answer: 0,
+                hint: "Express numbers under roots as products with perfect squares.",
+                solution: "<b>Steps:</b><br>1) $\\sqrt{50} = 5\\sqrt{2}$<br>2) $2\\sqrt{8} = 2(2\\sqrt{2}) = 4\\sqrt{2}$<br>3) $3\\sqrt{18} = 3(3\\sqrt{2}) = 9\\sqrt{2}$<br>4) $5\\sqrt{2} + 4\\sqrt{2} - 9\\sqrt{2} = 0$"
+            },
+            {
+                type: "essay",
+                lesson: "Lesson 4: Laws of Roots",
+                q: "Simplify to the simplest form:<br>$$\\sqrt[3]{54} + \\sqrt[3]{-16} - \\sqrt[3]{250}$$",
+                options: ["$-4\\sqrt[3]{2}$", "$4\\sqrt[3]{2}$", "$-2\\sqrt[3]{2}$", "$0$"],
+                answer: 0,
+                hint: "$\\sqrt[3]{54}=3\\sqrt[3]{2}$, $\\sqrt[3]{-16}=-2\\sqrt[3]{2}$, $\\sqrt[3]{250}=5\\sqrt[3]{2}$.",
+                solution: "<b>Steps:</b><br>1) $3\\sqrt[3]{2} - 2\\sqrt[3]{2} - 5\\sqrt[3]{2}$<br>2) $(3 - 2 - 5)\\sqrt[3]{2} = -4\\sqrt[3]{2}$"
+            },
+            {
+                type: "essay",
+                lesson: "Lesson 4: Laws of Roots",
+                q: "Find the Solution Set of the equation in $\\mathbb{R}$:<br>$$(x - 1)^3 + 5 = 32$$",
+                options: ["$\\{4\\}$", "$\\{3\\}$", "$\\{5\\}$", "$\\varnothing$"],
+                answer: 0,
+                hint: "Subtract $5$ then take the cube root of both sides.",
+                solution: "<b>Steps:</b><br>1) $(x - 1)^3 = 27$<br>2) $x - 1 = \\sqrt[3]{27} = 3$<br>3) $x = 4$<br><b>S.S. = $\\{4\\}$</b>"
+            },
+            {
+                type: "essay",
+                lesson: "Lesson 5: Laws of Exponents",
+                q: "Find the value of $x$ in $\\mathbb{R}$ if:<br>$$(\\sqrt{3})^{x-2} = 9$$",
+                options: ["$6$", "$4$", "$2$", "$8$"],
+                answer: 0,
+                hint: "Express $9$ as $(\\sqrt{3})^4$ or $3^2$.",
+                solution: "<b>Steps:</b><br>1) $(\\sqrt{3})^{x-2} = (\\sqrt{3})^4$<br>2) Equating powers: $x - 2 = 4$<br>3) $x = 6$"
+            },
+            {
+                type: "essay",
+                lesson: "Lesson 5: Laws of Exponents",
+                q: "Simplify to simplest form:<br>$$\\frac{4^n \\times 6^{-2n}}{(2 \\times 3)^{-2n} \\times 4^n}$$ and prove that the result is independent of $n$.",
+                options: ["$1$", "$0$", "$4^n$", "$6^{-2n}$"],
+                answer: 0,
+                hint: "Decompose $6$ into prime factors $(2 \\times 3)$.",
+                solution: "<b>Steps:</b><br>1) $6^{-2n} = (2 \\times 3)^{-2n}$<br>2) Numerator $= 4^n \\times (2 \\times 3)^{-2n}$<br>3) Denominator $= (2 \\times 3)^{-2n} \\times 4^n$<br>4) $\\frac{\\text{Numerator}}{\\text{Denominator}} = 1$ (Independent of $n$)."
+            },
+            {
+                type: "essay",
+                lesson: "Lesson 3: Operations on Real Numbers",
+                q: "If $x = \\sqrt{3} + 1$ and $y = \\sqrt{3} - 1$, find the value of $\\frac{x^2 + y^2}{x y}$.",
+                options: ["$4$", "$2$", "$8$", "$3$"],
+                answer: 0,
+                hint: "Find $xy$ first, then $x^2 + y^2 = (x+y)^2 - 2xy$.",
+                solution: "<b>Steps:</b><br>1) $x y = (\\sqrt{3}+1)(\\sqrt{3}-1) = 3 - 1 = 2$<br>2) $x + y = 2\\sqrt{3}$<br>3) $x^2 + y^2 = (2\\sqrt{3})^2 - 2(2) = 12 - 4 = 8$<br>4) Value $= \\frac{8}{2} = 4$"
+            }
+        ];
+
+        function prepareQuestions(items) {
+            return items.map(q => {
+                if (!q.options) return q;
+
+                const originalOptions = [...q.options];
+                const correctAnswerText = originalOptions[q.answer];
+
+                const shuffledOptions = [...originalOptions];
+                for (let i = shuffledOptions.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
+                }
+
+                const newAnswerIndex = shuffledOptions.indexOf(correctAnswerText);
+
+                return {
+                    ...q,
+                    options: shuffledOptions,
+                    answer: newAnswerIndex
+                };
+            });
+        }
+
+        let questions = [];
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = [];
+        let userImages = [];
+        let answered = [];
+        let essayResult = [];
+        let studentName = "";
+        let studentGrade = "";
+
+        function computeScore() {
+            let s = 0;
+            questions.forEach((q, i) => {
+                if (!answered[i]) return;
+                if (q.type === "mcq") {
+                    if (userAnswers[i] === q.answer) s++;
+                } else if (essayResult[i] === true) {
+                    s++;
+                }
+            });
+            return s;
+        }
+
+        function updateScore() {
+            score = computeScore();
+            document.getElementById('score-display').innerText = `${score} / ${questions.length}`;
+        }
+
+        let mjQueue = Promise.resolve();
+        function triggerMathJax(retries = 20) {
+            if (!(window.MathJax && MathJax.typesetPromise)) {
+                if (retries > 0) setTimeout(() => triggerMathJax(retries - 1), 300);
+                return;
+            }
+            const target = document.getElementById('quiz-container');
+            mjQueue = mjQueue
+                .then(() => MathJax.typesetPromise([target]))
+                .catch(err => console.error('MathJax error:', err));
+        }
+
+        // --- Toast Notification Helper ---
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        // --- Navigation Flow with Validation ---
+        function goToDashboard() {
+            const nameInput = document.getElementById('student-name-input').value.trim();
+            const gradeSelect = document.getElementById('student-grade-input');
+            const gradeInput = gradeSelect.value;
+
+            if (!nameInput) {
+                showToast("Please Enter Valid Name");
+                return;
+            }
+
+            if (!gradeInput) {
+                showToast("Please Enter Valid Grade");
+                return;
+            }
+
+            studentName = nameInput;
+            studentGrade = gradeInput;
+
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('dashboard-screen').classList.remove('hidden');
+            document.getElementById('dash-student-name').innerText = studentName;
+            document.getElementById('dash-student-grade').innerText = studentGrade;
+            document.getElementById('header-subtitle').innerText = `${studentGrade} Mathematics`;
+        }
+
+        function startUnit1() {
+            questions = prepareQuestions(rawQuestions);
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            userImages = new Array(questions.length).fill(null);
+            answered = new Array(questions.length).fill(false);
+            essayResult = new Array(questions.length).fill(null);
+
+            document.getElementById('dashboard-screen').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('score-container').classList.remove('hidden');
+            document.getElementById('student-name-display').innerText = studentName;
+            updateScore();
+            loadQuestion();
+        }
+
+        function backToDashboard() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('summary-screen').classList.add('hidden');
+            document.getElementById('score-container').classList.add('hidden');
+            document.getElementById('dashboard-screen').classList.remove('hidden');
+        }
+
+        function loadQuestion() {
+            const i = currentQuestion;
+            const q = questions[i];
+            document.getElementById('question-badge').innerText = q.lesson;
+            document.getElementById('question-num').innerText = `Question ${i + 1} of ${questions.length}`;
+            document.getElementById('question-text').innerHTML = q.q;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, index) => {
+                const isSelected = userAnswers[i] === index;
+                const isCorrect = index === q.answer;
+
+                let btnClass = "w-full text-left p-4 rounded-xl border transition-all flex items-center justify-between font-medium text-sm md:text-base ";
+
+                if (answered[i]) {
+                    if (isCorrect) {
+                        btnClass += "bg-emerald-50 dark:bg-emerald-900/30 border-emerald-500 text-emerald-700 dark:text-emerald-300 font-semibold";
+                    } else if (isSelected) {
+                        btnClass += "bg-red-50 dark:bg-red-900/30 border-red-500 text-red-700 dark:text-red-300";
+                    } else {
+                        btnClass += "bg-slate-50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-700 text-slate-500";
+                    }
+                } else {
+                    if (isSelected) {
+                        btnClass += "border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 font-semibold";
+                    } else {
+                        btnClass += "bg-slate-50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:bg-emerald-50/50 dark:hover:bg-slate-700";
+                    }
+                }
+
+                const button = document.createElement('button');
+                button.className = btnClass;
+                button.innerHTML = `<span>${opt}</span>`;
+                button.onclick = () => selectOption(index);
+                if (answered[i]) button.disabled = true;
+
+                optionsContainer.appendChild(button);
+            });
+
+            if (q.type === "essay") {
+                const wrapper = document.createElement('div');
+                wrapper.className = "space-y-4 pt-4 border-t border-slate-200 dark:border-slate-700 mt-4";
+
+                const uploadContainer = document.createElement('div');
+                uploadContainer.className = "p-6 rounded-xl border border-dashed border-slate-300 dark:border-slate-600 bg-slate-50/50 dark:bg-slate-700/30 text-center";
+                
+                const fileInput = document.createElement('input');
+                fileInput.type = "file";
+                fileInput.accept = "image/*";
+                fileInput.id = `image-upload-${i}`;
+                fileInput.className = "hidden";
+                if (answered[i]) fileInput.disabled = true;
+
+                const fileLabel = document.createElement('label');
+                fileLabel.htmlFor = `image-upload-${i}`;
+                fileLabel.className = `cursor-pointer inline-flex items-center gap-2 text-sm font-semibold px-4 py-3 rounded-xl bg-emerald-50 dark:bg-slate-600 text-emerald-700 dark:text-emerald-200 hover:bg-emerald-100 transition-all shadow-sm ${answered[i] ? 'opacity-50 cursor-not-allowed' : ''}`;
+                fileLabel.innerHTML = `📷 Upload Photo of Solution (Notebook)`;
+
+                const imagePreviewContainer = document.createElement('div');
+                imagePreviewContainer.className = "mt-3 hidden";
+                const imgPreview = document.createElement('img');
+                imgPreview.className = "max-h-52 rounded-lg mx-auto border shadow-sm";
+                imagePreviewContainer.appendChild(imgPreview);
+
+                if (userImages[i]) {
+                    imgPreview.src = userImages[i];
+                    imagePreviewContainer.classList.remove('hidden');
+                }
+
+                fileInput.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(evt) {
+                            userImages[i] = evt.target.result;
+                            imgPreview.src = evt.target.result;
+                            imagePreviewContainer.classList.remove('hidden');
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+
+                uploadContainer.appendChild(fileInput);
+                uploadContainer.appendChild(fileLabel);
+                uploadContainer.appendChild(imagePreviewContainer);
+
+                const submitBtn = document.createElement('button');
+                submitBtn.className = "w-full py-3 bg-emerald-600 text-white rounded-xl font-semibold text-sm hover:bg-emerald-700 transition-all shadow-md shadow-emerald-500/20 disabled:opacity-50 disabled:cursor-not-allowed";
+                submitBtn.innerText = answered[i] ? "Answer & Photo Submitted & Checked" : "📤 Check Answer & Upload";
+                submitBtn.disabled = answered[i];
+                submitBtn.onclick = () => submitEssay();
+
+                wrapper.appendChild(uploadContainer);
+                wrapper.appendChild(submitBtn);
+
+                optionsContainer.appendChild(wrapper);
+            }
+
+            document.getElementById('hint-box').classList.add('hidden');
+            document.getElementById('hint-box').innerHTML = q.hint;
+            document.getElementById('hint-btn').innerText = "💡 Show Hint";
+
+            const feedbackBox = document.getElementById('feedback-box');
+            if (answered[i]) {
+                feedbackBox.classList.remove('hidden');
+                if (q.type === "mcq") {
+                    const isCorrect = userAnswers[i] === q.answer;
+                    if (isCorrect) {
+                        feedbackBox.className = "p-4 rounded-xl mb-6 text-sm bg-green-50 dark:bg-green-900/30 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-800";
+                        feedbackBox.innerHTML = `<strong>Correct!</strong><br>${q.solution}`;
+                    } else {
+                        feedbackBox.className = "p-4 rounded-xl mb-6 text-sm bg-red-50 dark:bg-red-900/30 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-800";
+                        feedbackBox.innerHTML = `<strong>Incorrect.</strong><br>${q.solution}`;
+                    }
+                } else {
+                    feedbackBox.className = "p-4 rounded-xl mb-6 text-sm bg-emerald-50 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800";
+                    feedbackBox.innerHTML = `<strong>Model Solution & Steps:</strong><br>${q.solution}`;
+
+                    const gradeRow = document.createElement('div');
+                    gradeRow.className = "mt-4 pt-3 border-t border-emerald-200 dark:border-emerald-800 flex flex-wrap items-center gap-2";
+
+                    if (essayResult[i] === null) {
+                        const label = document.createElement('span');
+                        label.className = "font-semibold w-full sm:w-auto";
+                        label.innerText = "Is your selected choice and uploaded photo correct?";
+
+                        const yesBtn = document.createElement('button');
+                        yesBtn.className = "px-4 py-2 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold text-xs transition-all";
+                        yesBtn.innerText = "✅ Yes, Correct (+1 Point)";
+                        yesBtn.onclick = () => gradeEssay(true);
+
+                        const noBtn = document.createElement('button');
+                        noBtn.className = "px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold text-xs transition-all";
+                        noBtn.innerText = "❌ No, Incorrect (0 Points)";
+                        noBtn.onclick = () => gradeEssay(false);
+
+                        gradeRow.append(label, yesBtn, noBtn);
+                    } else {
+                        const result = document.createElement('span');
+                        result.className = "font-bold " + (essayResult[i] ? "text-green-700 dark:text-green-300" : "text-red-700 dark:text-red-300");
+                        result.innerText = essayResult[i] ? "✅ Marked Correct (+1 Point)" : "❌ Marked Incorrect (0 Points)";
+                        gradeRow.appendChild(result);
+                    }
+                    feedbackBox.appendChild(gradeRow);
+                }
+            } else {
+                feedbackBox.classList.add('hidden');
+            }
+
+            document.getElementById('prev-btn').disabled = i === 0;
+            document.getElementById('next-btn').innerText = i === questions.length - 1 ? "Finish Sheet" : "Next Question →";
+
+            updateProgress();
+            triggerMathJax();
+        }
+
+        function selectOption(index) {
+            if (answered[currentQuestion]) return;
+            const q = questions[currentQuestion];
+            
+            if (q.type === "mcq") {
+                userAnswers[currentQuestion] = index;
+                answered[currentQuestion] = true;
+                updateScore();
+                loadQuestion();
+            } else {
+                userAnswers[currentQuestion] = index;
+                loadQuestion();
+            }
+        }
+
+        function submitEssay() {
+            if (answered[currentQuestion]) return;
+            const hasChosen = userAnswers[currentQuestion] !== null;
+            const hasUploaded = userImages[currentQuestion] !== null;
+
+            if (!hasChosen && !hasUploaded) {
+                showToast("Please choose your answer and upload your answer");
+                return;
+            }
+            if (!hasChosen) {
+                showToast("Please choose your answer");
+                return;
+            }
+            if (!hasUploaded) {
+                showToast("Please upload your answer");
+                return;
+            }
+
+            answered[currentQuestion] = true;
+            updateScore();
+            loadQuestion();
+        }
+
+        function gradeEssay(isCorrect) {
+            if (!answered[currentQuestion] || essayResult[currentQuestion] !== null) return;
+            essayResult[currentQuestion] = isCorrect;
+            updateScore();
+            loadQuestion();
+        }
+
+        function nextQuestion() {
+            const i = currentQuestion;
+            const q = questions[i];
+
+            if (!answered[i]) {
+                if (q.type === "mcq") {
+                    showToast("Please choose your answer");
+                    return;
+                } else if (q.type === "essay") {
+                    const hasChosen = userAnswers[i] !== null;
+                    const hasUploaded = userImages[i] !== null;
+
+                    if (!hasChosen && !hasUploaded) {
+                        showToast("Please choose your answer and upload your answer");
+                        return;
+                    }
+                    if (!hasChosen) {
+                        showToast("Please choose your answer");
+                        return;
+                    }
+                    if (!hasUploaded) {
+                        showToast("Please upload your answer");
+                        return;
+                    }
+                    answered[i] = true;
+                    updateScore();
+                }
+            }
+
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const unanswered = answered.filter(a => !a).length;
+                const ungraded = questions.filter((q, idx) => q.type === "essay" && answered[idx] && essayResult[idx] === null).length;
+                if (unanswered > 0 || ungraded > 0) {
+                    const msg = `You still have ${unanswered} unanswered question(s)` +
+                        (ungraded > 0 ? ` and ${ungraded} essay(s) not verified (they count 0 points)` : '') +
+                        `. Finish anyway?`;
+                    if (!confirm(msg)) return;
+                }
+                showSummary();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function toggleHint() {
+            const hintBox = document.getElementById('hint-box');
+            hintBox.classList.toggle('hidden');
+            document.getElementById('hint-btn').innerText = hintBox.classList.contains('hidden') ? "💡 Show Hint" : "💡 Hide Hint";
+            triggerMathJax();
+        }
+
+        function updateProgress() {
+            const answeredCount = answered.filter(a => a).length;
+            const percentage = (answeredCount / questions.length) * 100;
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+            document.getElementById('progress-text').innerText = `${answeredCount} of ${questions.length} Answered`;
+        }
+
+        function showSummary() {
+            updateScore();
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('summary-screen').classList.remove('hidden');
+            document.getElementById('summary-student-name').innerText = `Student: ${studentName}`;
+            document.getElementById('final-score').innerText = `${score} / ${questions.length}`;
+            const pct = Math.round((score / questions.length) * 100);
+            document.getElementById('final-percentage').innerText = `${pct}% Mastery`;
+
+            let mcqScore = 0, essayScore = 0, mcqTotal = 0, essayTotal = 0;
+            questions.forEach((q, idx) => {
+                if (q.type === "mcq") {
+                    mcqTotal++;
+                    if (answered[idx] && userAnswers[idx] === q.answer) mcqScore++;
+                } else {
+                    essayTotal++;
+                    if (answered[idx] && essayResult[idx] === true) essayScore++;
+                }
+            });
+            document.getElementById('final-breakdown').innerText =
+                `MCQ: ${mcqScore} / ${mcqTotal}  •  Essay: ${essayScore} / ${essayTotal}`;
+        }
+
+        function restartQuiz() {
+            questions = prepareQuestions(rawQuestions);
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            userImages = new Array(questions.length).fill(null);
+            answered = new Array(questions.length).fill(false);
+            essayResult = new Array(questions.length).fill(null);
+            document.getElementById('summary-screen').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            updateScore();
+            loadQuestion();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+
+        document.getElementById('student-name-input').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') goToDashboard();
+        });
+    </script>
+</body>
+</html>
