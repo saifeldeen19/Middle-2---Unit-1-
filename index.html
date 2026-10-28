@@ -3,87 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Math Platform | Math Practice Hub</title>
+    <title>Math Platform - Login</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
         body { font-family: 'Inter', 'Cairo', sans-serif; }
     </style>
 </head>
-<body class="bg-emerald-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4">
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex items-center justify-center p-4 transition-colors duration-300">
 
-    <div class="w-full max-w-md bg-emerald-900/90 backdrop-blur-md rounded-3xl shadow-2xl p-6 sm:p-8 border border-emerald-700/60 text-center">
-        <!-- Logo Header -->
-        <div class="w-16 h-16 bg-emerald-500 text-slate-950 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-emerald-500/30 text-3xl font-extrabold">
-            √
+    <!-- Toast Notification -->
+    <div id="toast-notification" class="fixed top-5 z-50 hidden transition-all transform -translate-y-5 bg-red-500 text-white px-6 py-3 rounded-2xl shadow-xl font-bold text-sm">
+        <span id="toast-message">⚠️ Error</span>
+    </div>
+
+    <!-- Login Container -->
+    <div class="w-full max-w-md bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-slate-100 dark:border-slate-700">
+        
+        <div class="text-center mb-8">
+            <div class="bg-emerald-600 text-white p-3 rounded-2xl shadow-lg inline-flex items-center justify-center w-14 h-14 mb-3">
+                <span class="text-3xl font-bold">√</span>
+            </div>
+            <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Math Platform</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Enter your details to start practice</p>
         </div>
-        <h1 class="text-2xl font-bold text-white mb-1">Interactive Math Platform</h1>
-        <p class="text-emerald-200/80 text-xs mb-6">Enter your name and select your grade to begin practice</p>
 
-        <!-- Form Inputs -->
-        <div class="space-y-4 text-left">
-            <!-- Input 1: Student Name -->
+        <div class="space-y-5">
+            <!-- Name Field -->
             <div>
-                <label class="block text-xs font-semibold text-emerald-200 mb-1.5">Student Name:</label>
-                <input type="text" id="student-name" placeholder="Enter your full name..." class="w-full px-4 py-3 rounded-xl border border-emerald-700 bg-emerald-950 text-white placeholder-emerald-400/60 focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all font-medium text-sm">
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Student Name</label>
+                <input type="text" id="student-name-input" placeholder="Enter your full name..." class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 font-medium text-sm transition-all">
             </div>
 
-            <!-- Input 2: Grade Dropdown -->
+            <!-- Grade Selection -->
             <div>
-                <label class="block text-xs font-semibold text-emerald-200 mb-1.5">Select Grade:</label>
-                <select id="grade-select" class="w-full px-4 py-3 rounded-xl border border-emerald-700 bg-emerald-950 text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all font-medium text-sm cursor-pointer">
-                    <option value="" disabled selected>-- Select Grade --</option>
-                    <option value="" disabled class="text-emerald-500 bg-emerald-900">Middle 1 - Coming Soon 🔒</option>
-                    <option value="middle2">Middle 2</option>
-                    <option value="middle3">Middle 3</option>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Select Grade</label>
+                <select id="student-grade-input" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/50 text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 font-medium text-sm transition-all cursor-pointer">
+                    <option value="" disabled selected>-- Choose your grade --</option>
+                    <option value="Middle 2">Middle 2</option>
+                    <option value="Middle 3">Middle 3</option>
                 </select>
             </div>
 
-            <!-- Error Message -->
-            <p id="error-msg" class="text-xs text-rose-300 font-semibold hidden text-center pt-1"></p>
-
             <!-- Submit Button -->
-            <button onclick="startPlatform()" class="w-full py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl shadow-lg shadow-emerald-500/30 transition-all text-sm mt-2 flex items-center justify-center gap-2 cursor-pointer">
-                <span>Start Practice Sheet</span>
-                <span>→</span>
+            <button onclick="proceedToDashboard()" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-sm shadow-lg shadow-emerald-500/20 transition-all mt-4">
+                Enter Platform →
             </button>
         </div>
 
-        <div class="mt-6 pt-4 border-t border-emerald-700/40 text-[11px] text-emerald-300/70">
-            Mr. Saif Eldeen Sameh • Interactive Math Hub
-        </div>
     </div>
 
     <script>
-        function startPlatform() {
-            const nameInput = document.getElementById('student-name').value.trim();
-            const gradeSelect = document.getElementById('grade-select').value;
-            const errorMsg = document.getElementById('error-msg');
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        function proceedToDashboard() {
+            const nameInput = document.getElementById('student-name-input').value.trim();
+            const gradeSelect = document.getElementById('student-grade-input');
+            const gradeInput = gradeSelect.value;
 
             if (!nameInput) {
-                errorMsg.innerText = "Please enter your full name first.";
-                errorMsg.classList.remove('hidden');
+                showToast("Please enter your name!");
                 return;
             }
 
-            if (!gradeSelect) {
-                errorMsg.innerText = "Please select an active grade from the list.";
-                errorMsg.classList.remove('hidden');
+            if (!gradeInput) {
+                showToast("Please select your grade!");
                 return;
             }
 
-            errorMsg.classList.add('hidden');
-
-            // Save name to browser memory so the grade sheet reads it automatically
+            // تخزين اسم الطالب في الذاكرة لتناقله بين الصفحات
             localStorage.setItem('platform_student_name', nameInput);
 
-            // Redirect directly to the selected grade folder
-            if (gradeSelect === 'middle2') {
-                window.location.href = './middle2/index.html';
-            } else if (gradeSelect === 'middle3') {
-                window.location.href = './middle3/index.html';
+            // التوجيه بناءً على الصف المختار
+            if (gradeInput === "Middle 2") {
+                window.location.href = 'middle2/index.html';
+            } else if (gradeInput === "Middle 3") {
+                window.location.href = 'middle3/index.html';
             }
         }
+
+        // تفعيل زر Enter للاستجابة السريعة
+        document.getElementById('student-name-input').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') proceedToDashboard();
+        });
     </script>
 </body>
 </html>
