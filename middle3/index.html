@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Middle 3 Math - Interactive Practice Sheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#03584a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', 'Cairo', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col items-center py-4 sm:py-8 px-3 sm:px-6 transition-colors duration-300">
+
+    <div class="w-full max-w-3xl bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-5 sm:p-8 transition-all">
+        
+        <!-- Navigation Header -->
+        <div class="flex flex-col sm:flex-row justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-5 mb-6 gap-4">
+            <div class="flex items-center gap-3">
+                <a href="../index.html" class="bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 p-2.5 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 transition-colors">
+                    ← Main Hub
+                </a>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">Middle 3 Math Sheet</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Interactive Exam Platform (40 Questions - 40 Points)</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <div id="score-container" class="hidden bg-blue-50 dark:bg-slate-700 px-4 py-2 rounded-xl text-center border border-blue-100 dark:border-slate-600">
+                    <span class="text-xs text-slate-500 dark:text-slate-400 block">Score</span>
+                    <span id="score-display" class="font-bold text-blue-600 dark:text-blue-400 text-lg">0 / 40</span>
+                </div>
+                <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors">
+                    <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                    <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Student Name & Unit Selection Dashboard -->
+        <div id="welcome-screen" class="py-4 text-center">
+            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">🎓</div>
+            <h2 class="text-2xl font-bold mb-2">Welcome Middle 3 Student!</h2>
+            <p class="text-slate-500 dark:text-slate-400 mb-6 text-sm">Please enter your full name and select a unit to start practicing.</p>
+            
+            <div class="max-w-md mx-auto space-y-5">
+                <input type="text" id="student-name-input" placeholder="Enter Student Full Name..." class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-center font-semibold">
+                <p id="name-error" class="text-xs text-red-500 hidden">Please enter your name before selecting a unit.</p>
+                
+                <h3 class="text-left font-bold text-slate-700 dark:text-slate-300 text-sm border-b pb-2">Select Unit:</h3>
+
+                <!-- 4 Units Dashboard Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+                    <!-- Unit 1 Active -->
+                    <div onclick="selectUnit(1)" class="p-4 rounded-xl border-2 border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 hover:bg-blue-100/50 dark:hover:bg-blue-900/40 cursor-pointer transition-all shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-blue-500 text-white">Active</span>
+                                <span class="text-xs text-slate-400">40 Qs</span>
+                            </div>
+                            <h4 class="font-bold text-slate-900 dark:text-white text-base">Unit 1</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Numbers & Operations (Powers & Exponential Eq.)</p>
+                        </div>
+                        <button class="mt-4 w-full py-2 bg-blue-600 text-white rounded-lg font-semibold text-xs shadow-md">Start Unit 1 →</button>
+                    </div>
+
+                    <!-- Unit 2 Disabled -->
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/60 opacity-65 cursor-not-allowed flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-700 dark:text-amber-400">Coming Soon</span>
+                            </div>
+                            <h4 class="font-bold text-slate-700 dark:text-slate-400 text-base">Unit 2</h4>
+                            <p class="text-xs text-slate-400 mt-1">Algebra (Quadratic & Rational Functions)</p>
+                        </div>
+                        <span class="mt-4 text-center py-2 text-slate-400 text-xs font-semibold">Locked 🔒</span>
+                    </div>
+
+                    <!-- Unit 3 Disabled -->
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/60 opacity-65 cursor-not-allowed flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-700 dark:text-amber-400">Coming Soon</span>
+                            </div>
+                            <h4 class="font-bold text-slate-700 dark:text-slate-400 text-base">Unit 3</h4>
+                            <p class="text-xs text-slate-400 mt-1">Geometry & Trigonometry</p>
+                        </div>
+                        <span class="mt-4 text-center py-2 text-slate-400 text-xs font-semibold">Locked 🔒</span>
+                    </div>
+
+                    <!-- Unit 4 Disabled -->
+                    <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800/60 opacity-65 cursor-not-allowed flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-700 dark:text-amber-400">Coming Soon</span>
+                            </div>
+                            <h4 class="font-bold text-slate-700 dark:text-slate-400 text-base">Unit 4</h4>
+                            <p class="text-xs text-slate-400 mt-1">Statistics (Measures of Dispersion)</p>
+                        </div>
+                        <span class="mt-4 text-center py-2 text-slate-400 text-xs font-semibold">Locked 🔒</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="hidden">
+            <div class="flex justify-between items-center bg-blue-50 dark:bg-slate-700/50 px-4 py-2.5 rounded-xl mb-4 border border-blue-100 dark:border-slate-600">
+                <span class="text-xs text-slate-500 dark:text-slate-400">Student:</span>
+                <span id="student-name-display" class="font-bold text-sm text-blue-700 dark:text-blue-300"></span>
+            </div>
+
+            <div class="mb-6">
+                <div class="flex justify-between text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2">
+                    <span>PROGRESS</span>
+                    <span id="progress-text">0 of 40 Answered</span>
+                </div>
+                <div class="w-full bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="bg-blue-600 h-full w-0 transition-all duration-300"></div>
+                </div>
+            </div>
+
+            <div id="question-card" class="mb-6">
+                <div class="flex justify-between items-center mb-3">
+                    <span id="question-badge" class="px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full text-xs font-bold">Lesson 1</span>
+                    <span id="question-num" class="text-xs font-semibold text-slate-400">Question 1 of 40</span>
+                </div>
+                <h2 id="question-text" class="text-base sm:text-lg font-semibold mb-4 leading-relaxed">Loading question...</h2>
+                
+                <div id="essay-upload-container" class="hidden mb-4 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl">
+                    <p class="text-xs font-bold text-amber-800 dark:text-amber-300 mb-2">📷 Step Required: Upload an image of your written steps before choosing an answer!</p>
+                    <input type="file" id="essay-image-input" accept="image/*" onchange="handleImageUpload(event)" class="text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-600 file:text-white hover:file:bg-amber-700 cursor-pointer">
+                    <div id="image-preview-box" class="mt-3 hidden">
+                        <span class="text-xs text-green-600 dark:text-green-400 font-bold block mb-1">✓ Steps Image Attached:</span>
+                        <img id="image-preview" src="#" alt="Steps Preview" class="max-h-32 rounded-lg border border-slate-300 dark:border-slate-600">
+                    </div>
+                </div>
+
+                <div id="options-container" class="space-y-3"></div>
+            </div>
+
+            <div class="flex flex-wrap gap-3 mb-6">
+                <button onclick="toggleHint()" class="px-4 py-2 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 rounded-xl text-sm font-semibold hover:bg-amber-100 transition-colors">💡 Show Hint</button>
+                <div id="hint-box" class="w-full hidden mt-2 p-3 bg-amber-50/70 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl text-sm text-amber-800 dark:text-amber-200"></div>
+            </div>
+
+            <div id="feedback-box" class="hidden p-4 rounded-xl mb-6 text-sm"></div>
+
+            <div class="flex justify-between items-center pt-4 border-t border-slate-100 dark:border-slate-700">
+                <button id="prev-btn" onclick="prevQuestion()" class="px-4 sm:px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">← Previous</button>
+                <button id="next-btn" onclick="nextQuestion()" class="px-5 sm:px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-sm shadow-md shadow-blue-500/20 transition-all">Next Question →</button>
+            </div>
+        </div>
+
+        <!-- Summary Screen -->
+        <div id="summary-screen" class="hidden text-center py-8">
+            <div class="w-20 h-20 bg-green-100 dark:bg-green-900/40 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold">🎉</div>
+            <h2 class="text-2xl font-bold mb-1">Unit 1 Completed!</h2>
+            <p id="summary-student-name" class="text-blue-600 dark:text-blue-400 font-bold mb-4 text-lg"></p>
+            
+            <div class="bg-slate-50 dark:bg-slate-700/50 p-6 rounded-2xl max-w-sm mx-auto mb-6 border border-slate-100 dark:border-slate-700">
+                <span class="text-sm text-slate-500 dark:text-slate-400 block mb-1">Total Score</span>
+                <span id="final-score" class="text-4xl font-extrabold text-blue-600 dark:text-blue-400">0 / 40</span>
+                <span id="final-percentage" class="text-sm font-semibold text-slate-600 dark:text-slate-300 block mt-2">0%</span>
+            </div>
+            <button onclick="restartQuiz()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold shadow-lg shadow-blue-500/20 transition-all">Try Unit 1 Again</button>
+        </div>
+
+    </div>
+
+    <script>
+        const questions = [
+            // 30 MCQ QUESTIONS
+            { type: "mcq", lesson: "Lesson 1: Powers of Powers", q: "Simplify the expression: $(2^3)^2 \\times 2^{-4}$", options: ["$2$", "$4$", "$8$", "$16$"], answer: 1, hint: "Use power of power law: $(a^m)^n = a^{m \\cdot n}$, then add exponents.", solution: "<b>Step 1:</b> $(2^3)^2 = 2^6$.<br><b>Step 2:</b> $2^6 \\times 2^{-4} = 2^2 = 4$." },
+            { type: "mcq", lesson: "Lesson 1: Powers of Powers", q: "If $3^x = 5$, then the value of $9^x$ equals:", options: ["$10$", "$15$", "$25$", "$81$"], answer: 2, hint: "Rewrite $9^x$ as $(3^2)^x = (3^x)^2$.", solution: "<b>Step 1:</b> $9^x = (3^x)^2$.<br><b>Step 2:</b> Substitute $3^x = 5$: $(5)^2 = 25$." },
+            { type: "mcq", lesson: "Lesson 1: Powers of Powers", q: "The half of the number $2^{20}$ is:", options: ["$1^{20}$", "$2^{10}$", "$2^{19}$", "$1^{19}$"], answer: 2, hint: "Divide by $2^1$.", solution: "$\\frac{2^{20}}{2^1} = 2^{19}$." },
+            { type: "mcq", lesson: "Lesson 1: Powers of Powers", q: "Simplify: $\\frac{5^n \\times 5^{n+1}}{5^{2n}}$", options: ["$1$", "$5$", "$25$", "$5^n$"], answer: 1, hint: "Combine numerator exponents.", solution: "$\\frac{5^{2n+1}}{5^{2n}} = 5^1 = 5$." },
+            { type: "mcq", lesson: "Lesson 1: Powers of Powers", q: "If $(\\sqrt{2})^x = 8$, then $x = $", options: ["$3$", "$4$", "$6$", "$8$"], answer: 2, hint: "Convert to $2^{x/2} = 2^3$.", solution: "$\\frac{x}{2} = 3 \\implies x = 6$." },
+            { type: "mcq", lesson: "Lesson 1: Powers of Powers", q: "The value of $(2^{-1} + 3^{-1})^{-1}$ is:", options: ["$5$", "$\\frac{5}{6}$", "$\\frac{6}{5}$", "$-5$"], answer: 2, hint: "Simplify $1/2 + 1/3 = 5/6$.", solution: "$(\\frac{5}{6})^{-1} = \\frac{6}{5}$." },
+            { type: "mcq", lesson: "Lesson 1: Powers of Powers", q: "Evaluate: $(-\\sqrt{3})^4 \\times (\\frac{1}{3})^2$", options: ["$0$", "$1$", "$3$", "$9$"], answer: 1, hint: "Even power eliminates negative.", solution: "$9 \\times \\frac{1}{9} = 1$." },
+            { type: "mcq", lesson: "Lesson 1: Powers of Powers", q: "If $2^x = 3$, then $2^{x+2} = $", options: ["$5$", "$6$", "$12$", "$36$"], answer: 2, hint: "Multiply $2^x \\cdot 2^2$.", solution: "$3 \\times 4 = 12$." },
+            { type: "mcq", lesson: "Lesson 1: Powers of Powers", q: "The quarter of the number $4^{15}$ is:", options: ["$1^{15}$", "$4^{14}$", "$2^{14}$", "$4^{3.75}$"], answer: 1, hint: "Divide by $4^1$.", solution: "$4^{15-1} = 4^{14}$." },
+            { type: "mcq", lesson: "Lesson 1: Powers of Powers", q: "If $5^{x-1} = 1$, then $x = $", options: ["$0$", "$1$", "$-1$", "$5$"], answer: 1, hint: "$a^0 = 1$.", solution: "$x - 1 = 0 \\implies x = 1$." },
+            { type: "mcq", lesson: "Lesson 1: Powers of Powers", q: "Simplify: $\\frac{(3^2)^3 \\times 3^{-2}}{3^3}$", options: ["$1$", "$3$", "$9$", "$27$"], answer: 1, hint: "Numerator: $3^4$.", solution: "$\\frac{3^4}{3^3} = 3$." },
+            { type: "mcq", lesson: "Lesson 1: Powers of Powers", q: "If $a = \\sqrt{5}$ and $b = \\sqrt{2}$, then $(a^2 - b^2)^{-2} = $", options: ["$9$", "$\\frac{1}{9}$", "$3$", "$\\frac{1}{3}$"], answer: 1, hint: "$a^2 - b^2 = 3$.", solution: "$3^{-2} = \\frac{1}{9}$." },
+            { type: "mcq", lesson: "Lesson 1: Powers of Powers", q: "The expression $3^5 + 3^5 + 3^5$ equals:", options: ["$3^6$", "$3^{15}$", "$9^5$", "$9^{15}$"], answer: 0, hint: "Factor out $3^5 \\cdot 3^1$.", solution: "$3^{5+1} = 3^6$." },
+            { type: "mcq", lesson: "Lesson 1: Powers of Powers", q: "If $2^{x} = 5$, find $8^x$:", options: ["$15$", "$40$", "$125$", "$64$"], answer: 2, hint: "$(2^x)^3 = 5^3$.", solution: "$125$." },
+            { type: "mcq", lesson: "Lesson 1: Powers of Powers", q: "Simplify: $(\\frac{2}{3})^{-3} \\times (\\frac{3}{2})^{-3}$", options: ["$1$", "$\\frac{4}{9}$", "$\\frac{9}{4}$", "$-1$"], answer: 0, hint: "$(a \\cdot b)^n$.", solution: "$1^{-3} = 1$." },
+            { type: "mcq", lesson: "Lesson 2: Exponential Equations", q: "Solve for $x$: $2^{x-3} = 16$", options: ["$4$", "$5$", "$7$", "$8$"], answer: 2, hint: "$16 = 2^4$.", solution: "$x - 3 = 4 \\implies x = 7$." },
+            { type: "mcq", lesson: "Lesson 2: Exponential Equations", q: "If $3^{x+1} = 81$, then $x = $", options: ["$3$", "$4$", "$5$", "$2$"], answer: 0, hint: "$81 = 3^4$.", solution: "$x + 1 = 4 \\implies x = 3$." },
+            { type: "mcq", lesson: "Lesson 2: Exponential Equations", q: "Solve in $\\mathbb{R}$: $5^{x+2} = 7^{x+2}$", options: ["$0$", "$-2$", "$2$", "$5$"], answer: 1, hint: "Exponent must be zero.", solution: "$x + 2 = 0 \\implies x = -2$." },
+            { type: "mcq", lesson: "Lesson 2: Exponential Equations", q: "If $4^{x-1} = 1/64$, then $x = $", options: ["$-2$", "$-3$", "$3$", "$-1$"], answer: 0, hint: "$1/64 = 4^{-3}$.", solution: "$x - 1 = -3 \\implies x = -2$." },
+            { type: "mcq", lesson: "Lesson 2: Exponential Equations", q: "If $(\\sqrt{3})^{x-1} = 9$, then $x = $", options: ["$3$", "$4$", "$5$", "$6$"], answer: 2, hint: "$9 = (\\sqrt{3})^4$.", solution: "$x - 1 = 4 \\implies x = 5$." },
+            { type: "mcq", lesson: "Lesson 2: Exponential Equations", q: "Find $x$ if $2^{2x-1} = 32$:", options: ["$2$", "$3$", "$4$", "$5$"], answer: 1, hint: "$32 = 2^5$.", solution: "$2x - 1 = 5 \\implies x = 3$." },
+            { type: "mcq", lesson: "Lesson 2: Exponential Equations", q: "If $3^x \\times 2^x = 36$, then $x = $", options: ["$1$", "$2$", "$3$", "$6$"], answer: 1, hint: "$6^x = 36$.", solution: "$x = 2$." },
+            { type: "mcq", lesson: "Lesson 2: Exponential Equations", q: "The Solution Set of $(x-2)^3 = 27$ in $\\mathbb{R}$ is:", options: ["$\\{3\\}$", "$\\{5\\}$", "$\\{1\\}$", "$\\{-1\\}$"], answer: 1, hint: "$x - 2 = 3$.", solution: "$x = 5$." },
+            { type: "mcq", lesson: "Lesson 2: Exponential Equations", q: "If $2^{x-2} = 3^{x-2}$, then $x^2 = $", options: ["$0$", "$2$", "$4$", "$8$"], answer: 2, hint: "$x - 2 = 0 \\implies x = 2$.", solution: "$2^2 = 4$." },
+            { type: "mcq", lesson: "Lesson 2: Exponential Equations", q: "If $8^{x} = 2^{x+4}$, then $x = $", options: ["$1$", "$2$", "$3$", "$4$"], answer: 1, hint: "$2^{3x} = 2^{x+4}$.", solution: "$3x = x + 4 \\implies x = 2$." },
+            { type: "mcq", lesson: "Lesson 2: Exponential Equations", q: "If $(\\frac{3}{5})^{x+1} = \\frac{125}{27}$, find $x$:", options: ["$2$", "$-2$", "$-4$", "$4$"], answer: 2, hint: "$\\frac{125}{27} = (\\frac{3}{5})^{-3}$.", solution: "$x + 1 = -3 \\implies x = -4$." },
+            { type: "mcq", lesson: "Lesson 2: Exponential Equations", q: "Find the value of $x$ if $2^x + 2^x = 16$:", options: ["$2$", "$3$", "$4$", "$8$"], answer: 1, hint: "$2^{x+1} = 16$.", solution: "$x + 1 = 4 \\implies x = 3$." },
+            { type: "mcq", lesson: "Lesson 2: Exponential Equations", q: "If $9^{x-1} = 27$, then $x = $", options: ["$\\frac{3}{2}$", "$\\frac{5}{2}$", "$2$", "$3$"], answer: 1, hint: "$3^{2x-2} = 3^3$.", solution: "$2x - 2 = 3 \\implies x = 5/2$." },
+            { type: "mcq", lesson: "Lesson 2: Exponential Equations", q: "If $(\\sqrt{5})^{x} = 25\\sqrt{5}$, then $x = $", options: ["$3$", "$4$", "$5$", "$6$"], answer: 2, hint: "$25\\sqrt{5} = (\\sqrt{5})^5$.", solution: "$x = 5$." },
+            { type: "mcq", lesson: "Lesson 2: Exponential Equations", q: "If $2^{x^2 - 4} = 1$, then $x = $", options: ["$\\pm 2$", "$2$", "$4$", "$\\pm 4$"], answer: 0, hint: "$x^2 - 4 = 0$.", solution: "$x = \\pm 2$." },
+
+            // 10 ESSAY QUESTIONS (IMAGE UPLOAD REQUIRED)
+            { type: "essay", lesson: "Lesson 1: Powers of Powers", q: "<b>[Essay Question]</b><br>Simplify to simplest form:<br>$$\\frac{4^n \\times 6^{-2n}}{2^{-4n} \\times 3^{-2n}}$$ Pick the correct final value:", options: ["$1$", "$2$", "$3^n$", "$6^n$"], answer: 0, hint: "Decompose $4$ into $2^2$ and $6^{-2n}$ into $2^{-2n} \\times 3^{-2n}$.", solution: "<b>Steps:</b> Expression simplifies to $1$." },
+            { type: "essay", lesson: "Lesson 1: Powers of Powers", q: "<b>[Essay Question]</b><br>If $x = \\sqrt{3} + 1$ and $y = \\sqrt{3} - 1$, calculate:<br>$$\\frac{x^2 + y^2}{x \\cdot y}$$", options: ["$2$", "$4$", "$6$", "$8$"], answer: 1, hint: "$xy = 2, x^2+y^2 = 8$.", solution: "<b>Steps:</b> $8/2 = 4$." },
+            { type: "essay", lesson: "Lesson 1: Powers of Powers", q: "<b>[Essay Question]</b><br>Find the numerical value of:<br>$$\\frac{(\\sqrt{2})^5 \\times (\\sqrt{2})^3}{(2)^3}$$", options: ["$1$", "$2$", "$\\sqrt{2}$", "$4$"], answer: 1, hint: "$(\\sqrt{2})^8 = 16$.", solution: "<b>Steps:</b> $16 / 8 = 2$." },
+            { type: "essay", lesson: "Lesson 2: Exponential Equations", q: "<b>[Essay Question]</b><br>Find S.S. in $\\mathbb{R}$ for:<br>$$3^{x+1} + 3^x = 36$$", options: ["$\\{1\\}$", "$\\{2\\}$", "$\\{3\\}$", "$\\{4\\}$"], answer: 1, hint: "Factor out $3^x(3+1) = 36$.", solution: "<b>Steps:</b> $3^x = 9 \\implies x = 2$." },
+            { type: "essay", lesson: "Lesson 2: Exponential Equations", q: "<b>[Essay Question]</b><br>Solve for $x$ in $\\mathbb{R}$:<br>$$(\\sqrt{2})^{x-3} = 4^{x-3}$$", options: ["$x = 0$", "$x = 3$", "$x = 5$", "$x = -3$"], answer: 1, hint: "Exponent $x-3 = 0$.", solution: "<b>Steps:</b> $x = 3$." },
+            { type: "essay", lesson: "Lesson 2: Exponential Equations", q: "<b>[Essay Question]</b><br>Find $x$ if:<br>$$2^x \\times 3^{x-1} = 18$$", options: ["$x = 1$", "$x = 2$", "$x = 3$", "$x = 4$"], answer: 2, hint: "$\\frac{6^x}{3} = 18 \\implies 6^x = 54 \\dots 216$.", solution: "<b>Steps:</b> $6^x = 216 = 6^3 \\implies x = 3$." },
+            { type: "essay", lesson: "Lesson 1: Powers of Powers", q: "<b>[Essay Question]</b><br>Simplify:<br>$$\\frac{8^n \\times 9^n}{18^n \\times 2^n}$$", options: ["$1$", "$2^n$", "$3^n$", "$2$"], answer: 1, hint: "$\\frac{72^n}{36^n}$.", solution: "<b>Steps:</b> $(72/36)^n = 2^n$." },
+            { type: "essay", lesson: "Lesson 2: Exponential Equations", q: "<b>[Essay Question]</b><br>Find S.S. of:<br>$$5^{x^2 - 9} = 1$$", options: ["$\\{3\\}$", "$\\{-3\\}$", "$\\{\\pm 3\\}$", "$\\{9\\}$"], answer: 2, hint: "$x^2 - 9 = 0$.", solution: "<b>Steps:</b> $x = \\pm 3$." },
+            { type: "essay", lesson: "Lesson 2: Exponential Equations", q: "<b>[Essay Question]</b><br>If $2^{x-1} = 8$, find $4^x$:", options: ["$16$", "$64$", "$256$", "$1024$"], answer: 2, hint: "$x = 4$.", solution: "<b>Steps:</b> $4^4 = 256$." },
+            { type: "essay", lesson: "Lesson 2: Exponential Equations", q: "<b>[Essay Question]</b><br>Solve for $x$:<br>$$(\\frac{2}{3})^{x+2} = (1.5)^{-3}$$", options: ["$x = 1$", "$x = -1$", "$x = 5$", "$x = -5$"], answer: 0, hint: "$(1.5)^{-3} = (2/3)^3$.", solution: "<b>Steps:</b> $x + 2 = 3 \\implies x = 1$." }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let answered = new Array(questions.length).fill(false);
+        let uploadedImages = new Array(questions.length).fill(null);
+        let studentName = "";
+
+        function selectUnit(unitNum) {
+            if (unitNum !== 1) return;
+            const input = document.getElementById('student-name-input').value.trim();
+            if (!input) {
+                document.getElementById('name-error').classList.remove('hidden');
+                return;
+            }
+            studentName = input;
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('score-container').classList.remove('hidden');
+            document.getElementById('student-name-display').innerText = studentName;
+            loadQuestion();
+        }
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedImages[currentQuestion] = e.target.result;
+                    document.getElementById('image-preview').src = e.target.result;
+                    document.getElementById('image-preview-box').classList.remove('hidden');
+                    loadQuestion();
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById('question-badge').innerText = q.lesson;
+            document.getElementById('question-num').innerText = `Question ${currentQuestion + 1} of ${questions.length}`;
+            document.getElementById('question-text').innerHTML = q.q;
+
+            const essayUploadContainer = document.getElementById('essay-upload-container');
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            const isEssay = q.type === "essay";
+
+            if (isEssay) {
+                essayUploadContainer.classList.remove('hidden');
+                if (uploadedImages[currentQuestion]) {
+                    document.getElementById('image-preview').src = uploadedImages[currentQuestion];
+                    document.getElementById('image-preview-box').classList.remove('hidden');
+                } else {
+                    document.getElementById('image-preview-box').classList.add('hidden');
+                }
+            } else {
+                essayUploadContainer.classList.add('hidden');
+            }
+
+            q.options.forEach((opt, index) => {
+                const isSelected = userAnswers[currentQuestion] === index;
+                const isCorrect = index === q.answer;
+                let btnClass = "w-full text-left p-4 rounded-xl border transition-all flex items-center justify-between font-medium text-sm md:text-base ";
+                
+                if (answered[currentQuestion]) {
+                    if (isCorrect) {
+                        btnClass += "bg-green-50 dark:bg-green-900/30 border-green-500 text-green-700 dark:text-green-300";
+                    } else if (isSelected) {
+                        btnClass += "bg-red-50 dark:bg-red-900/30 border-red-500 text-red-700 dark:text-red-300";
+                    } else {
+                        btnClass += "bg-slate-50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-700 text-slate-500";
+                    }
+                } else {
+                    if (isEssay && !uploadedImages[currentQuestion]) {
+                        btnClass += "bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400 opacity-60 cursor-not-allowed";
+                    } else {
+                        btnClass += "bg-slate-50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-700 hover:border-blue-500 hover:bg-blue-50/50 dark:hover:bg-slate-700 cursor-pointer";
+                    }
+                }
+
+                const button = document.createElement('button');
+                button.className = btnClass;
+                button.innerHTML = `<span>${opt}</span>`;
+                
+                if (isEssay && !uploadedImages[currentQuestion] && !answered[currentQuestion]) {
+                    button.disabled = true;
+                } else {
+                    button.onclick = () => selectOption(index);
+                }
+
+                if (answered[currentQuestion]) button.disabled = true;
+                optionsContainer.appendChild(button);
+            });
+
+            document.getElementById('hint-box').classList.add('hidden');
+            document.getElementById('hint-box').innerHTML = q.hint;
+
+            const feedbackBox = document.getElementById('feedback-box');
+            if (answered[currentQuestion]) {
+                feedbackBox.classList.remove('hidden');
+                const isCorrect = userAnswers[currentQuestion] === q.answer;
+                if (isCorrect) {
+                    feedbackBox.className = "p-4 rounded-xl mb-6 text-sm bg-green-50 dark:bg-green-900/30 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-800";
+                    feedbackBox.innerHTML = `<strong>✓ Correct Answer! (+1 Point)</strong><br>${q.solution}`;
+                } else {
+                    feedbackBox.className = "p-4 rounded-xl mb-6 text-sm bg-red-50 dark:bg-red-900/30 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-800";
+                    feedbackBox.innerHTML = `<strong>✗ Incorrect Choice (0 Points).</strong><br>The correct answer was: <b>${q.options[q.answer]}</b><br><br>${q.solution}`;
+                }
+            } else {
+                feedbackBox.classList.add('hidden');
+            }
+
+            document.getElementById('prev-btn').disabled = currentQuestion === 0;
+            document.getElementById('next-btn').innerText = currentQuestion === questions.length - 1 ? "Finish Unit 1" : "Next Question →";
+
+            updateProgress();
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise();
+            } else if (window.MathJax) {
+                MathJax.typeset();
+            }
+        }
+
+        function selectOption(index) {
+            if (answered[currentQuestion]) return;
+            answered[currentQuestion] = true;
+            userAnswers[currentQuestion] = index;
+            if (index === questions[currentQuestion].answer) score++;
+            document.getElementById('score-display').innerText = `${score} / ${questions.length}`;
+            loadQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                showSummary();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        function toggleHint() {
+            const hintBox = document.getElementById('hint-box');
+            hintBox.classList.toggle('hidden');
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise();
+            } else if (window.MathJax) {
+                MathJax.typeset();
+            }
+        }
+
+        function updateProgress() {
+            const answeredCount = answered.filter(a => a).length;
+            const percentage = (answeredCount / questions.length) * 100;
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+            document.getElementById('progress-text').innerText = `${answeredCount} of ${questions.length} Answered`;
+        }
+
+        function showSummary() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('summary-screen').classList.remove('hidden');
+            document.getElementById('summary-student-name').innerText = `Student Name: ${studentName}`;
+            document.getElementById('final-score').innerText = `${score} / ${questions.length}`;
+            const pct = Math.round((score / questions.length) * 100);
+            document.getElementById('final-percentage').innerText = `${pct}% Mastery`;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            answered = new Array(questions.length).fill(false);
+            uploadedImages = new Array(questions.length).fill(null);
+            document.getElementById('summary-screen').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('score-display').innerText = `0 / ${questions.length}`;
+            loadQuestion();
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+    </script>
+</body>
+</html>
