@@ -43,7 +43,7 @@
                 </div>
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">Middle 2 Mathematics</h1>
-                    <p id="header-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Interactive Sheets</p>
+                    <p id="header-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Interactive Sheets (50 Qs)</p>
                 </div>
             </div>
 
@@ -66,7 +66,10 @@
                     <span class="text-xs text-slate-500 dark:text-slate-400 block">Welcome,</span>
                     <span id="dash-student-name" class="font-bold text-base text-emerald-700 dark:text-emerald-300">--</span>
                 </div>
-                <div class="px-3 py-1 bg-emerald-600 text-white rounded-full text-xs font-bold">Middle 2</div>
+                <div class="flex items-center gap-2">
+                    <div class="px-3 py-1 bg-emerald-600 text-white rounded-full text-xs font-bold">Middle 2</div>
+                    <a href="../index.html" class="px-3 py-1.5 bg-slate-200 dark:bg-slate-600 hover:bg-slate-300 text-slate-700 dark:text-slate-200 text-xs font-bold rounded-xl transition-all">← Back</a>
+                </div>
             </div>
 
             <h3 class="text-lg font-bold mb-4">Select a Unit:</h3>
@@ -636,17 +639,12 @@
         let answered = [];
         let essayResult = [];
 
-                window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', () => {
             const savedName = localStorage.getItem('platform_student_name');
             if (!savedName) {
                 window.location.href = '../index.html';
                 return;
             }
-            
-            // التأكد من إرجاع الصفحة للوضع الافتراضي (لوحة الوحدات) عند حدوث Refresh
-            backToDashboard();
-        });
-
             studentName = savedName;
             
             const dashName = document.getElementById('dash-student-name');
@@ -654,6 +652,8 @@
 
             const nameDisplay = document.getElementById('student-name-display');
             if (nameDisplay) nameDisplay.innerText = studentName;
+            
+            backToDashboard();
         });
 
         function prepareQuestions(items) {
@@ -951,8 +951,8 @@
                 if (!answered[i]) return;
                 if (q.type === "mcq") {
                     if (userAnswers[i] === q.answer) s++;
-                } else if (essayResult[i] === true) {
-                    s++;
+                } else if (q.type === "essay") {
+                    if (essayResult[i] === true) s++;
                 }
             });
             score = s;
