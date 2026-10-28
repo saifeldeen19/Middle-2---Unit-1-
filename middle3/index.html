@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math Platform - Middle 3 Unit 1</title>
+    <title>Math Platform - Middle 3 Units Dashboard</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -43,7 +43,7 @@
                 </div>
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">Middle 3 Mathematics</h1>
-                    <p id="header-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Unit 1: Relations & Functions (40 Qs)</p>
+                    <p id="header-subtitle" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Interactive Sheets</p>
                 </div>
             </div>
 
@@ -59,7 +59,7 @@
             </div>
         </div>
 
-        <!-- Units Dashboard Screen -->
+        <!-- 4 Units Dashboard Screen -->
         <div id="dashboard-screen" class="py-4">
             <div class="bg-emerald-50 dark:bg-slate-700/50 p-4 rounded-2xl mb-6 flex justify-between items-center border border-emerald-100 dark:border-slate-600">
                 <div>
@@ -72,29 +72,49 @@
             <h3 class="text-lg font-bold mb-4">Select a Unit:</h3>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Unit 1 -->
+                <!-- Unit 1 (Active) -->
                 <div onclick="startUnit1()" class="p-6 rounded-2xl border-2 border-emerald-500 bg-emerald-50/50 dark:bg-emerald-900/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 cursor-pointer transition-all flex flex-col justify-between shadow-md">
                     <div>
                         <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">First</span>
                         <h4 class="text-xl font-bold mt-1 text-slate-900 dark:text-white">Unit (1)</h4>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Relations & Functions (40 Qs)</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Numbers and operations on them (40 Qs)</p>
                     </div>
                     <span class="mt-4 text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">Start Sheet →</span>
                 </div>
 
-                <!-- Unit 2 -->
+                <!-- Unit 2 (Locked) -->
                 <div onclick="showNotAvailable()" class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/40 hover:border-slate-400 cursor-pointer transition-all flex flex-col justify-between opacity-75">
                     <div>
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Second</span>
                         <h4 class="text-xl font-bold mt-1 text-slate-900 dark:text-white">Unit (2)</h4>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Coming Soon</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Algebra - Coming Soon</p>
+                    </div>
+                    <span class="mt-4 text-xs font-semibold text-slate-400">Locked 🔒</span>
+                </div>
+
+                <!-- Unit 3 (Locked) -->
+                <div onclick="showNotAvailable()" class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/40 hover:border-slate-400 cursor-pointer transition-all flex flex-col justify-between opacity-75">
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Third</span>
+                        <h4 class="text-xl font-bold mt-1 text-slate-900 dark:text-white">Unit (3)</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Geometry - Coming Soon</p>
+                    </div>
+                    <span class="mt-4 text-xs font-semibold text-slate-400">Locked 🔒</span>
+                </div>
+
+                <!-- Unit 4 (Locked) -->
+                <div onclick="showNotAvailable()" class="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/40 hover:border-slate-400 cursor-pointer transition-all flex flex-col justify-between opacity-75">
+                    <div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Fourth</span>
+                        <h4 class="text-xl font-bold mt-1 text-slate-900 dark:text-white">Unit (4)</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Statistics - Coming Soon</p>
                     </div>
                     <span class="mt-4 text-xs font-semibold text-slate-400">Locked 🔒</span>
                 </div>
             </div>
         </div>
 
-        <!-- Quiz Container -->
+        <!-- Quiz Container (Unit 1 Sheet) -->
         <div id="quiz-container" class="hidden">
             <div class="flex justify-between items-center bg-emerald-50 dark:bg-slate-700/50 px-4 py-2.5 rounded-xl mb-4 border border-emerald-100 dark:border-slate-600">
                 <span class="text-xs text-slate-500 dark:text-slate-400">Student: <strong id="student-name-display" class="text-emerald-700 dark:text-emerald-300"></strong></span>
@@ -172,369 +192,368 @@
 
     <script>
         const rawQuestions = [
-            // --- MCQ QUESTIONS (1 - 30) ---
+            // --- MCQ QUESTIONS (1 - 30): Powers of Powers & Exponential Equations ---
             {
                 type: "mcq",
-                lesson: "Lesson 1: Cartesian Product",
-                q: "If $X = \\{2\}$, and $X \\times Y = \\{(2, 5), (2, 7), (2, 9)\\}$, then $Y = $",
-                options: ["$\\{5, 7, 9\\}$", "$\\{2, 5, 7\\}$", "$\\{2\\}$", "$\\{5\\}$"],
-                answer: 0,
-                hint: "The second element in each ordered pair belongs to set $Y$.",
-                solution: "Since the second coordinates are $5, 7, 9$, then $Y = \\{5, 7, 9\\}$."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 1: Cartesian Product",
-                q: "If $n(X) = 3$ and $n(X \\times Y) = 12$, then $n(Y) = $",
-                options: ["$3$", "$4$", "$9$", "$36$"],
+                lesson: "Lesson 1: Powers of Powers",
+                q: "Simplify: $(2^3)^2$",
+                options: ["$2^5$", "$2^6$", "$2^8$", "$2^9$"],
                 answer: 1,
-                hint: "$n(X \\times Y) = n(X) \\times n(Y)$.",
-                solution: "$n(Y) = 12 \\div 3 = 4$."
+                hint: "Power of a power rule: Multiply the exponents $(a^m)^n = a^{m \\cdot n}$.",
+                solution: "$(2^3)^2 = 2^{3 \\times 2} = 2^6 = 64$."
             },
             {
                 type: "mcq",
-                lesson: "Lesson 1: Cartesian Product",
-                q: "If $(x + 2, 4) = (5, y - 2)$, then $x + y = $",
-                options: ["$3$", "$6$", "$9$", "$10$"],
+                lesson: "Lesson 1: Powers of Powers",
+                q: "Simplify: $(x^4)^3$",
+                options: ["$x^7$", "$x^{12}$", "$x^1$", "$x^{64}$"],
+                answer: 1,
+                hint: "Multiply exponents: $4 \\times 3 = 12$.",
+                solution: "$(x^4)^3 = x^{4 \\times 3} = x^{12}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Powers of Powers",
+                q: "The value of $(3^{-2})^{-1}$ is:",
+                options: ["$9$", "$\\frac{1}{9}$", "$-9$", "$3$"],
+                answer: 0,
+                hint: "Multiply exponents: $-2 \\times -1 = 2$.",
+                solution: "$3^{(-2) \\times (-1)} = 3^2 = 9$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Powers of Powers",
+                q: "Evaluate: $(2x^2)^3$",
+                options: ["$6x^6$", "$8x^6$", "$8x^5$", "$2x^6$"],
+                answer: 1,
+                hint: "Apply exponent to coefficient and variable: $2^3 \\cdot (x^2)^3$.",
+                solution: "$2^3 \\cdot x^{2 \\times 3} = 8x^6$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Powers of Powers",
+                q: "If $(5^a)^b = 5^{12}$ and $a = 3$, then $b = $",
+                options: ["$4$", "$9$", "$36$", "$15$"],
+                answer: 0,
+                hint: "$a \\cdot b = 12 \\implies 3b = 12$.",
+                solution: "$3b = 12 \\implies b = 4$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Powers of Powers",
+                q: "Simplify: $\\left(\\frac{a^3}{b^2}\\right)^4$",
+                options: ["$\\frac{a^7}{b^6}$", "$\\frac{a^{12}}{b^8}$", "$\\frac{a^{12}}{b^2}$", "$\\frac{a^3}{b^8}$"],
+                answer: 1,
+                hint: "Distribute the outer exponent to both numerator and denominator.",
+                solution: "$\\frac{(a^3)^4}{(b^2)^4} = \\frac{a^{12}}{b^8}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Powers of Powers",
+                q: "The expression $[(x^2)^3]^2$ equals:",
+                options: ["$x^{12}$", "$x^7$", "$x^8$", "$x^9$"],
+                answer: 0,
+                hint: "Multiply all exponents together: $2 \\times 3 \\times 2$.",
+                solution: "$x^{2 \\times 3 \\times 2} = x^{12}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Powers of Powers",
+                q: "If $2^x = 3$, then $(2^x)^3 = $",
+                options: ["$6$", "$9$", "$27$", "$8$"],
                 answer: 2,
-                hint: "Equate first components and second components: $x+2 = 5$ and $4 = y-2$.",
-                solution: "$x = 3$, $y = 6 \\implies x + y = 3 + 6 = 9$."
+                hint: "Substitute $2^x$ with $3$: $(3)^3$.",
+                solution: "$3^3 = 27$."
             },
             {
                 type: "mcq",
-                lesson: "Lesson 1: Cartesian Product",
-                q: "Which of the following points lies in the fourth quadrant?",
-                options: ["$(2, 3)$", "$(-2, 3)$", "$(-2, -3)$", "$(2, -3)$"],
-                answer: 3,
-                hint: "Fourth quadrant has positive x-coordinate and negative y-coordinate $(+, -)$.",
-                solution: "Point $(2, -3)$ has $x > 0$ and $y < 0$, so it lies in the fourth quadrant."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 1: Cartesian Product",
-                q: "If point $(x - 3, 5)$ lies on the y-axis, then $x = $",
-                options: ["$3$", "$-3$", "$0$", "$5$"],
-                answer: 0,
-                hint: "Any point on the y-axis has its x-coordinate equal to zero.",
-                solution: "$x - 3 = 0 \\implies x = 3$."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 1: Cartesian Product",
-                q: "If $X = \\{1, 2\}$, then $X^2$ (or $X \\times X$) has number of elements equal to:",
-                options: ["$2$", "$4$", "$6$", "$8$"],
+                lesson: "Lesson 1: Powers of Powers",
+                q: "Simplify: $((-2)^2)^3$",
+                options: ["$-64$", "$64$", "$16$", "$-16$"],
                 answer: 1,
-                hint: "$n(X^2) = n(X) \\times n(X)$.",
-                solution: "$2 \\times 2 = 4$ elements."
+                hint: "$(-2)^2 = 4$, then $4^3 = 64$.",
+                solution: "$4^3 = 64$."
             },
             {
                 type: "mcq",
-                lesson: "Lesson 1: Cartesian Product",
-                q: "If $3^x = 1$, where $x \\in \\mathbb{R}$, then $x = $",
-                options: ["$1$", "$3$", "$0$", "$-1$"],
+                lesson: "Lesson 1: Powers of Powers",
+                q: "If $3^{2x} = (3^x)^k$, then $k = $",
+                options: ["$1$", "$2$", "$x$", "$3$"],
+                answer: 1,
+                hint: "Equate exponents: $2x = x \\cdot k$.",
+                solution: "$k = 2$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Powers of Powers",
+                q: "Simplify: $(a^{-3})^{-2} \\times a^{-4}$",
+                options: ["$a^2$", "$a^{-10}$", "$a^{10}$", "$a^{-2}$"],
+                answer: 0,
+                hint: "First: $(a^{-3})^{-2} = a^6$, then $a^6 \\cdot a^{-4} = a^{6-4}$.",
+                solution: "$a^6 \\times a^{-4} = a^2$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Powers of Powers",
+                q: "Evaluate: $(10^3)^{-2} \\times 10^7$",
+                options: ["$10$", "$100$", "$1000$", "$1$"],
+                answer: 0,
+                hint: "Calculate $10^{-6} \\times 10^7 = 10^1$.",
+                solution: "$10^{-6+7} = 10^1 = 10$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 1: Powers of Powers",
+                q: "If $4^x = 5$, find the value of $16^x$.",
+                options: ["$10$", "$20$", "$25$", "$64$"],
                 answer: 2,
-                hint: "Any non-zero number raised to power 0 equals 1.",
-                solution: "$3^0 = 1 \\implies x = 0$."
+                hint: "Note that $16^x = (4^2)^x = (4^x)^2$.",
+                solution: "$(4^x)^2 = (5)^2 = 25$."
             },
             {
                 type: "mcq",
-                lesson: "Lesson 1: Cartesian Product",
-                q: "If $n(X) = 5$ and $n(X \\times Y) = 5$, then $n(Y^2) = $",
-                options: ["$1$", "$5$", "$25$", "$10$"],
+                lesson: "Lesson 1: Powers of Powers",
+                q: "If $2^{3x} = 8^y$, then:",
+                options: ["$x = y$", "$x = 3y$", "$y = 3x$", "$x = 8y$"],
                 answer: 0,
-                hint: "Find $n(Y)$ first: $5 / 5 = 1$. Then $n(Y^2) = 1 \\times 1$.",
-                solution: "$n(Y) = 1$, so $n(Y^2) = 1^2 = 1$."
+                hint: "Rewrite $8^y$ as $(2^3)^y = 2^{3y}$.",
+                solution: "$2^{3x} = 2^{3y} \\implies 3x = 3y \\implies x = y$."
             },
             {
                 type: "mcq",
-                lesson: "Lesson 2: Relations",
-                q: "If $R$ is a relation from $X = \\{1, 3, 5\}$ to $Y = \\{2, 4, 6\}$, meaning $x + y = 7$, which of the following belongs to $R$?",
-                options: ["$(1, 4)$", "$(3, 4)$", "$(1, 6)$", "$(5, 4)$"],
+                lesson: "Lesson 1: Powers of Powers",
+                q: "Simplify: $\\left(\\frac{2^2 \\cdot 2^3}{2^4}\\right)^3$",
+                options: ["$2$", "$4$", "$8$", "$16$"],
                 answer: 2,
-                hint: "Check which pair sums up to $7$: $1 + 6 = 7$.",
-                solution: "$(1, 6)$ because $1 + 6 = 7$."
+                hint: "Inside parenthesis: $\\frac{2^5}{2^4} = 2^1$, then $(2)^3$.",
+                solution: "$2^3 = 8$."
             },
             {
                 type: "mcq",
-                lesson: "Lesson 2: Relations",
-                q: "If $R$ is a function on set $X$, then the range of $R$ is a subset of:",
-                options: ["$X$", "$X \\times X$", "$\\varnothing$", "$\\mathbb{Z}$"],
-                answer: 0,
-                hint: "The range consists of output values which belong to the codomain set $X$.",
-                solution: "Range $\\subset Y$ (or $X$ since it's a relation on $X$)."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 2: Relations",
-                q: "Which of the following represents a function from $X = \\{1, 2, 3\}$ to $Y = \\{4, 5\}$?",
-                options: ["$\\{(1, 4), (2, 5)\\}$", "$\\{(1, 4), (2, 5), (3, 4)\\}$", "$\\{(1, 4), (1, 5), (2, 4)\\}$", "$\\{(1, 4)\\}$"],
-                answer: 1,
-                hint: "In a function, every element in $X$ must appear as a first component exactly once.",
-                solution: "Only $\\{(1, 4), (2, 5), (3, 4)\\}$ assigns an image to every element of $X$ ($1, 2,$ and $3$)."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 2: Relations",
-                q: "If $(2, b)$ belongs to the relation $R = \\{(1, 3), (2, 5), (4, 7)\\}$, then $b = $",
-                options: ["$1$", "$3$", "$5$", "$7$"],
+                lesson: "Lesson 2: Exponential Equations",
+                q: "Solve for $x$: $2^{x-1} = 16$",
+                options: ["$3$", "$4$", "$5$", "$6$"],
                 answer: 2,
-                hint: "Look at the ordered pair whose first element is $2$.",
-                solution: "The pair is $(2, 5)$, so $b = 5$."
+                hint: "Write $16$ as $2^4$, then $x-1 = 4$.",
+                solution: "$x - 1 = 4 \\implies x = 5$."
             },
             {
                 type: "mcq",
-                lesson: "Lesson 2: Relations",
-                q: "If the relation $R = \\{(1, 3), (2, 5), (3, 7)\\}$, then the domain of $R$ is:",
-                options: ["$\\{3, 5, 7\\}$", "$\\{1, 2, 3\\}$", "$\\{1, 2, 3, 5, 7\\}$", "$\\varnothing$"],
-                answer: 1,
-                hint: "Domain is the set of all first components in the relation pairs.",
-                solution: "Domain $= \\{1, 2, 3\\}$."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 2: Relations",
-                q: "If $n(X) = 2$ and $n(Y) = 3$, the number of all possible relations from $X$ to $Y$ is:",
-                options: ["$6$", "$8$", "$32$", "$64$"],
-                answer: 3,
-                hint: "Number of relations is $2^{n(X \\times Y)}$.",
-                solution: "$n(X \\times Y) = 2 \\times 3 = 6$, so number of relations $= 2^6 = 64$."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 2: Relations",
-                q: "If $f(x) = 5$, then $f(7) = $",
-                options: ["$5$", "$7$", "$35$", "$0$"],
-                answer: 0,
-                hint: "This is a constant function; it always outputs $5$ regardless of input.",
-                solution: "$f(7) = 5$."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 3: Functions (Mapping)",
-                q: "If $f(x) = 2x - 3$, then $f(3) = $",
-                options: ["$0$", "$3$", "$9$", "$2$"],
-                answer: 1,
-                hint: "Substitute $x = 3$ into the function rule: $2(3) - 3$.",
-                solution: "$2(3) - 3 = 6 - 3 = 3$."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 3: Functions (Mapping)",
-                q: "If $f: \\mathbb{R} \\to \\mathbb{R}$ where $f(x) = x^2 - 1$, find $f(-3)$.",
-                options: ["$8$", "$-10$", "$10$", "$-8$"],
-                answer: 0,
-                hint: "Calculate $(-3)^2 - 1$.",
-                solution: "$(-3)^2 - 1 = 9 - 1 = 8$."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 3: Functions (Mapping)",
-                q: "The degree of the polynomial function $f(x) = 3x^2 - 2x^3 + 1$ is:",
+                lesson: "Lesson 2: Exponential Equations",
+                q: "If $3^{x+2} = 27$, then $x = $",
                 options: ["$1$", "$2$", "$3$", "$0$"],
-                answer: 2,
-                hint: "The degree is the highest power of $x$ in the polynomial expression.",
-                solution: "The highest power is $3$ (from $-2x^3$), so the degree is $3$."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 3: Functions (Mapping)",
-                q: "If $f(x) = x + 3$ and $g(x) = 5$, then $f(2) + g(2) = $",
-                options: ["$5$", "$10$", "$7$", "$12$"],
-                answer: 1,
-                hint: "Find $f(2) = 2+3 = 5$ and $g(2) = 5$, then add them.",
-                solution: "$5 + 5 = 10$."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 3: Functions (Mapping)",
-                q: "If the point $(3, b)$ lies on the graph of the function $f(x) = 2x + 1$, then $b = $",
-                options: ["$5$", "$6$", "$7$", "$8$"],
-                answer: 2,
-                hint: "Substitute $x = 3$ into the function rule to find $b$.",
-                solution: "$f(3) = 2(3) + 1 = 6 + 1 = 7 \\implies b = 7$."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 3: Functions (Mapping)",
-                q: "The y-intercept of the straight line representing the function $f(x) = 3x - 6$ is:",
-                options: ["$(2, 0)$", "$(0, -6)$", "$(-6, 0)$", "$(0, 3)$"],
-                answer: 1,
-                hint: "Set $x = 0$ to find the y-intercept $(0, f(0))$.",
-                solution: "$f(0) = 3(0) - 6 = -6$, so the point is $(0, -6)$."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 3: Functions (Mapping)",
-                q: "The x-intercept of the straight line $f(x) = 2x - 4$ is:",
-                options: ["$(2, 0)$", "$(0, -4)$", "$(-2, 0)$", "$(0, 2)$"],
                 answer: 0,
-                hint: "Set $f(x) = 0$ and solve for $x$: $2x - 4 = 0$.",
-                solution: "$2x = 4 \\implies x = 2$, so the point is $(2, 0)$."
+                hint: "$27 = 3^3 \\implies x + 2 = 3$.",
+                solution: "$x = 3 - 2 = 1$."
             },
             {
                 type: "mcq",
-                lesson: "Lesson 3: Functions (Mapping)",
-                q: "If $f(x) = x^n$ and $f(2) = 8$, what is the value of $n$?",
+                lesson: "Lesson 2: Exponential Equations",
+                q: "If $5^{2x-3} = 1$, then $x = $",
+                options: ["$\\frac{3}{2}$", "$3$", "$0$", "$1$"],
+                answer: 0,
+                hint: "Any base to power $0$ equals $1$, so $2x - 3 = 0$.",
+                solution: "$2x = 3 \\implies x = \\frac{3}{2}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 2: Exponential Equations",
+                q: "If $4^x = \\frac{1}{64}$, then $x = $",
+                options: ["$-3$", "$3$", "$-4$", "$4$"],
+                answer: 0,
+                hint: "$\\frac{1}{64} = \\frac{1}{4^3} = 4^{-3}$.",
+                solution: "$4^x = 4^{-3} \\implies x = -3$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 2: Exponential Equations",
+                q: "If $7^{x-5} = 3^{x-5}$, then $x = $",
+                options: ["$0$", "$5$", "$7$", "$3$"],
+                answer: 1,
+                hint: "Since bases are different ($7 \\neq 3$), the exponent must be zero.",
+                solution: "$x - 5 = 0 \\implies x = 5$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 2: Exponential Equations",
+                q: "The solution set of $2^{x^2 - 4} = 1$ in $\\mathbb{R}$ is:",
+                options: ["$\\{2\\}$", "$\\{-2\\}$", "$\\{\\pm 2\\}$", "$\\varnothing$"],
+                answer: 2,
+                hint: "Set exponent to zero: $x^2 - 4 = 0 \\implies x^2 = 4$.",
+                solution: "$x = \\pm 2$. S.S. $= \\{\\pm 2\\}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 2: Exponential Equations",
+                q: "If $9^x = 3^{x+2}$, then $x = $",
                 options: ["$1$", "$2$", "$3$", "$4$"],
-                answer: 2,
-                hint: "$2^n = 8$.",
-                solution: "$2^3 = 8 \\implies n = 3$."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 4: Linear & Quadratic Functions",
-                q: "The graphical representation of a linear function $f(x) = ax + b$ ($a \\neq 0$) is a:",
-                options: ["Parabola", "Straight line", "Circle", "Ray"],
                 answer: 1,
-                hint: "Linear functions of degree 1 graph as straight lines.",
-                solution: "It is always a straight line."
+                hint: "Write $9^x$ as $(3^2)^x = 3^{2x}$. Then $2x = x + 2$.",
+                solution: "$2x - x = 2 \\implies x = 2$."
             },
             {
                 type: "mcq",
-                lesson: "Lesson 4: Linear & Quadratic Functions",
-                q: "The graphical representation of the quadratic function $f(x) = x^2$ is called a:",
-                options: ["Line", "Parabola", "Curve with maximum point", "Hyperbola"],
+                lesson: "Lesson 2: Exponential Equations",
+                q: "If $2^{x+1} + 2^x = 24$, find $x$.",
+                options: ["$2$", "$3$", "$4$", "$5$"],
                 answer: 1,
-                hint: "Quadratic functions graph as a U-shaped curve called a parabola.",
-                solution: "It forms a parabola."
+                hint: "Factor out $2^x$: $2^x(2 + 1) = 24 \\implies 2^x \\cdot 3 = 24$.",
+                solution: "$2^x = 8 \\implies 2^x = 2^3 \\implies x = 3$."
             },
             {
                 type: "mcq",
-                lesson: "Lesson 4: Linear & Quadratic Functions",
-                q: "The vertex of the parabola $f(x) = x^2$ is at the point:",
-                options: ["$(1, 1)$", "$(0, 1)$", "$(0, 0)$", "$(-1, 1)$"],
-                answer: 2,
-                hint: "At $x = 0$, $f(0) = 0$.",
-                solution: "The vertex is $(0, 0)$."
-            },
-            {
-                type: "mcq",
-                lesson: "Lesson 4: Linear & Quadratic Functions",
-                q: "If the vertex of the curve of $f(x) = x^2 - 4x + c$ is $(2, 1)$, then $c = $",
-                options: ["$3$", "$5$", "$4$", "$-3$"],
+                lesson: "Lesson 2: Exponential Equations",
+                q: "If $(\\sqrt{2})^x = 8$, then $x = $",
+                options: ["$3$", "$6$", "$4$", "$8$"],
                 answer: 1,
-                hint: "Substitute $x = 2$ and $f(2) = 1$ into the equation.",
-                solution: "$2^2 - 4(2) + c = 1 \\implies 4 - 8 + c = 1 \\implies -4 + c = 1 \\implies c = 5$."
+                hint: "$(\\sqrt{2})^x = 2^{\\frac{x}{2}}$ and $8 = 2^3$. So $\\frac{x}{2} = 3$.",
+                solution: "$x = 6$."
             },
             {
                 type: "mcq",
-                lesson: "Lesson 4: Linear & Quadratic Functions",
-                q: "The axis of symmetry for the quadratic function $f(x) = x^2 - 4x + 5$ is:",
-                options: ["$x = 2$", "$x = -2$", "$x = 4$", "$x = 0$"],
+                lesson: "Lesson 2: Exponential Equations",
+                q: "If $3^{x-2} = 1$, then $x^2 = $",
+                options: ["$4$", "$9$", "$2$", "$1$"],
                 answer: 0,
-                hint: "Use formula $x = \\frac{-b}{2a}$ where $a=1, b=-4$.",
-                solution: "$x = \\frac{-(-4)}{2(1)} = 2 \\implies x = 2$."
+                hint: "First find $x-2=0 \\implies x=2$. Then find $x^2$.",
+                solution: "$x^2 = 2^2 = 4$."
             },
             {
                 type: "mcq",
-                lesson: "Lesson 4: Linear & Quadratic Functions",
-                q: "If a quadratic function has a maximum value, then the coefficient of $x^2$ is:",
-                options: ["Positive ($>0$)", "Negative ($<0$)", "Zero ($=0$)", "One"],
+                lesson: "Lesson 2: Exponential Equations",
+                q: "If $5^{x+1} = 125$, then $5^{x-1} = $",
+                options: ["$5$", "$25$", "$1$", "$125$"],
+                answer: 0,
+                hint: "$5^{x+1} = 5^3 \\implies x+1=3 \\implies x=2$. Then find $5^{2-1}$.",
+                solution: "$5^{2-1} = 5^1 = 5$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 2: Exponential Equations",
+                q: "If $8^{x-1} = 16$, then $x = $",
+                options: ["$\\frac{7}{3}$", "$\\frac{4}{3}$", "$2$", "$3$"],
+                answer: 0,
+                hint: "Write $8 = 2^3$ and $16 = 2^4 \\implies 3(x-1) = 4$.",
+                solution: "$3x - 3 = 4 \\implies 3x = 7 \\implies x = \\frac{7}{3}$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 2: Exponential Equations",
+                q: "If $3^x = 4$ and $4^y = 9$, then $x \\cdot y = $",
+                options: ["$1$", "$2$", "$3$", "$4$"],
                 answer: 1,
-                hint: "Negative coefficient opens downwards, creating a maximum point (顶点).",
-                solution: "It must be negative ($<0$)."
+                hint: "Substitute $4 = 3^x$ into $4^y = 9 \\implies (3^x)^y = 9 \\implies 3^{xy} = 3^2$.",
+                solution: "$x \\cdot y = 2$."
             },
             {
                 type: "mcq",
-                lesson: "Lesson 4: Linear & Quadratic Functions",
-                q: "The minimum value of the function $f(x) = x^2 - 4$ is:",
-                options: ["$0$", "$4$", "$-4$", "$2$"],
+                lesson: "Lesson 2: Exponential Equations",
+                q: "The solution set of $3^{|x|} = 9$ in $\\mathbb{R}$ is:",
+                options: ["$\\{2\\}$", "$\\{-2\\}$", "$\\{\\pm 2\\}$", "$\\{4\\}$"],
                 answer: 2,
-                hint: "The smallest value $x^2$ can take is $0$, so $0 - 4 = -4$.",
-                solution: "Minimum value is $-4$ at vertex $x = 0$."
+                hint: "$3^{|x|} = 3^2 \\implies |x| = 2$.",
+                solution: "$x = \\pm 2$."
+            },
+            {
+                type: "mcq",
+                lesson: "Lesson 2: Exponential Equations",
+                q: "If $2^x \\cdot 3^x = 36$, then $x = $",
+                options: ["$1$", "$2$", "$3$", "$6$"],
+                answer: 1,
+                hint: "Combine bases: $(2 \\cdot 3)^x = 6^x = 36 = 6^2$.",
+                solution: "$6^x = 6^2 \\implies x = 2$."
             },
 
-            // --- ESSAY QUESTIONS WITH MCQ OPTIONS & UPLOAD (31 - 40) ---
+            // --- ESSAY QUESTIONS (31 - 40) WITH MCQ CHOICES & PHOTO UPLOAD ---
             {
                 type: "essay",
-                lesson: "Lesson 1: Cartesian Product",
-                q: "If $X = \\{1, 2\}$, $Y = \\{2, 3, 4\}$, find the number of elements in $X \\times Y$, then choose the correct answer.",
-                options: ["$5$", "$6$", "$8$", "$9$"],
-                answer: 1,
-                hint: "Calculate $n(X) \\times n(Y)$ where $n(X)=2$ and $n(Y)=3$.",
-                solution: "<b>Steps:</b><br>1) $n(X) = 2$<br>2) $n(Y) = 3$<br>3) $n(X \\times Y) = 2 \\times 3 = 6$<br><b>Correct Answer: $6$</b>"
+                lesson: "Lesson 1: Powers of Powers",
+                q: "Simplify to simplest form:<br>$$\\frac{(2^3)^4 \\times (2^{-2})^3}{(2^2)^2}$$",
+                options: ["$4$", "$2$", "$8$", "$1$"],
+                answer: 0,
+                hint: "Use power of a power rule: Numerator is $2^{12} \\cdot 2^{-6} = 2^6$. Denominator is $2^4$.",
+                solution: "<b>Steps:</b><br>1) Numerator $= 2^{12} \\times 2^{-6} = 2^6$<br>2) Denominator $= 2^4$<br>3) Result $= \\frac{2^6}{2^4} = 2^2 = 4$<br><b>Correct Choice: $4$</b>"
             },
             {
                 type: "essay",
-                lesson: "Lesson 1: Cartesian Product",
-                q: "If $(x-1, 9) = (5, y^2)$, where $y > 0$, find the values of $x$ and $y$, then choose the value of $x + y$.",
-                options: ["$9$", "$7$", "$8$", "$6$"],
+                lesson: "Lesson 1: Powers of Powers",
+                q: "If $x = \\sqrt{3}$ and $y = \\sqrt{2}$, find the value of $(x^4 \\cdot y^2)^2$.",
+                options: ["$324$", "$144$", "$36$", "$72$"],
                 answer: 0,
-                hint: "Solve $x-1 = 5$ and $y^2 = 9$ (taking positive root for $y$).",
-                solution: "<b>Steps:</b><br>1) $x - 1 = 5 \\implies x = 6$<br>2) $y^2 = 9 \\implies y = 3$ (since $y > 0$)<br>3) $x + y = 6 + 3 = 9$<br><b>Correct Answer: $9$</b>"
+                hint: "Calculate $x^4 = (\\sqrt{3})^4 = 9$ and $y^2 = (\\sqrt{2})^2 = 2$.",
+                solution: "<b>Steps:</b><br>1) $x^4 = 9$<br>2) $y^2 = 2$<br>3) $x^4 \\cdot y^2 = 18$<br>4) $(18)^2 = 324$<br><b>Correct Choice: $324$</b>"
             },
             {
                 type: "essay",
-                lesson: "Lesson 2: Relations",
-                q: "If $X = \\{1, 2, 3, 6\}$, and $R$ is a relation on $X$ where $aRb$ means '$a$ is a factor of $b$'. Find the pairs of $R$.",
-                options: ["$\\{(1,1),(1,2),(1,3),(1,6),(2,2),(2,6),(3,3),(3,6),(6,6)\\}$", "$\\{(1,2),(2,4)\\}$", "$\\{\\}$", "$\\{(1,1),(2,2)\\}$"],
+                lesson: "Lesson 2: Exponential Equations",
+                q: "Find the Solution Set of the equation in $\\mathbb{R}$:<br>$$3^{x+1} + 3^x = 36$$",
+                options: ["$\\{3\\}$", "$\\{2\\}$", "$\\{1\\}$", "$\\{4\\}$"],
                 answer: 0,
-                hint: "Every number divides itself and $1$ divides all numbers. Check factors.",
-                solution: "<b>Steps:</b><br>1) $1$ is factor of $1,2,3,6$<br>2) $2$ is factor of $2,6$<br>3) $3$ is factor of $3,6$<br>4) $6$ is factor of $6$<br><b>Correct Answer: Full relation set</b>"
+                hint: "Factor out $3^x$: $3^x(3 + 1) = 36 \\implies 3^x \\cdot 4 = 36$.",
+                solution: "<b>Steps:</b><br>1) $3^x(3^1 + 1) = 36$<br>2) $3^x \\times 4 = 36 \\implies 3^x = 9$<br>3) $3^x = 3^2 \\implies x = 2$. Wait, check $3^2(3+1) = 9 \\times 4 = 36$, so $x = 2$!<br><b>Correct Choice: $\\{2\\}$</b>"
             },
             {
                 type: "essay",
-                lesson: "Lesson 2: Relations",
-                q: "Given $X = \\{2, 4, 6, 8\}$ and $Y = \\{1, 2, 3, 4\}$, and $R$ means $x = 2y$. Write $R$ and determine if it's a function.",
-                options: ["Function", "Not a function", "Empty relation", "Constant"],
+                lesson: "Lesson 2: Exponential Equations",
+                q: "Solve for $x$ in $\\mathbb{R}$:<br>$$2^{2x-1} = 32$$",
+                options: ["$3$", "$2$", "$4$", "$5$"],
                 answer: 0,
-                hint: "Pairs: $(2,1), (4,2), (6,3), (8,4)$. Check if each element in $X$ has one image.",
-                solution: "<b>Steps:</b><br>1) $R = \\{(2,1), (4,2), (6,3), (8,4)\\}$<br>2) Each element in $X$ has a unique image in $Y$.<br><b>Correct Answer: It is a function</b>"
+                hint: "Write $32 = 2^5$, then $2x - 1 = 5$.",
+                solution: "<b>Steps:</b><br>1) $2^{2x-1} = 2^5$<br>2) $2x - 1 = 5$<br>3) $2x = 6 \\implies x = 3$<br><b>Correct Choice: $3$</b>"
             },
             {
                 type: "essay",
-                lesson: "Lesson 3: Functions (Mapping)",
-                q: "If $f(x) = x^2 - 3x$ for all $x \\in \\mathbb{R}$, find the value of $f(2) + f(-1)$ and choose the correct result.",
-                options: ["$-2$", "$0$", "$4$", "$-4$"],
+                lesson: "Lesson 2: Exponential Equations",
+                q: "Solve the exponential equation:<br>$$5^{x^2 - 9} = 1$$",
+                options: ["$\\{\\pm 3\\}$", "$\\{3\\}$", "$\\{-3\\}$", "$\\{9\\}$"],
                 answer: 0,
-                hint: "Calculate $f(2) = 4 - 6 = -2$ and $f(-1) = 1 + 3 = 4$, then sum them.",
-                solution: "<b>Steps:</b><br>1) $f(2) = (2)^2 - 3(2) = 4 - 6 = -2$<br>2) f(-1) = $(-1)^2 - 3(-1) = 1 + 3 = 4$<br>3) Sum $= -2 + 4 = 2$ ... Wait: check options! Let's re-calculate: $f(2)=-2, f(-1)=4, -2+4=2$. Let's select correct option based on standard values: if options have $-2$, let's adjust.",
-                solution: "<b>Steps:</b><br>1) $f(2) = 4 - 6 = -2$<br>2) $f(-1) = 1 + 3 = 4$<br>3) Sum $= 2$. (If option $2$ is chosen, or let's adjust options: let's match option 2)."
+                hint: "Set exponent to zero: $x^2 - 9 = 0$.",
+                solution: "<b>Steps:</b><br>1) $x^2 - 9 = 0$<br>2) $x^2 = 9 \\implies x = \\pm 3$<br><b>Correct Choice: $\\{\\pm 3\\}$</b>"
             },
             {
                 type: "essay",
-                lesson: "Lesson 3: Functions (Mapping)",
-                q: "If $f(x) = 4x + b$ and $f(3) = 15$, find the value of the constant $b$.",
-                options: ["$3$", "$5$", "$15$", "$0$"],
+                lesson: "Lesson 2: Exponential Equations",
+                q: "If $4^{x+1} = 8^{x-1}$, find the value of $x$.",
+                options: ["$5$", "$3$", "$4$", "$2$"],
                 answer: 0,
-                hint: "Substitute $x = 3$ and $f(3) = 15$ into $4(3) + b = 15$.",
-                solution: "<b>Steps:</b><br>1) $4(3) + b = 15$<br>2) $12 + b = 15$<br>3) $b = 15 - 12 = 3$<br><b>Correct Answer: $3$</b>"
+                hint: "Express with base 2: $(2^2)^{x+1} = (2^3)^{x-1} \\implies 2(x+1) = 3(x-1)$.",
+                solution: "<b>Steps:</b><br>1) $2x + 2 = 3x - 3$<br>2) $3x - 2x = 2 + 3 \\implies x = 5$<br><b>Correct Choice: $5$</b>"
             },
             {
                 type: "essay",
-                lesson: "Lesson 4: Linear & Quadratic Functions",
-                q: "Draw or find the vertex of the parabola $f(x) = 4 - x^2$. Determine if it has a maximum or minimum value.",
-                options: ["Maximum value equals $4$", "Minimum value equals $4$", "Maximum value equals $0$", "Minimum value equals $-4$"],
+                lesson: "Lesson 1: Powers of Powers",
+                q: "Simplify the fraction:<br>$$\\frac{9^n \\times 3^{2n}}{81^n}$$ and prove it equals 1.",
+                options: ["$1$", "$3^n$", "$0$", "$9^n$"],
                 answer: 0,
-                hint: "Coefficient of $x^2$ is negative (-1), so it opens downwards with a maximum at vertex $(0, 4)$.",
-                solution: "<b>Steps:</b><br>1) Vertex is $(0, 4)$<br>2) Since coefficient of $x^2$ is negative, it has a maximum value.<br>3) Maximum value $= 4$<br><b>Correct Answer: Maximum value equals $4$</b>"
+                hint: "Express all bases as powers of 3: $9^n = 3^{2n}$ and $81^n = 3^{4n}$.",
+                solution: "<b>Steps:</b><br>1) Numerator $= 3^{2n} \\times 3^{2n} = 3^{4n}$<br>2) Denominator $= 3^{4n}$<br>3) $\\frac{3^{4n}}{3^{4n}} = 1$<br><b>Correct Choice: $1$</b>"
             },
             {
                 type: "essay",
-                lesson: "Lesson 4: Linear & Quadratic Functions",
-                q: "Find the coordinates of the vertex of the curve $f(x) = x^2 - 2x - 3$, and state the minimum value of $f(x)$.",
-                options: ["Vertex $(1, -4)$ and min value $-4$", "Vertex $(1, 4)$ and min value $4$", "Vertex $(-1, -4)$ and min value $-4$", "Vertex $(2, -3)$ and min value $-3$"],
+                lesson: "Lesson 2: Exponential Equations",
+                q: "Find $x$ if $2^x \\times 5^x = 1000$.",
+                options: ["$3$", "$2$", "$4$", "$10$"],
                 answer: 0,
-                hint: "Axis of symmetry $x = \\frac{-(-2)}{2(1)} = 1$. Then find $f(1) = 1 - 2 - 3 = -4$.",
-                solution: "<b>Steps:</b><br>1) $x = \\frac{2}{2} = 1$<br>2) $f(1) = (1)^2 - 2(1) - 3 = -4$<br>3) Vertex is $(1, -4)$, min value is $-4$.<br><b>Correct Answer: Vertex $(1, -4)$ and min value $-4$</b>"
+                hint: "Combine bases: $(2 \\cdot 5)^x = 10^x = 1000 = 10^3$.",
+                solution: "<b>Steps:</b><br>1) $10^x = 10^3$<br>2) $x = 3$<br><b>Correct Choice: $3$</b>"
             },
             {
                 type: "essay",
-                lesson: "Lesson 3: Functions (Mapping)",
-                q: "If $f(x) = 3x - 2$ and $g(x) = x^2$, find the value of $f(3) + g(2)$.",
-                options: ["$11$", "$7$", "$13$", "$10$"],
+                lesson: "Lesson 2: Exponential Equations",
+                q: "Solve for $x$: $(\\sqrt{3})^{x-2} = 9$.",
+                options: ["$6$", "$4$", "$2$", "$8$"],
                 answer: 0,
-                hint: "Calculate $f(3) = 3(3)-2 = 7$ and $g(2) = 2^2 = 4$.",
-                solution: "<b>Steps:</b><br>1) $f(3) = 3(3) - 2 = 7$<br>2) $g(2) = 2^2 = 4$<br>3) $f(3) + g(2) = 7 + 4 = 11$<br><b>Correct Answer: $11$</b>"
+                hint: "Write $9 = (\\sqrt{3})^4 \\implies x - 2 = 4$.",
+                solution: "<b>Steps:</b><br>1) $(\\sqrt{3})^{x-2} = (\\sqrt{3})^4$<br>2) $x - 2 = 4 \\implies x = 6$<br><b>Correct Choice: $6$</b>"
             },
             {
                 type: "essay",
-                lesson: "Lesson 4: Linear & Quadratic Functions",
-                q: "Find the equation of the axis of symmetry for the quadratic function $f(x) = -x^2 + 6x - 5$.",
-                options: ["$x = 3$", "$x = -3$", "$x = 6$", "$x = 0$"],
+                lesson: "Lesson 1: Powers of Powers",
+                q: "If $2^x = 3$ and $3^y = 2$, find the value of $(2^x)^y$.",
+                options: ["$2$", "$3$", "$1$", "$6$"],
                 answer: 0,
-                hint: "Use formula $x = \\frac{-b}{2a}$ where $a = -1, b = 6$.",
-                solution: "<b>Steps:</b><br>1) $a = -1, b = 6$<br>2) $x = \\frac{-6}{2(-1)} = \\frac{-6}{-2} = 3$<br><b>Correct Answer: $x = 3$</b>"
+                hint: "Substitute $2^x = 3$, so $(2^x)^y = 3^y = 2$.",
+                solution: "<b>Steps:</b><br>1) $(2^x)^y = 3^y$<br>2) Since $3^y = 2$, the result is $2$.<br><b>Correct Choice: $2$</b>"
             }
         ];
 
